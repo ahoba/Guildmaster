@@ -39,7 +39,16 @@ namespace Tools
 
                     TileSet tileSet = new TileSet(sourceTexture, 16);
 
-                    tileSetControl1.SetTileSet(tileSet);
+                    mapEditorControl1.TileSet = tileSet;
+
+                    Tile[][] map = new Tile[10][];
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        map[i] = new Tile[10];
+                    }
+
+                    mapEditorControl1.Map = map;
                 }
             }
         }

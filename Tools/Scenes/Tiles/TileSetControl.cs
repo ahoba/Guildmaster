@@ -14,220 +14,117 @@ namespace Tools.Scenes
 {
     public partial class TileSetControl : UserControl
     {
-        private int? SelectedRow { get; set; } = null;
+        private Tile[][] _tiles;
 
-        private int? SelectedColumn { get; set; } = null;
+        private int OffsetX { get; set; }
 
-        private PictureBox SelectedPicture { get; set; }
+        private int OffsetY { get; set; }
 
-        private TileSet TileSet { get; set; }
+        private int SelectedRow { get; set; }
+        
+        private int SelectedColumn { get; set; }
 
-        private TileGridData[][] GridData { get; set; }
+        public int TileDimension { get; set; } = 16;
 
-        public Tile SelectedTile { get; set; }
+        public Tile SelectedTile
+        {
+            get => _tiles[SelectedRow][SelectedColumn];
+            set
+            {
+                _tiles[SelectedRow][SelectedColumn] = value;
+
+                SetTileImageToImage(_tiles[SelectedRow][SelectedColumn], (Bitmap)pictureBox.Image, SelectedRow, SelectedColumn);
+
+                pictureBox.Refresh();
+            }
+        }
+
+        public event EventHandler<EventArgs> SelectedTileChanged;
+
+        public Tile[][] Tiles 
+        { 
+            get => _tiles; 
+            set
+            {
+                _tiles = value;
+
+                if (_tiles != null && _tiles[0] != null)
+                {
+                    Bitmap image = new Bitmap(_tiles[0].Length * TileDimension, _tiles.Length * TileDimension);
+
+                    for (int i = 0; i < _tiles.Length; i++)
+                    {
+                        for (int j = 0; j < _tiles[i].Length; j++)
+                        {
+                            SetTileImageToImage(_tiles[i][j], image, i, j);
+                        }
+                    }
+
+                    pictureBox.Image = image;
+                }
+            }
+        }
 
         public TileSetControl()
         {
             InitializeComponent();
-
-            hScrollBar.Visible = false;
-            vScrollBar.Visible = false;
         }
 
-        private void TableLayoutPanel_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        private void SetTileImageToImage(Tile tile, Bitmap image, int row, int column)
         {
-            if (SelectedColumn.HasValue && SelectedRow.HasValue)
+            if (tile == null)
             {
-                if (e.Row == SelectedRow.Value && e.Column == SelectedColumn.Value)
+                for (int i = 0; i < TileDimension; i++)
                 {
-                    Graphics g = e.Graphics;
-
-                    Rectangle r = e.CellBounds;
-
-                    g.DrawRectangle(Pens.White, r);
+                    for (int j = 0; j < TileDimension; j++)
+                    {
+                        image.SetPixel(column * TileDimension + j, row * TileDimension + i, Color.Black);
+                    }
                 }
-            }
-        }
-
-        public TileSetControl SetTileSet(TileSet tileSet)
-        {
-            TileSet = tileSet;
-
-            hScrollBar.Visible = true;
-            vScrollBar.Visible = true;
-
-            UpdateLayout();
-
-            hScrollBar.Scroll += Scroll;
-            vScrollBar.Scroll += Scroll;
-
-            return this;
-        }
-
-        private void Scroll(object sender, ScrollEventArgs e)
-        {
-            if (e.Type == ScrollEventType.EndScroll)
-            {
-                UpdateTableLayout();
-                
-                tableLayoutPanel.ResumeLayout();
             }
             else
             {
-                tableLayoutPanel.SuspendLayout();
-            }
-        }
-
-        private void UpdateLayout()
-        {
-            if (TileSet != null)
-            {
-                tableLayoutPanel.RowCount = tableLayoutPanel.Height / TileSet.TileDimension;
-                tableLayoutPanel.ColumnCount = tableLayoutPanel.Height / TileSet.TileDimension;
-
-                hScrollBar.Minimum = 0;
-                hScrollBar.Maximum = TileSet.Columns - tableLayoutPanel.ColumnCount / 2;
-
-                vScrollBar.Minimum = 0;
-                vScrollBar.Maximum = TileSet.Rows - tableLayoutPanel.RowCount / 2;
-
-                GridData = new TileGridData[tableLayoutPanel.RowCount][];
-
-                for(int row = 0; row < tableLayoutPanel.RowCount; row++)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    GridData[row] = new TileGridData[tableLayoutPanel.ColumnCount];
-                }
+                    tile.Texture.SaveAsPng(ms, TileDimension, TileDimension);
 
-                foreach (ColumnStyle columnStyle in tableLayoutPanel.ColumnStyles)
-                {
-                    columnStyle.SizeType = SizeType.Absolute;
-                    columnStyle.Width = TileSet.TileDimension;
-                }
+                    Bitmap tileData = new Bitmap(ms);
 
-                foreach (RowStyle rowStyle in tableLayoutPanel.RowStyles)
-                {
-                    rowStyle.SizeType = SizeType.Absolute;
-                    rowStyle.Height = TileSet.TileDimension;
-                }
-
-                UpdateTableLayout();
-            }
-        }
-
-        private void UpdateTableLayout()
-        {
-            for (int row = 0; row < tableLayoutPanel.RowCount; row++)
-            {
-                for (int column = 0; column < tableLayoutPanel.ColumnCount; column++)
-                {
-                    Tile tile = (vScrollBar.Value + row >= TileSet.Tiles.Length || hScrollBar.Value + column >= TileSet.Tiles[vScrollBar.Value + row].Length) ?
-                        null : TileSet.Tiles[vScrollBar.Value + row][hScrollBar.Value + column];
-
-                    if (GridData[row][column] == null)
+                    for (int i = 0; i < TileDimension; i++)
                     {
-                        PictureBox picture = new PictureBox()
+                        for (int j = 0; j < TileDimension; j++)
                         {
-                            Width = TileSet.TileDimension,
-                            Height = TileSet.TileDimension,
-                            Margin = new Padding(0),
-                            Padding = new Padding(0),
-                            Tag = tile
-                        };
-
-                        picture.Click += Picture_Click;
-
-                        if (tile != null)
-                        {
-                            using (MemoryStream memoryStream = new MemoryStream())
-                            {
-                                tile.Texture.SaveAsJpeg(memoryStream, TileSet.TileDimension, TileSet.TileDimension);
-
-                                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(memoryStream);
-
-                                picture.Image = bmp;
-                            }
+                            image.SetPixel(column * TileDimension + j, row * TileDimension + i, tileData.GetPixel(j, i));
                         }
-
-                        GridData[row][column] = new TileGridData()
-                        {
-                            PictureBox = picture,
-                            Tile = tile
-                        };
-
-                        tableLayoutPanel.Controls.Add(picture);
-                    }
-                    else
-                    {
-                        if (tile == null)
-                        {
-                            GridData[row][column].PictureBox.Image = null;
-
-                            GridData[row][column].PictureBox.Refresh();
-                        }
-                        else
-                        {
-                            using (MemoryStream memoryStream = new MemoryStream())
-                            {
-                                tile.Texture.SaveAsJpeg(memoryStream, TileSet.TileDimension, TileSet.TileDimension);
-
-                                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(memoryStream);
-
-                                GridData[row][column].PictureBox.Image = bmp;
-
-                                GridData[row][column].PictureBox.Refresh();
-                            }
-                        }
-
-                        GridData[row][column].Tile = tile;
                     }
                 }
             }
         }
 
-        private void Picture_Click(object sender, EventArgs e)
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (SelectedPicture != null)
-            {
-                SelectedPicture.Paint -= SelectedPicture_Paint;
+            SelectedRow = Math.Max(Math.Min(e.Y / TileDimension, Tiles.Length - 1), 0);
 
-                PictureBox previous = SelectedPicture;
+            SelectedColumn = Math.Max(Math.Min(e.X / TileDimension, Tiles[0].Length - 1), 0);
 
-                SelectedPicture = null;
+            pictureBox.Refresh();
 
-                previous.Refresh();
-            }
-
-            SelectedPicture = (PictureBox)sender;
-
-            if (SelectedPicture.Tag is Tile tile)
-            {
-                SelectedTile = tile;
-            }
-
-            SelectedPicture.Paint += SelectedPicture_Paint;
-
-            SelectedPicture.Refresh();
+            SelectedTileChanged?.Invoke(this, new EventArgs());
         }
 
-        private void SelectedPicture_Paint(object sender, PaintEventArgs e)
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if (sender == SelectedPicture)
-            {
-                Graphics g = e.Graphics;
+            Rectangle r = new Rectangle(SelectedColumn * TileDimension, SelectedRow * TileDimension, TileDimension, TileDimension);
 
-                Rectangle r = e.ClipRectangle;
-                
-                r.Inflate(-1, -1);
-                
-                g.DrawRectangle(Pens.White, r);
-            }
+            e.Graphics.DrawRectangle(Pens.White, r);
         }
 
-        private class TileGridData
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            public PictureBox PictureBox { get; set; }
-
-            public Tile Tile { get; set; }
+            if (e.Button == MouseButtons.Left)
+            {
+                pictureBox_MouseClick(sender, e);
+            }
         }
     }
 }
