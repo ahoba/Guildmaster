@@ -1,0 +1,13 @@
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.exe
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.deps.json
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.runtimeconfig.json
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.runtimeconfig.dev.json
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.dll
+C:\Users\Ken\source\repos\Monogame\Monogame\bin\Debug\netcoreapp3.1\Monogame.pdb
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.csprojAssemblyReference.cache
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.AssemblyInfoInputs.cache
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.AssemblyInfo.cs
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.csproj.CoreCompileInputs.cache
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.dll
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.pdb
+C:\Users\Ken\source\repos\Monogame\Monogame\obj\Debug\netcoreapp3.1\Monogame.genruntimeconfig.cache

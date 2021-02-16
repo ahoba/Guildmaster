@@ -1,0 +1,2 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Ken/source/repos/Monogame/SampleGame/Content/tileset.png","C:/Users/Ken/source/repos/Monogame/SampleGame/Content/bin/DesktopGL/Content/tileset.xnb","TextureProcessor","Texture2DContent",208850,2436565,1.1856176
