@@ -59,21 +59,24 @@ namespace Tools.Scenes
 
         public Tile SelectedTile
         {
-            get => Map.TileAt(SelectedRow, SelectedColumn, Layer);
+            get => Map?.TileAt(SelectedRow, SelectedColumn, Layer);
             set
             {
-                Map.Layers[(int)Layer].Tiles[SelectedRow][SelectedColumn] = value == null ? -1 : value.ID;
-
-                SetTileImageToImage(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Background), (Bitmap)pictureBox.Image, SelectedRow, SelectedColumn);
-
-                Image foreground = ImageFromTile(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Foreground));
-
-                using (Graphics g = Graphics.FromImage(pictureBox.Image))
+                if (Map != null)
                 {
-                    g.DrawImage(foreground, SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension);
-                }
+                    Map.Layers[(int)Layer].Tiles[SelectedRow][SelectedColumn] = value == null ? -1 : value.ID;
 
-                pictureBox.Refresh();
+                    SetTileImageToImage(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Background), (Bitmap)pictureBox.Image, SelectedRow, SelectedColumn);
+
+                    Image foreground = ImageFromTile(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Foreground));
+
+                    using (Graphics g = Graphics.FromImage(pictureBox.Image))
+                    {
+                        g.DrawImage(foreground, SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension);
+                    }
+
+                    pictureBox.Refresh();
+                }
             }
         }
 

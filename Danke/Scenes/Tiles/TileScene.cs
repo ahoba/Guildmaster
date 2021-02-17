@@ -10,11 +10,30 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
+    public enum TileTypes
+    {
+        Floor,
+        Block,
+        Ceiling
+    }
+
+    public enum TileDirections
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
     public class Tile
     {
         public int ID { get; }
 
         public Texture2D Texture { get; }
+
+        public TileTypes Type { get; set; }
+
+        public bool[] EnabledDirections { get; } = new bool[Enum.GetValues(typeof(TileDirections)).Length];
 
         public Tile(int id, Texture2D texture)
         {

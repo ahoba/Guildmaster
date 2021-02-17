@@ -47,6 +47,13 @@ namespace Tools.Scenes
                         ContentLocation = string.Empty,
                         TileSet = _tileSet
                     };
+
+                    tileControl.TileSet = _tileSet;
+
+                    if (tileSetControlMap.Map != null)
+                    {
+                        tileSetControlMap.Map.TileSet = _tileSet;
+                    }
                 }
             }
         }
@@ -58,8 +65,11 @@ namespace Tools.Scenes
             {
                 tileSetControlMap.Map = value;
 
-                numericUpDownMapHeight.Value = Map.Height;
-                numericUpDownMapWidth.Value = Map.Width;
+                if (tileSetControlMap.Map != null)
+                {
+                    numericUpDownMapHeight.Value = Map.Height;
+                    numericUpDownMapWidth.Value = Map.Width;
+                }
             }
         }
 
@@ -158,6 +168,8 @@ namespace Tools.Scenes
         private void tileSetControlTileSet_SelectedTileChanged(object sender, EventArgs e)
         {
             EditMode = MapEditMode.Add;
+
+            tileControl.Tile = tileSetControlTileSet.SelectedTile;
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Tools.Scenes
             this.numericUpDownMapWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMapHeight = new System.Windows.Forms.NumericUpDown();
             this.comboBoxLayers = new System.Windows.Forms.ComboBox();
+            this.tileControl = new Tools.Scenes.TileControl();
             this.tileSetControlMap = new Tools.Scenes.TileSetControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonEraser = new System.Windows.Forms.ToolStripButton();
@@ -71,13 +72,14 @@ namespace Tools.Scenes
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.tileSetControlTileSet, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.tileControl, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(246, 324);
             this.tableLayoutPanel2.TabIndex = 0;
@@ -90,7 +92,8 @@ namespace Tools.Scenes
             this.tileSetControlTileSet.Location = new System.Drawing.Point(3, 3);
             this.tileSetControlTileSet.Map = null;
             this.tileSetControlTileSet.Name = "tileSetControlTileSet";
-            this.tileSetControlTileSet.Size = new System.Drawing.Size(240, 237);
+            this.tileSetControlTileSet.SelectedTile = null;
+            this.tileSetControlTileSet.Size = new System.Drawing.Size(240, 198);
             this.tileSetControlTileSet.TabIndex = 0;
             this.tileSetControlTileSet.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.tileSetControlTileSet_SelectedTileChanged);
             // 
@@ -166,6 +169,16 @@ namespace Tools.Scenes
             this.comboBoxLayers.Size = new System.Drawing.Size(76, 21);
             this.comboBoxLayers.TabIndex = 2;
             // 
+            // tileControl
+            // 
+            this.tileControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileControl.Location = new System.Drawing.Point(3, 207);
+            this.tileControl.Name = "tileControl";
+            this.tileControl.Size = new System.Drawing.Size(240, 91);
+            this.tileControl.TabIndex = 2;
+            this.tileControl.Tile = null;
+            this.tileControl.TileSet = null;
+            // 
             // tileSetControlMap
             // 
             this.tileSetControlMap.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -173,6 +186,7 @@ namespace Tools.Scenes
             this.tileSetControlMap.Location = new System.Drawing.Point(249, 3);
             this.tileSetControlMap.Map = null;
             this.tileSetControlMap.Name = "tileSetControlMap";
+            this.tileSetControlMap.SelectedTile = null;
             this.tileSetControlMap.Size = new System.Drawing.Size(241, 318);
             this.tileSetControlMap.TabIndex = 1;
             this.tileSetControlMap.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.tileSetControlMap_SelectedTileChanged);
@@ -229,5 +243,6 @@ namespace Tools.Scenes
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonEraser;
         private System.Windows.Forms.ComboBox comboBoxLayers;
+        private TileControl tileControl;
     }
 }
