@@ -36,6 +36,7 @@ namespace Tools.Scenes
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDownMapWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMapHeight = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxLayers = new System.Windows.Forms.ComboBox();
             this.tileSetControlMap = new Tools.Scenes.TileSetControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonEraser = new System.Windows.Forms.ToolStripButton();
@@ -55,13 +56,13 @@ namespace Tools.Scenes
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tileSetControlMap, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(493, 349);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(493, 324);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -78,34 +79,37 @@ namespace Tools.Scenes
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(246, 349);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(246, 324);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tileSetControlTileSet
             // 
+            this.tileSetControlTileSet.BackColor = System.Drawing.SystemColors.ControlDark;
             this.tileSetControlTileSet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileSetControlTileSet.Layer = Danke.Scenes.Tiles.TileMapLayers.Background;
             this.tileSetControlTileSet.Location = new System.Drawing.Point(3, 3);
+            this.tileSetControlTileSet.Map = null;
             this.tileSetControlTileSet.Name = "tileSetControlTileSet";
-            this.tileSetControlTileSet.Size = new System.Drawing.Size(240, 255);
+            this.tileSetControlTileSet.Size = new System.Drawing.Size(240, 237);
             this.tileSetControlTileSet.TabIndex = 0;
-            this.tileSetControlTileSet.TileDimension = 16;
-            this.tileSetControlTileSet.Tiles = null;
             this.tileSetControlTileSet.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.tileSetControlTileSet_SelectedTileChanged);
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.Controls.Add(this.numericUpDownMapWidth, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.numericUpDownMapHeight, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.comboBoxLayers, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 323);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 301);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(246, 26);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(246, 23);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // numericUpDownMapWidth
@@ -122,7 +126,7 @@ namespace Tools.Scenes
             0,
             0});
             this.numericUpDownMapWidth.Name = "numericUpDownMapWidth";
-            this.numericUpDownMapWidth.Size = new System.Drawing.Size(117, 20);
+            this.numericUpDownMapWidth.Size = new System.Drawing.Size(75, 20);
             this.numericUpDownMapWidth.TabIndex = 0;
             this.numericUpDownMapWidth.Value = new decimal(new int[] {
             1,
@@ -133,7 +137,7 @@ namespace Tools.Scenes
             // 
             // numericUpDownMapHeight
             // 
-            this.numericUpDownMapHeight.Location = new System.Drawing.Point(126, 3);
+            this.numericUpDownMapHeight.Location = new System.Drawing.Point(85, 3);
             this.numericUpDownMapHeight.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -145,7 +149,7 @@ namespace Tools.Scenes
             0,
             0});
             this.numericUpDownMapHeight.Name = "numericUpDownMapHeight";
-            this.numericUpDownMapHeight.Size = new System.Drawing.Size(117, 20);
+            this.numericUpDownMapHeight.Size = new System.Drawing.Size(75, 20);
             this.numericUpDownMapHeight.TabIndex = 1;
             this.numericUpDownMapHeight.Value = new decimal(new int[] {
             1,
@@ -154,14 +158,23 @@ namespace Tools.Scenes
             0});
             this.numericUpDownMapHeight.ValueChanged += new System.EventHandler(this.numericUpDownMapHeight_ValueChanged);
             // 
+            // comboBoxLayers
+            // 
+            this.comboBoxLayers.FormattingEnabled = true;
+            this.comboBoxLayers.Location = new System.Drawing.Point(167, 3);
+            this.comboBoxLayers.Name = "comboBoxLayers";
+            this.comboBoxLayers.Size = new System.Drawing.Size(76, 21);
+            this.comboBoxLayers.TabIndex = 2;
+            // 
             // tileSetControlMap
             // 
+            this.tileSetControlMap.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tileSetControlMap.Layer = Danke.Scenes.Tiles.TileMapLayers.Background;
             this.tileSetControlMap.Location = new System.Drawing.Point(249, 3);
+            this.tileSetControlMap.Map = null;
             this.tileSetControlMap.Name = "tileSetControlMap";
-            this.tileSetControlMap.Size = new System.Drawing.Size(241, 343);
+            this.tileSetControlMap.Size = new System.Drawing.Size(241, 318);
             this.tileSetControlMap.TabIndex = 1;
-            this.tileSetControlMap.TileDimension = 16;
-            this.tileSetControlMap.Tiles = null;
             this.tileSetControlMap.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.tileSetControlMap_SelectedTileChanged);
             // 
             // toolStrip1
@@ -188,8 +201,8 @@ namespace Tools.Scenes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.toolStrip1);
             this.Name = "MapEditorControl";
             this.Size = new System.Drawing.Size(493, 349);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -215,5 +228,6 @@ namespace Tools.Scenes
         private System.Windows.Forms.NumericUpDown numericUpDownMapHeight;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonEraser;
+        private System.Windows.Forms.ComboBox comboBoxLayers;
     }
 }

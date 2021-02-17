@@ -35,33 +35,7 @@ namespace SampleGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            TileScene scene = new TileScene("tileset", 16);
-
-            _sceneManager.CurrentScene = scene;
-
-            scene.Tiles = new int[scene.TileSet.Tiles.Length][];
-
-            int i = 0;
-
-            int t = 0;
-
-            foreach (Tile[] tiles in scene.TileSet.Tiles)
-            {
-                scene.Tiles[i] = new int[tiles.Length];
-
-                int j = 0;
-
-                foreach (Tile tile in tiles)
-                {
-                    scene.Tiles[i][j] = t;
-
-                    j++;
-
-                    t++;
-                }
-
-                i++;
-            }
+            
         }
 
         protected override void Update(GameTime gameTime)

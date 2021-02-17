@@ -37,6 +37,7 @@ namespace Tools.Scenes
             // 
             // pictureBox
             // 
+            this.pictureBox.BackColor = System.Drawing.Color.LightGreen;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(100, 50);
@@ -50,6 +51,7 @@ namespace Tools.Scenes
             // panel
             // 
             this.panel.AutoScroll = true;
+            this.panel.BackColor = System.Drawing.SystemColors.Control;
             this.panel.Controls.Add(this.pictureBox);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
@@ -61,6 +63,7 @@ namespace Tools.Scenes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.panel);
             this.Name = "TileSetControl";
             this.Size = new System.Drawing.Size(364, 343);

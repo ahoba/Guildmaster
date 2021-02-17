@@ -26,30 +26,54 @@ namespace Tools.Scenes
 
                 if (_tileSet != null)
                 {
-                    tileSetControlTileSet.Tiles = _tileSet.Tiles;
+                    int[][] map = new int[_tileSet.Rows][];
+
+                    int k = 0;
+
+                    for (int i = 0; i < _tileSet.Rows; i++)
+                    {
+                        map[i] = new int[_tileSet.Columns];
+
+                        for (int j = 0; j < _tileSet.Columns; j++)
+                        {
+                            map[i][j] = k;
+
+                            k++;
+                        }
+                    }
+
+                    tileSetControlTileSet.Map = new TileMap(map)
+                    {
+                        ContentLocation = string.Empty,
+                        TileSet = _tileSet
+                    };
                 }
             }
         }
 
-        public Tile[][] Map 
+        public TileMap Map
         {
-            get => tileSetControlMap.Tiles;
+            get => tileSetControlMap.Map;
             set
-            { 
-                tileSetControlMap.Tiles = value;
+            {
+                tileSetControlMap.Map = value;
 
-                if (tileSetControlMap.Tiles != null && tileSetControlMap.Tiles[0] != null)
-                {
-                    numericUpDownMapHeight.Value = tileSetControlMap.Tiles.Length;
-
-                    numericUpDownMapWidth.Value = tileSetControlMap.Tiles[0].Length;
-                }
+                numericUpDownMapHeight.Value = Map.Height;
+                numericUpDownMapWidth.Value = Map.Width;
             }
         }
-        
+
         public MapEditorControl()
         {
             InitializeComponent();
+
+            comboBoxLayers.DataSource = Enum.GetValues(typeof(TileMapLayers));
+            comboBoxLayers.SelectedIndex = 0;
+            
+            comboBoxLayers.SelectedIndexChanged += (object sender, EventArgs e) =>
+            {
+                tileSetControlMap.Layer = (TileMapLayers)comboBoxLayers.SelectedItem;
+            };
         }
 
         private void tileSetControlMap_SelectedTileChanged(object sender, EventArgs e)
@@ -70,29 +94,54 @@ namespace Tools.Scenes
         private void numericUpDownMapWidth_ValueChanged(object sender, EventArgs e)
         {
             int newWidth = (int)((NumericUpDown)sender).Value;
+            int previousWidth = Map.Width;
 
-            for (int i = 0; i < Map.Length; i++)
+            for (int i = 0; i < Map.Height; i++)
             {
-                Array.Resize(ref Map[i], newWidth);
+                Array.Resize(ref Map.Layers[(int)TileMapLayers.Background].Tiles[i], newWidth);
+                Array.Resize(ref Map.Layers[(int)TileMapLayers.Foreground].Tiles[i], newWidth);
+
+                for (int j = previousWidth; j < newWidth; j++)
+                {
+                    Map.Layers[(int)TileMapLayers.Background].Tiles[i][j] = -1;
+                    Map.Layers[(int)TileMapLayers.Foreground].Tiles[i][j] = -1;
+                }
             }
 
-            Map = Map; // Force Refresh
+            Map = Map;
         }
 
         private void numericUpDownMapHeight_ValueChanged(object sender, EventArgs e)
         {
             int newHeight = (int)((NumericUpDown)sender).Value;
 
-            Tile[][] newMap = new Tile[newHeight][];
+            int[][] background = new int[newHeight][];
+            int[][] foreground = new int[newHeight][];
 
             for (int i = 0; i < newHeight; i++)
             {
-                newMap[i] = i >= Map.Length ? 
-                    new Tile[Map[0].Length] :
-                    Map[i];
+                if (i >= Map.Height)
+                {
+                    background[i] = new int[Map.Width];
+                    foreground[i] = new int[Map.Width];
+
+                    for (int j = 0; j < Map.Width; j++)
+                    {
+                        background[i][j] = -1;
+                        foreground[i][j] = -1;
+                    }
+                }
+                else
+                {
+                    background[i] = Map.Layers[0].Tiles[i];
+                    foreground[i] = Map.Layers[1].Tiles[i];
+                }
             }
 
-            Map = newMap;
+            Map = new TileMap(background, foreground)
+            {
+                TileSet = TileSet
+            };
         }
 
         private enum MapEditMode

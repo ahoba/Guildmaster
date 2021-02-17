@@ -35,7 +35,6 @@ namespace Tools
             // mapEditorControl1
             // 
             this.mapEditorControl1.Location = new System.Drawing.Point(109, 25);
-            this.mapEditorControl1.Map = null;
             this.mapEditorControl1.Name = "mapEditorControl1";
             this.mapEditorControl1.Size = new System.Drawing.Size(493, 349);
             this.mapEditorControl1.TabIndex = 0;

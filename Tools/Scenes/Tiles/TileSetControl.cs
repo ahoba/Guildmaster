@@ -14,26 +14,64 @@ namespace Tools.Scenes
 {
     public partial class TileSetControl : UserControl
     {
-        private Tile[][] _tiles;
-
-        private int OffsetX { get; set; }
-
-        private int OffsetY { get; set; }
-
         private int SelectedRow { get; set; }
         
         private int SelectedColumn { get; set; }
 
-        public int TileDimension { get; set; } = 16;
+        private TileMap _map;
+
+        public TileMap Map
+        {
+            get => _map;
+            set
+            {
+                _map = value;
+
+                if (_map != null)
+                {
+                    Bitmap image = new Bitmap(_map.Width * _map.TileDimension, _map.Height * _map.TileDimension);
+
+                    for (int i = 0; i < _map.Height; i++)
+                    {
+                        for (int j = 0; j < _map.Width; j++)
+                        {
+                            Tile tile = _map.TileAt(i, j, TileMapLayers.Background);
+
+                            SetTileImageToImage(tile, image, i, j);
+
+                            Image foreground = ImageFromTile(Map.TileAt(i, j, TileMapLayers.Foreground));
+
+                            using (Graphics g = Graphics.FromImage(image))
+                            {
+                                g.DrawImage(foreground, SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension);
+                            }
+                        }
+                    }
+
+                    pictureBox.Image = image;
+
+                    pictureBox.Refresh();
+                }
+            }
+        }
+
+        public TileMapLayers Layer { get; set; } = TileMapLayers.Background;
 
         public Tile SelectedTile
         {
-            get => _tiles[SelectedRow][SelectedColumn];
+            get => Map.TileAt(SelectedRow, SelectedColumn, Layer);
             set
             {
-                _tiles[SelectedRow][SelectedColumn] = value;
+                Map.Layers[(int)Layer].Tiles[SelectedRow][SelectedColumn] = value == null ? -1 : value.ID;
 
-                SetTileImageToImage(_tiles[SelectedRow][SelectedColumn], (Bitmap)pictureBox.Image, SelectedRow, SelectedColumn);
+                SetTileImageToImage(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Background), (Bitmap)pictureBox.Image, SelectedRow, SelectedColumn);
+
+                Image foreground = ImageFromTile(Map.TileAt(SelectedRow, SelectedColumn, TileMapLayers.Foreground));
+
+                using (Graphics g = Graphics.FromImage(pictureBox.Image))
+                {
+                    g.DrawImage(foreground, SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension);
+                }
 
                 pictureBox.Refresh();
             }
@@ -41,44 +79,49 @@ namespace Tools.Scenes
 
         public event EventHandler<EventArgs> SelectedTileChanged;
 
-        public Tile[][] Tiles 
-        { 
-            get => _tiles; 
-            set
-            {
-                _tiles = value;
-
-                if (_tiles != null && _tiles[0] != null)
-                {
-                    Bitmap image = new Bitmap(_tiles[0].Length * TileDimension, _tiles.Length * TileDimension);
-
-                    for (int i = 0; i < _tiles.Length; i++)
-                    {
-                        for (int j = 0; j < _tiles[i].Length; j++)
-                        {
-                            SetTileImageToImage(_tiles[i][j], image, i, j);
-                        }
-                    }
-
-                    pictureBox.Image = image;
-                }
-            }
-        }
-
         public TileSetControl()
         {
             InitializeComponent();
+        }
+
+        private Image ImageFromTile(Tile tile)
+        {
+            if (tile == null)
+            {
+                Bitmap image = new Bitmap(Map.TileDimension, Map.TileDimension);
+
+                for (int i = 0; i < Map.TileDimension; i++)
+                {
+                    for (int j = 0; j < Map.TileDimension; j++)
+                    {
+                        image.SetPixel(j, i, Color.Transparent);
+                    }
+                }
+
+                return image;
+            }
+            else
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    tile.Texture.SaveAsPng(ms, Map.TileDimension, Map.TileDimension);
+
+                    Bitmap tileData = new Bitmap(ms);
+
+                    return tileData;
+                }
+            }
         }
 
         private void SetTileImageToImage(Tile tile, Bitmap image, int row, int column)
         {
             if (tile == null)
             {
-                for (int i = 0; i < TileDimension; i++)
+                for (int i = 0; i < Map.TileDimension; i++)
                 {
-                    for (int j = 0; j < TileDimension; j++)
+                    for (int j = 0; j < Map.TileDimension; j++)
                     {
-                        image.SetPixel(column * TileDimension + j, row * TileDimension + i, Color.Black);
+                        image.SetPixel(column * Map.TileDimension + j, row * Map.TileDimension + i, Color.Transparent);
                     }
                 }
             }
@@ -86,15 +129,15 @@ namespace Tools.Scenes
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    tile.Texture.SaveAsPng(ms, TileDimension, TileDimension);
+                    tile.Texture.SaveAsPng(ms, Map.TileDimension, Map.TileDimension);
 
                     Bitmap tileData = new Bitmap(ms);
 
-                    for (int i = 0; i < TileDimension; i++)
+                    for (int i = 0; i < Map.TileDimension; i++)
                     {
-                        for (int j = 0; j < TileDimension; j++)
+                        for (int j = 0; j < Map.TileDimension; j++)
                         {
-                            image.SetPixel(column * TileDimension + j, row * TileDimension + i, tileData.GetPixel(j, i));
+                            image.SetPixel(column * Map.TileDimension + j, row * Map.TileDimension + i, tileData.GetPixel(j, i));
                         }
                     }
                 }
@@ -103,9 +146,9 @@ namespace Tools.Scenes
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            SelectedRow = Math.Max(Math.Min(e.Y / TileDimension, Tiles.Length - 1), 0);
+            SelectedRow = Math.Max(Math.Min(e.Y / Map.TileDimension, Map.Height - 1), 0);
 
-            SelectedColumn = Math.Max(Math.Min(e.X / TileDimension, Tiles[0].Length - 1), 0);
+            SelectedColumn = Math.Max(Math.Min(e.X / Map.TileDimension, Map.Width - 1), 0);
 
             pictureBox.Refresh();
 
@@ -114,9 +157,12 @@ namespace Tools.Scenes
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            Rectangle r = new Rectangle(SelectedColumn * TileDimension, SelectedRow * TileDimension, TileDimension, TileDimension);
+            if (Map != null)
+            {
+                Rectangle r = new Rectangle(SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension, Map.TileDimension, Map.TileDimension);
 
-            e.Graphics.DrawRectangle(Pens.White, r);
+                e.Graphics.DrawRectangle(Pens.White, r);
+            }
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)

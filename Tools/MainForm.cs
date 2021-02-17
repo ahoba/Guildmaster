@@ -41,12 +41,22 @@ namespace Tools
 
                     mapEditorControl1.TileSet = tileSet;
 
-                    Tile[][] map = new Tile[10][];
+                    int[][] tiles = new int[100][];
 
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 100; i++)
                     {
-                        map[i] = new Tile[10];
+                        tiles[i] = new int[100];
+
+                        for (int j = 0; j < 100; j++)
+                        {
+                            tiles[i][j] = -1;
+                        }
                     }
+
+                    TileMap map = new TileMap(tiles)
+                    {
+                        TileSet = tileSet
+                    };
 
                     mapEditorControl1.Map = map;
                 }
