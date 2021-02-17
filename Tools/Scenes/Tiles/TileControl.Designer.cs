@@ -29,8 +29,16 @@ namespace Tools.Scenes
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // TileControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "TileControl";
+            this.Size = new System.Drawing.Size(196, 150);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

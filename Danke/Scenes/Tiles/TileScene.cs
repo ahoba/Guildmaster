@@ -12,10 +12,14 @@ namespace Danke.Scenes.Tiles
 {
     public class Tile
     {
+        public int ID { get; }
+
         public Texture2D Texture { get; }
 
-        public Tile(Texture2D texture)
+        public Tile(int id, Texture2D texture)
         {
+            ID = id;
+
             Texture = texture;
         }
     }
@@ -34,13 +38,22 @@ namespace Danke.Scenes.Tiles
         {
             get
             {
-                if (tile / Tiles.Length >= Tiles.Length)
+                if (tile >= Rows * Columns)
                 {
-                    return Tiles[0][0];
+                    return null;
                 }
 
-                return Tiles[tile / Tiles.Length][tile % Tiles[0].Length];
+                return Tiles[tile / Columns][tile % Columns];
             }
+        }
+
+        public TileSet(int tileDimension)
+        {
+            TileDimension = tileDimension;
+
+            Rows = 0;
+
+            Columns = 0;
         }
 
         public TileSet(Texture2D tileSetSourceTexture, int tileDimension)
@@ -85,7 +98,7 @@ namespace Danke.Scenes.Tiles
 
                     tileTexture.SetData<Color>(tileData);
 
-                    Tiles[row][column] = new Tile(tileTexture);
+                    Tiles[row][column] = new Tile(row * Columns + column, tileTexture);
                 }
 
                 offset.X = 0;
@@ -95,21 +108,124 @@ namespace Danke.Scenes.Tiles
         }
     }
 
+    public struct TileMapLayer
+    {
+        public int[][] Tiles { get; set; }
+    }
+
+    public class TileMap
+    {
+        public string ContentLocation { get; set; }
+
+        public int TileDimension { get => TileSet.TileDimension; }
+
+        public TileSet TileSet { get; set; } = new TileSet(16);
+
+        public int Height { get => Layers[0].Tiles.Length; }
+
+        public int Width { get => Layers[0].Tiles[0].Length; }
+
+        public TileMapLayer[] Layers { get; } = new TileMapLayer[2];
+
+        public TileMap(int height, int width)
+        {
+            Layers[0] = new TileMapLayer()
+            {
+                Tiles = new int[height][]
+            };
+
+            Layers[1] = new TileMapLayer()
+            {
+                Tiles = new int[height][]
+            };
+
+            for (int i = 0; i < height; i++)
+            {
+                Layers[0].Tiles[i] = new int[width];
+                Layers[1].Tiles[i] = new int[width];
+
+                for (int j = 0; j < width; j++)
+                {
+                    Layers[0].Tiles[i][j] = -1;
+                    Layers[1].Tiles[i][j] = -1;
+                }
+            }
+        }
+
+        public TileMap(int[][] backgroundLayer)
+        {
+            Layers[0] = new TileMapLayer()
+            {
+                Tiles = backgroundLayer
+            };
+
+            int[][] foregroundLayer = new int[Height][];
+
+            for (int i = 0; i< backgroundLayer.Length; i++)
+            {
+                foregroundLayer[i] = new int[Width];
+
+                for (int j = 0; j < Width; j++)
+                {
+                    foregroundLayer[i][j] = -1;
+                }
+            }
+
+            Layers[1] = new TileMapLayer()
+            {
+                Tiles = foregroundLayer
+            };
+        }
+
+        public TileMap(int[][] backgroundLayer, int[][] foregroundLayer)
+        {
+            Layers[0] = new TileMapLayer()
+            {
+                Tiles = backgroundLayer
+            };
+
+            Layers[1] = new TileMapLayer()
+            {
+                Tiles = foregroundLayer
+            };
+        }
+
+        public Tile TileAt(int row, int column, TileMapLayers layer)
+        {
+            if (row >= Layers[(int)layer].Tiles.Length || column >= Layers[(int)layer].Tiles[row].Length)
+            {
+                return null;
+            }
+
+            int tileIndex = Layers[(int)layer].Tiles[row][column];
+
+            if (tileIndex < 0 || tileIndex >= TileSet.Columns * TileSet.Columns)
+            {
+                return null;
+            }
+
+            return TileSet[tileIndex];
+        }
+
+        public int[][] GetLayerTiles(TileMapLayers layer)
+        {
+            return Layers[(int)layer].Tiles;
+        }
+    }
+
+    public enum TileMapLayers
+    {
+        Background = 0,
+        Foreground = 1
+    }
+
     public class TileScene : Scene
     {
-        public TileSet TileSet { get; private set; }
+        public TileMap Map { get; set; }
 
-        public int[][] Tiles { get; set; }
-
-        public int TileDimension { get; }
-
-        private string TileContent { get; }
-        
-        public TileScene(string tileContent, int tileDimension) : base()
+        public TileScene() : base()
         {
-            TileContent = tileContent;
 
-            TileDimension = tileDimension;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -118,18 +234,19 @@ namespace Danke.Scenes.Tiles
 
             Vector2 position = new Vector2(0, 0);
 
-            foreach (int[] tiles in Tiles)
+            for (int i = 0; i < Map.Height; i++)
             {
                 position.X = 0;
 
-                foreach (int tile in tiles)
+                for (int j = 0; j < Map.Width; j++)
                 {
-                    spriteBatch.Draw(TileSet[tile].Texture, position, Color.White);
-                    
-                    position.X += TileDimension;
+                    spriteBatch.Draw(Map.TileAt(i, j, TileMapLayers.Background).Texture, position, Color.White);
+                    spriteBatch.Draw(Map.TileAt(i, j, TileMapLayers.Foreground).Texture, position, Color.White);
+
+                    position.X += Map.TileDimension;
                 }
 
-                position.Y += TileDimension;
+                position.Y += Map.TileDimension;
             }
 
             foreach (GameObject obj in Objects)
@@ -145,9 +262,7 @@ namespace Danke.Scenes.Tiles
 
         public override void LoadContent(ContentManager contentManager)
         {
-            Texture2D tileSetSourceTexture = contentManager.Load<Texture2D>(TileContent);
 
-            TileSet = new TileSet(tileSetSourceTexture, TileDimension);
         }
 
         public override void UnloadContent(ContentManager contentManager)
