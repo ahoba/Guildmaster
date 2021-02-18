@@ -33,6 +33,8 @@ namespace Tools.Scenes
                     checkBoxDown.Enabled = false;
                     checkBoxLeft.Enabled = false;
                     checkBoxRight.Enabled = false;
+
+                    pictureBoxTile.Image = null;
                 }
                 else
                 {
@@ -67,17 +69,29 @@ namespace Tools.Scenes
         {
             InitializeComponent();
 
-            comboBoxTileTypes.DataSource = Enum.GetValues(typeof(TileTypes));
+            comboBoxTileTypes.DataSource = Enum.GetValues(typeof(TileType));
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
             if (_tile != null)
             {
-                _tile.EnabledDirections[0] = checkBoxUp.Checked;
-                _tile.EnabledDirections[1] = checkBoxDown.Checked;
-                _tile.EnabledDirections[2] = checkBoxLeft.Checked;
-                _tile.EnabledDirections[3] = checkBoxRight.Checked;
+                if (sender == checkBoxUp)
+                {
+                    _tile.EnabledDirections[0] = checkBoxUp.Checked;
+                }
+                else if (sender == checkBoxDown)
+                {
+                    _tile.EnabledDirections[1] = checkBoxDown.Checked;
+                }
+                else if (sender == checkBoxLeft)
+                {
+                    _tile.EnabledDirections[2] = checkBoxLeft.Checked;
+                }
+                else if (sender == checkBoxRight)
+                {
+                    _tile.EnabledDirections[3] = checkBoxRight.Checked;
+                }
             }
         }
 
@@ -85,7 +99,7 @@ namespace Tools.Scenes
         {
             if (_tile != null)
             {
-                _tile.Type = (TileTypes)comboBoxTileTypes.SelectedItem;
+                _tile.Type = (TileType)comboBoxTileTypes.SelectedItem;
             }
         }
     }

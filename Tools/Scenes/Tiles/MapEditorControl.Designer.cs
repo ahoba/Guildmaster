@@ -29,7 +29,6 @@ namespace Tools.Scenes
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapEditorControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tileSetControlTileSet = new Tools.Scenes.TileSetControl();
@@ -40,7 +39,15 @@ namespace Tools.Scenes
             this.tileControl = new Tools.Scenes.TileControl();
             this.tileSetControlMap = new Tools.Scenes.TileSetControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonTileSetImage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonExportTileSet = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonOpenTileSet = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonEraser = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonExport = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonOpenMap = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -194,22 +201,97 @@ namespace Tools.Scenes
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonEraser});
+            this.toolStripLabel2,
+            this.toolStripButtonTileSetImage,
+            this.toolStripButtonExportTileSet,
+            this.toolStripButtonOpenTileSet,
+            this.toolStripSeparator1,
+            this.toolStripLabel1,
+            this.toolStripButtonEraser,
+            this.toolStripButtonExport,
+            this.toolStripButtonOpenMap});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(493, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel2.Text = "Tile Set";
+            // 
+            // toolStripButtonTileSetImage
+            // 
+            this.toolStripButtonTileSetImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonTileSetImage.Image = global::Tools.Properties.Resources.image;
+            this.toolStripButtonTileSetImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonTileSetImage.Name = "toolStripButtonTileSetImage";
+            this.toolStripButtonTileSetImage.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonTileSetImage.Text = "Tile Set Image";
+            this.toolStripButtonTileSetImage.Click += new System.EventHandler(this.toolStripButtonTileSetImage_Click);
+            // 
+            // toolStripButtonExportTileSet
+            // 
+            this.toolStripButtonExportTileSet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExportTileSet.Image = global::Tools.Properties.Resources.blue_document_export;
+            this.toolStripButtonExportTileSet.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExportTileSet.Name = "toolStripButtonExportTileSet";
+            this.toolStripButtonExportTileSet.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonExportTileSet.Text = "Export Tile Set";
+            this.toolStripButtonExportTileSet.Click += new System.EventHandler(this.toolStripButtonExportTileSet_Click);
+            // 
+            // toolStripButtonOpenTileSet
+            // 
+            this.toolStripButtonOpenTileSet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOpenTileSet.Image = global::Tools.Properties.Resources.blue_folder_open;
+            this.toolStripButtonOpenTileSet.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOpenTileSet.Name = "toolStripButtonOpenTileSet";
+            this.toolStripButtonOpenTileSet.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonOpenTileSet.Text = "Open Tile Set";
+            this.toolStripButtonOpenTileSet.Click += new System.EventHandler(this.toolStripButtonOpenTileSet_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel1.Text = "Map";
+            // 
             // toolStripButtonEraser
             // 
             this.toolStripButtonEraser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonEraser.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonEraser.Image")));
+            this.toolStripButtonEraser.Image = global::Tools.Properties.Resources.eraser;
             this.toolStripButtonEraser.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonEraser.Name = "toolStripButtonEraser";
             this.toolStripButtonEraser.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonEraser.Text = "Eraser";
             this.toolStripButtonEraser.Click += new System.EventHandler(this.toolStripButtonEraser_Click);
+            // 
+            // toolStripButtonExport
+            // 
+            this.toolStripButtonExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExport.Image = global::Tools.Properties.Resources.blue_document_export;
+            this.toolStripButtonExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExport.Name = "toolStripButtonExport";
+            this.toolStripButtonExport.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonExport.Text = "Export Map";
+            this.toolStripButtonExport.Click += new System.EventHandler(this.toolStripButtonExport_Click);
+            // 
+            // toolStripButtonOpenMap
+            // 
+            this.toolStripButtonOpenMap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOpenMap.Image = global::Tools.Properties.Resources.blue_folder_open;
+            this.toolStripButtonOpenMap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOpenMap.Name = "toolStripButtonOpenMap";
+            this.toolStripButtonOpenMap.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonOpenMap.Text = "Open Map";
+            this.toolStripButtonOpenMap.Click += new System.EventHandler(this.toolStripButtonOpenMap_Click);
             // 
             // MapEditorControl
             // 
@@ -244,5 +326,13 @@ namespace Tools.Scenes
         private System.Windows.Forms.ToolStripButton toolStripButtonEraser;
         private System.Windows.Forms.ComboBox comboBoxLayers;
         private TileControl tileControl;
+        private System.Windows.Forms.ToolStripButton toolStripButtonExport;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOpenMap;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonExportTileSet;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOpenTileSet;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonTileSetImage;
     }
 }

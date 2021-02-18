@@ -43,7 +43,7 @@ namespace Tools.Scenes
 
                             using (Graphics g = Graphics.FromImage(image))
                             {
-                                g.DrawImage(foreground, SelectedColumn * Map.TileDimension, SelectedRow * Map.TileDimension);
+                                g.DrawImage(foreground, j * Map.TileDimension, i * Map.TileDimension);
                             }
                         }
                     }

@@ -110,6 +110,7 @@ namespace Tools.Scenes
             this.checkBoxRight.TabIndex = 7;
             this.checkBoxRight.Text = "Right";
             this.checkBoxRight.UseVisualStyleBackColor = true;
+            this.checkBoxRight.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // checkBoxLeft
             // 
@@ -121,6 +122,7 @@ namespace Tools.Scenes
             this.checkBoxLeft.TabIndex = 6;
             this.checkBoxLeft.Text = "Left";
             this.checkBoxLeft.UseVisualStyleBackColor = true;
+            this.checkBoxLeft.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // checkBoxDown
             // 
@@ -132,6 +134,7 @@ namespace Tools.Scenes
             this.checkBoxDown.TabIndex = 5;
             this.checkBoxDown.Text = "Down";
             this.checkBoxDown.UseVisualStyleBackColor = true;
+            this.checkBoxDown.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // checkBoxUp
             // 

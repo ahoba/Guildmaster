@@ -120,15 +120,4 @@
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripButtonEraser.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADaSURBVDhPldExagJRFIXhSSESFXQBgpjGTQjuQNJINmHn
-        LsQuXVBsRcQtaGFlkyoLiH0qKxNI/M8brs7EN2/GH77iKec2ExWogRUOeEUJhdN4j7+ENQod8Y3NFMFC
-        Y/lBHd5s/Avf2LRwk403WMI3NDcHkuMq5vANTerAA3bYQmMVOnBEBZeeoD+a7hU3w/+hnPCMVB3oz7J7
-        xbXxidyx8h1QySOZY5V1QI2h7z5wr4zsQM29ro2g8Yt7BXrEF96gL6KG+Ebu2OpBn2eBCe4aW1284wN9
-        /RAuis6N91wXgXygwwAAAABJRU5ErkJggg==
-</value>
-  </data>
 </root>

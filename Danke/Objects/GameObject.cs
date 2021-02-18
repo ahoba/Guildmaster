@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Danke.Objects.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,10 @@ using System.Text;
 
 namespace Danke.Objects
 {
-    public class GameObject
+    public abstract class GameObject
     {
-        public Texture2D Texture { get; }
+        public Vector2 Position { get; set; }
 
-        public Vector2 Position { get; }
+        public abstract Texture2D Sprite { get; }
     }
 }

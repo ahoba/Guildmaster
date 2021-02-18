@@ -29,15 +29,17 @@ namespace Tools
 
             InitializeComponent();
 
+            mapEditorControl1.GraphicsDevice = GraphicsDevice;
+
             OpenFileDialog fileDialog = new OpenFileDialog();
-            
+
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 using (FileStream fileStream = new FileStream(fileDialog.FileName, FileMode.Open))
                 {
                     Texture2D sourceTexture = Texture2D.FromStream(GraphicsDevice, fileStream);
 
-                    TileSet tileSet = new TileSet(sourceTexture, 16);
+                    TileSet tileSet = new TileSet(fileDialog.SafeFileName, sourceTexture, 16);
 
                     mapEditorControl1.TileSet = tileSet;
 
