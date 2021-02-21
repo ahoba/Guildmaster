@@ -77,12 +77,12 @@ namespace Danke.Scenes.Tiles
 
             foreach (GameObject obj in Objects)
             {
-                Texture2D objectSprite = obj.Sprite;
+                //Texture2D objectSprite = obj.Sprite;
 
-                if (objectSprite != null)
-                {
-                    spriteBatch.Draw(obj.Sprite, obj.Position, Color.White);
-                }
+                //if (objectSprite != null)
+                //{
+                //    spriteBatch.Draw(obj.Sprite, obj.Position, Color.White);
+                //}
             }
 
             foreach (Actor actor in Actors)

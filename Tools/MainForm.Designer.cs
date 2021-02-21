@@ -29,25 +29,22 @@ namespace Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapEditorControl1 = new Tools.Scenes.MapEditorControl();
+            this.animationEditControl1 = new Tools.Animations.AnimationEditControl();
             this.SuspendLayout();
             // 
-            // mapEditorControl1
+            // animationEditControl1
             // 
-            this.mapEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapEditorControl1.Location = new System.Drawing.Point(0, 0);
-            this.mapEditorControl1.Map = null;
-            this.mapEditorControl1.Name = "mapEditorControl1";
-            this.mapEditorControl1.Size = new System.Drawing.Size(800, 450);
-            this.mapEditorControl1.TabIndex = 0;
-            this.mapEditorControl1.TileSet = null;
+            this.animationEditControl1.Location = new System.Drawing.Point(112, 27);
+            this.animationEditControl1.Name = "animationEditControl1";
+            this.animationEditControl1.Size = new System.Drawing.Size(390, 262);
+            this.animationEditControl1.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.mapEditorControl1);
+            this.Controls.Add(this.animationEditControl1);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -56,7 +53,7 @@ namespace Tools
 
         #endregion
 
-        private Scenes.MapEditorControl mapEditorControl1;
+        private Animations.AnimationEditControl animationEditControl1;
     }
 }
 

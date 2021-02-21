@@ -225,7 +225,6 @@ namespace Tools.Scenes
             // toolStripButtonTileSetImage
             // 
             this.toolStripButtonTileSetImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonTileSetImage.Image = global::Tools.Properties.Resources.image;
             this.toolStripButtonTileSetImage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonTileSetImage.Name = "toolStripButtonTileSetImage";
             this.toolStripButtonTileSetImage.Size = new System.Drawing.Size(23, 22);
@@ -235,7 +234,6 @@ namespace Tools.Scenes
             // toolStripButtonExportTileSet
             // 
             this.toolStripButtonExportTileSet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonExportTileSet.Image = global::Tools.Properties.Resources.blue_document_export;
             this.toolStripButtonExportTileSet.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonExportTileSet.Name = "toolStripButtonExportTileSet";
             this.toolStripButtonExportTileSet.Size = new System.Drawing.Size(23, 22);
@@ -245,7 +243,6 @@ namespace Tools.Scenes
             // toolStripButtonOpenTileSet
             // 
             this.toolStripButtonOpenTileSet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpenTileSet.Image = global::Tools.Properties.Resources.blue_folder_open;
             this.toolStripButtonOpenTileSet.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOpenTileSet.Name = "toolStripButtonOpenTileSet";
             this.toolStripButtonOpenTileSet.Size = new System.Drawing.Size(23, 22);
@@ -266,7 +263,6 @@ namespace Tools.Scenes
             // toolStripButtonEraser
             // 
             this.toolStripButtonEraser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonEraser.Image = global::Tools.Properties.Resources.eraser;
             this.toolStripButtonEraser.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonEraser.Name = "toolStripButtonEraser";
             this.toolStripButtonEraser.Size = new System.Drawing.Size(23, 22);
@@ -276,7 +272,6 @@ namespace Tools.Scenes
             // toolStripButtonExport
             // 
             this.toolStripButtonExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonExport.Image = global::Tools.Properties.Resources.blue_document_export;
             this.toolStripButtonExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonExport.Name = "toolStripButtonExport";
             this.toolStripButtonExport.Size = new System.Drawing.Size(23, 22);
@@ -286,7 +281,6 @@ namespace Tools.Scenes
             // toolStripButtonOpenMap
             // 
             this.toolStripButtonOpenMap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpenMap.Image = global::Tools.Properties.Resources.blue_folder_open;
             this.toolStripButtonOpenMap.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOpenMap.Name = "toolStripButtonOpenMap";
             this.toolStripButtonOpenMap.Size = new System.Drawing.Size(23, 22);

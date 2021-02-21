@@ -1,12 +1,26 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Danke.Objects.Sprites
 {
-    public class SpriteSet
+    public class SpriteSet<T>
     {
-        public Texture2D[] Sprites { get; }
+        public T SourceTexture { get; }
+
+        public int TileDimension { get; set; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public Rectangle[] Sprites { get; }
+
+        public SpriteSet(T texture)
+        {
+            SourceTexture = texture;
+        }
     }
 }

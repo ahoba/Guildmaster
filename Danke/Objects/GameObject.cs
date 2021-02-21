@@ -10,7 +10,5 @@ namespace Danke.Objects
     public abstract class GameObject
     {
         public Vector2 Position { get; set; }
-
-        public abstract Texture2D Sprite { get; }
     }
 }

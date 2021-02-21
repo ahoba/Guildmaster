@@ -12,55 +12,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolMock;
+using Tools.Content;
 
 namespace Tools
 {
     public partial class MainForm : Form
     {
-        private GraphicsDevice GraphicsDevice { get; }
+        private TextureRepository _textureRepository;
 
         public MainForm()
         {
-            MockGame mockGame = new MockGame();
-
-            mockGame.RunOneFrame();
-
-            GraphicsDevice = mockGame.GraphicsDevice;
-
             InitializeComponent();
 
-            mapEditorControl1.GraphicsDevice = GraphicsDevice;
+            _textureRepository = new TextureRepository();
+        }
 
-            OpenFileDialog fileDialog = new OpenFileDialog();
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                using (FileStream fileStream = new FileStream(fileDialog.FileName, FileMode.Open))
+                using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
                 {
-                    Texture2D sourceTexture = Texture2D.FromStream(GraphicsDevice, fileStream);
+                    Image texture = Image.FromStream(fileStream);
 
-                    TileSet tileSet = new TileSet(fileDialog.SafeFileName, sourceTexture, 16);
+                    _textureRepository.AddTexture(openFileDialog.SafeFileName, texture);
 
-                    mapEditorControl1.TileSet = tileSet;
+                    animationEditControl1.TextureRepository = _textureRepository;
 
-                    int[][] tiles = new int[100][];
-
-                    for (int i = 0; i < 100; i++)
-                    {
-                        tiles[i] = new int[100];
-
-                        for (int j = 0; j < 100; j++)
-                        {
-                            tiles[i][j] = -1;
-                        }
-                    }
-
-                    TileMap map = new TileMap(tiles)
-                    {
-                        TileSet = tileSet
-                    };
-
-                    mapEditorControl1.Map = map;
+                    //tileImageControl1.SetTexture(openFileDialog.SafeFileName, texture);
                 }
             }
         }
