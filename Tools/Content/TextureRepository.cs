@@ -14,5 +14,10 @@ namespace Tools.Content
         {
 
         }
+
+        public void AddTexture(string textureId, Image texture)
+        {
+            _textures[textureId] = texture;
+        }
     }
 }

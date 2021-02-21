@@ -6,25 +6,22 @@ using System.Text;
 
 namespace Danke.Animations
 {
-    public class AnimationRepository
+    public class AnimationRepository<T>
     {
-        private TextureRepository<Texture2D> _textureRepository;
-        
-        private Dictionary<Guid, Animation<Texture2D>> _animations;
+        protected TextureRepository<T> _textureRepository;
 
-        public AnimationRepository(TextureRepository<Texture2D> textureRepository, IEnumerable<Animation<Texture2D>> data)
+        protected Dictionary<Guid, Animation<T>> _animations;
+
+        public IEnumerable<Animation<T>> Animations => _animations.Values;
+
+        public AnimationRepository(TextureRepository<T> textureRepository)
         {
             _textureRepository = textureRepository;
 
-            _animations = new Dictionary<Guid, Animation<Texture2D>>();
-
-            foreach (Animation<Texture2D> animation in data)
-            {
-                _animations[animation.Id] = animation;
-            }
+            _animations = new Dictionary<Guid, Animation<T>>();
         }
 
-        public bool TryGetAnimation(Guid animationId, out Animation<Texture2D> animation)
+        public bool TryGetAnimation(Guid animationId, out Animation<T> animation)
         {
             if (_animations.ContainsKey(animationId))
             {
@@ -32,7 +29,7 @@ namespace Danke.Animations
 
                 if (animation.SourceTexture == null)
                 {
-                    if (_textureRepository.TryGetTexture(animation.SourceTextureId, out Texture2D texture))
+                    if (_textureRepository.TryGetTexture(animation.SourceTextureId, out T texture))
                     {
                         animation.SourceTexture = texture;
                     }

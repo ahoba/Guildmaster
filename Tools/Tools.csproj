@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -63,6 +64,13 @@
     </Compile>
     <Compile Include="Animations\AnimationEditControl.Designer.cs">
       <DependentUpon>AnimationEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animations\AnimationRepository.cs" />
+    <Compile Include="Animations\AnimationRepositoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Animations\AnimationRepositoryControl.Designer.cs">
+      <DependentUpon>AnimationRepositoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Content\TextureRepository.cs" />
     <Compile Include="Content\TileTextureSelector.cs">
@@ -126,11 +134,15 @@
     <Compile Include="Util\TileTextureControl.Designer.cs">
       <DependentUpon>TileTextureControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\Util.cs" />
     <EmbeddedResource Include="Animations\AnimationControl.resx">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Animations\AnimationEditControl.resx">
       <DependentUpon>AnimationEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Animations\AnimationRepositoryControl.resx">
+      <DependentUpon>AnimationRepositoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Content\TileTextureSelector.resx">
       <DependentUpon>TileTextureSelector.cs</DependentUpon>

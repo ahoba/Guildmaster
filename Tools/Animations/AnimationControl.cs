@@ -10,15 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tools.Content;
+using Tools.Util;
 
 namespace Tools.Animations
 {
     public partial class AnimationControl : UserControl
     {
-        public Guid? Id { get; set; }
-
-        public string AnimationName { get; set; }
-
         private string _sourceTextureId;
 
         private Image _sourceTexture;
@@ -31,11 +28,38 @@ namespace Tools.Animations
 
         public int? SelectedFrame { get; set; }
 
+        public Rectangle[] Sprites => _sprites?.ToArray();
+
         public AnimationControl()
         {
             InitializeComponent();
 
             _sprites = new List<Rectangle>();
+        }
+
+        public void SetAnimation(Animation animation)
+        {
+            _sprites.Clear();
+
+            _width = 0;
+
+            _height = 0;
+
+            SelectedFrame = null;
+
+            if (animation == null)
+            {
+                SetSourceTexture(string.Empty, null);
+            }
+            else
+            {
+                SetSourceTexture(animation.SourceTextureId, animation.SourceTexture);
+
+                foreach (var sprite in animation.Sprites)
+                {
+                    AddSprite(XnaToDrawing.Rectangle(sprite));
+                }
+            }
         }
 
         public void SetSourceTexture(string sourceTextureId, Image sourceTexture)
@@ -137,6 +161,10 @@ namespace Tools.Animations
 
                 pictureBoxAnimation.Image = image;
             }
+            else
+            {
+                pictureBoxAnimation.Image = null;
+            }
         }
 
         private void pictureBoxAnimation_MouseClick(object sender, MouseEventArgs e)
@@ -163,18 +191,6 @@ namespace Tools.Animations
                     offset += sprite.Width;
                 }
             }
-        }
-
-        public Animation<Image> CreateAnimation(string name)
-        {
-            Animation<Image> animation = new Animation<Image>()
-            {
-                Id = Guid.NewGuid(),
-                Name = name,
-                SourceTexture = _sourceTexture,
-                SourceTextureId = _sourceTextureId,
-                Sprites = _sprites.Select(x => new Microsoft.Xna.Framework.Rectangle(x.X, x.Y, x.Width, x.Height)).ToArray()
-            };
         }
     }
 }

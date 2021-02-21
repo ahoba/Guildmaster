@@ -25,3 +25,4 @@ C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Objects.Tiles.SpriteSet
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Content.TileTextureSelector.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Util.TileTextureControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationEditControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationRepositoryControl.resources

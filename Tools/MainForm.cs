@@ -1,4 +1,5 @@
-﻿using Danke.Scenes.Tiles;
+﻿using Danke.Animations;
+using Danke.Scenes.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolMock;
+using Tools.Animations;
 using Tools.Content;
 
 namespace Tools
@@ -20,11 +22,14 @@ namespace Tools
     {
         private TextureRepository _textureRepository;
 
+        private AnimationRepository _animationRepository;
         public MainForm()
         {
             InitializeComponent();
 
             _textureRepository = new TextureRepository();
+
+            _animationRepository = new AnimationRepository(_textureRepository);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -41,7 +46,8 @@ namespace Tools
 
                     _textureRepository.AddTexture(openFileDialog.SafeFileName, texture);
 
-                    animationEditControl1.TextureRepository = _textureRepository;
+                    animationRepositoryControl1.TextureRepository = _textureRepository;
+                    animationRepositoryControl1.AnimationRepository = _animationRepository;
 
                     //tileImageControl1.SetTexture(openFileDialog.SafeFileName, texture);
                 }

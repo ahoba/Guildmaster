@@ -8,18 +8,13 @@ namespace Danke.Content
 {
     public class TextureRepository<T>
     {
-        private Dictionary<string, T> _textures;
+        protected Dictionary<string, T> _textures;
 
         public IEnumerable<string> TextureIds => _textures.Keys;
 
         public TextureRepository()
         {
             _textures = new Dictionary<string, T>();
-        }
-
-        public void AddTexture(string textureId, T texture)
-        {
-            _textures[textureId] = texture;
         }
 
         public bool TryGetTexture(string textureId, out T texture)
