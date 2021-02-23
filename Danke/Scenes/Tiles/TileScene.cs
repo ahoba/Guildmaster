@@ -20,13 +20,13 @@ namespace Danke.Scenes.Tiles
             public Texture2D Texture { get; set; }
         }
 
-        private TileMap _baseMap;
+        private TileMap<Texture2D> _baseMap;
 
         private Texture2D[][] _background;
 
         private List<TextureWrapper> _foreground = new List<TextureWrapper>();
 
-        public TileScene(TileMap baseMap) : base()
+        public TileScene(TileMap<Texture2D> baseMap) : base()
         {
             _baseMap = baseMap;
 
@@ -38,7 +38,7 @@ namespace Danke.Scenes.Tiles
 
                 for (int j = 0; j < _baseMap.Width; j++)
                 {
-                    _background[i][j] = _baseMap.TileAt(i, j, TileMapLayers.Background).Texture;
+                    //_background[i][j] = _baseMap.TileAt(i, j, TileMapLayers.Background).Texture;
 
                     Tile foregroundTile = _baseMap.TileAt(i, j, TileMapLayers.Foreground);
 
@@ -47,7 +47,7 @@ namespace Danke.Scenes.Tiles
                         _foreground.Add(new TextureWrapper()
                         {
                             Position = new Vector2(i, j),
-                            Texture = foregroundTile.Texture
+                            //Texture = foregroundTile.Texture
                         });
                     }
                 }
@@ -66,8 +66,8 @@ namespace Danke.Scenes.Tiles
 
                 for (int j = 0; j < _baseMap.Width; j++)
                 {
-                    spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Background).Texture, position, Color.White);
-                    spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Foreground).Texture, position, Color.White);
+                    //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Background).Texture, position, Color.White);
+                    //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Foreground).Texture, position, Color.White);
 
                     position.X += _baseMap.TileDimension;
                 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -21,25 +22,18 @@ namespace Danke.Scenes.Tiles
         Right
     }
 
-    [DataContract]
+
     public class Tile
     {
-        [DataMember]
-        public int ID { get; set; }
+        public Rectangle TextureRectangle { get; set; }
 
-        public Texture2D Texture { get; }
-
-        [DataMember]
         public TileType Type { get; set; }
 
-        [DataMember]
         public bool[] EnabledDirections { get; set; } = new bool[Enum.GetValues(typeof(TileDirection)).Length];
 
-        public Tile(int id, Texture2D texture)
+        public Tile()
         {
-            ID = id;
 
-            Texture = texture;
         }
     }
 }

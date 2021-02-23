@@ -5,26 +5,21 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
-
-    [DataContract]
     public class TileMapLayer
     {
-        [DataMember]
         public int[][] Tiles { get; set; }
     }
 
-    [DataContract]
-    public class TileMap
+    public class TileMap<T>
     {
         public int TileDimension { get => TileSet.TileDimension; }
 
-        public TileSet TileSet { get; set; } = new TileSet(string.Empty, 16);
+        public TileSet<T> TileSet { get; set; }
 
         public int Height { get => Layers[0].Tiles.Length; }
 
         public int Width { get => Layers[0].Tiles[0].Length; }
 
-        [DataMember]
         public TileMapLayer[] Layers { get; protected set; } = new TileMapLayer[2];
 
         public TileMap(int height, int width)

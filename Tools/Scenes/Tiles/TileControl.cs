@@ -1,5 +1,4 @@
-﻿using Danke.Scenes.Tiles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,16 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools.Scenes.Tiles;
 
 namespace Tools.Scenes
 {
     public partial class TileControl : UserControl
     {
-        private Tile _tile;
+        private Danke.Scenes.Tiles.Tile _tile;
 
         public TileSet TileSet { get; set; }
 
-        public Tile Tile
+        public Danke.Scenes.Tiles.Tile Tile
         {
             get => _tile;
             set
@@ -47,12 +47,15 @@ namespace Tools.Scenes
 
                     if (TileSet != null)
                     {
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            _tile.Texture.SaveAsPng(ms, TileSet.TileDimension, TileSet.TileDimension);
+                        Bitmap bitmap = new Bitmap(TileSet.TileDimension, TileSet.TileDimension);
 
-                            pictureBoxTile.Image = new Bitmap(ms);
-                        }
+                        Graphics g = Graphics.FromImage(bitmap);
+
+                        g.DrawImage(
+                            TileSet.Texture,
+                            new Rectangle(0, 0, TileSet.TileDimension, TileSet.TileDimension),
+                            Util.XnaToDrawing.Rectangle(_tile.TextureRectangle),
+                            GraphicsUnit.Pixel);
                     }
 
                     comboBoxTileTypes.SelectedItem = _tile.Type;
@@ -69,7 +72,7 @@ namespace Tools.Scenes
         {
             InitializeComponent();
 
-            comboBoxTileTypes.DataSource = Enum.GetValues(typeof(TileType));
+            comboBoxTileTypes.DataSource = Enum.GetValues(typeof(Danke.Scenes.Tiles.TileType));
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
@@ -99,7 +102,7 @@ namespace Tools.Scenes
         {
             if (_tile != null)
             {
-                _tile.Type = (TileType)comboBoxTileTypes.SelectedItem;
+                _tile.Type = (Danke.Scenes.Tiles.TileType)comboBoxTileTypes.SelectedItem;
             }
         }
     }

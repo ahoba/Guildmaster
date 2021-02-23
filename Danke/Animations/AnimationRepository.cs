@@ -12,8 +12,6 @@ namespace Danke.Animations
 
         protected Dictionary<Guid, Animation<T>> _animations;
 
-        public IEnumerable<Animation<T>> Animations => _animations.Values;
-
         public AnimationRepository(TextureRepository<T> textureRepository)
         {
             _textureRepository = textureRepository;

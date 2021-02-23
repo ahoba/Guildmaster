@@ -73,6 +73,12 @@
       <DependentUpon>AnimationRepositoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Content\TextureRepository.cs" />
+    <Compile Include="Content\TextureRepositoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Content\TextureRepositoryControl.Designer.cs">
+      <DependentUpon>TextureRepositoryControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Content\TileTextureSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,24 +91,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Objects\Tiles\SpritesAnimationControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Objects\Tiles\SpritesAnimationControl.Designer.cs">
-      <DependentUpon>SpritesAnimationControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Objects\Tiles\SpriteSetControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Objects\Tiles\SpriteSetControl.Designer.cs">
-      <DependentUpon>SpriteSetControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Objects\Tiles\SpritesSourceControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Objects\Tiles\SpritesSourceControl.Designer.cs">
-      <DependentUpon>SpritesSourceControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -110,23 +98,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Scenes\Tiles\MapEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Scenes\Tiles\MapEditorControl.Designer.cs">
-      <DependentUpon>MapEditorControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Scenes\Tiles\TileControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Scenes\Tiles\TileControl.Designer.cs">
       <DependentUpon>TileControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Scenes\Tiles\TileSetControl.cs">
+    <Compile Include="Scenes\Tiles\TileMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Scenes\Tiles\TileSetControl.Designer.cs">
-      <DependentUpon>TileSetControl.cs</DependentUpon>
+    <Compile Include="Scenes\Tiles\TileMapControl.Designer.cs">
+      <DependentUpon>TileMapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenes\Tiles\TileSet.cs" />
+    <Compile Include="Scenes\Tiles\TileSetRepository.cs" />
+    <Compile Include="Scenes\Tiles\TileRepositoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenes\Tiles\TileRepositoryControl.Designer.cs">
+      <DependentUpon>TileRepositoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\TileTextureControl.cs">
       <SubType>UserControl</SubType>
@@ -144,34 +134,25 @@
     <EmbeddedResource Include="Animations\AnimationRepositoryControl.resx">
       <DependentUpon>AnimationRepositoryControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Content\TextureRepositoryControl.resx">
+      <DependentUpon>TextureRepositoryControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\TileTextureSelector.resx">
       <DependentUpon>TileTextureSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Objects\Tiles\SpritesAnimationControl.resx">
-      <DependentUpon>SpritesAnimationControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Objects\Tiles\SpriteSetControl.resx">
-      <DependentUpon>SpriteSetControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Objects\Tiles\SpritesSourceControl.resx">
-      <DependentUpon>SpritesSourceControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Scenes\Tiles\MapEditorControl.resx">
-      <DependentUpon>MapEditorControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Scenes\Tiles\TileControl.resx">
       <DependentUpon>TileControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Scenes\Tiles\TileSetControl.resx">
-      <DependentUpon>TileSetControl.cs</DependentUpon>
+    <EmbeddedResource Include="Scenes\Tiles\TileRepositoryControl.resx">
+      <DependentUpon>TileRepositoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Util\TileTextureControl.resx">
       <DependentUpon>TileTextureControl.cs</DependentUpon>
@@ -201,7 +182,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Folder Include="Objects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-folder-open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-hf-delete-footer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

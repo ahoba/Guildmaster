@@ -5,7 +5,6 @@ C:\Users\Ken\source\repos\Monogame\Tools\bin\Debug\Danke.dll
 C:\Users\Ken\source\repos\Monogame\Tools\bin\Debug\Danke.pdb
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.csprojAssemblyReference.cache
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Properties.Resources.resources
-C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.TileSetControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.csproj.GenerateResource.cache
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.csproj.CoreCompileInputs.cache
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.csproj.CopyComplete
@@ -16,13 +15,11 @@ C:\Users\Ken\source\repos\Monogame\Tools\bin\Debug\MonoGame.Framework.xml
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.MainForm.resources
 C:\Users\Ken\source\repos\Monogame\Tools\bin\Debug\ToolsMock.dll
 C:\Users\Ken\source\repos\Monogame\Tools\bin\Debug\ToolsMock.pdb
-C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.MapEditorControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.TileControl.resources
-C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Objects.Tiles.SpritesAnimationControl.resources
-C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Objects.Tiles.SpritesSourceControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationControl.resources
-C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Objects.Tiles.SpriteSetControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Content.TileTextureSelector.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Util.TileTextureControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationEditControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationRepositoryControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Content.TextureRepositoryControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.Tiles.TileRepositoryControl.resources

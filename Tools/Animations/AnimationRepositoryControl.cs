@@ -1,12 +1,6 @@
-﻿using Danke.Animations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tools.Content;
 
@@ -29,21 +23,13 @@ namespace Tools.Animations
             {
                 _animationRepository = value;
 
-                if (_animationRepository != null)
-                {
-                    foreach (Animation animation in _animationRepository.Animations)
-                    {
-                        (listBoxAnimations.DataSource as IList<Animation>).Add(animation);
-                    }
-                }
+                listBoxAnimations.DataSource = _animationRepository.Animations;
             }
         }
 
         public AnimationRepositoryControl()
         {
             InitializeComponent();
-
-            listBoxAnimations.DataSource = new BindingList<Animation>();
         }
 
         private void listBoxAnimations_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,7 +53,7 @@ namespace Tools.Animations
 
             AnimationRepository.AddAnimation(animation);
 
-            (listBoxAnimations.DataSource as IList<Animation>).Add(animation);
+            listBoxAnimations.SelectedItem = animation;
         }
     }
 }
