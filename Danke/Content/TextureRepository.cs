@@ -10,8 +10,6 @@ namespace Danke.Content
     {
         protected Dictionary<string, T> _textures;
 
-        public IEnumerable<string> TextureIds => _textures.Keys;
-
         public TextureRepository()
         {
             _textures = new Dictionary<string, T>();

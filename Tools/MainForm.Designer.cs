@@ -29,23 +29,13 @@ namespace Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.animationRepositoryControl1 = new Tools.Animations.AnimationRepositoryControl();
             this.SuspendLayout();
-            // 
-            // animationRepositoryControl1
-            // 
-            this.animationRepositoryControl1.AnimationRepository = null;
-            this.animationRepositoryControl1.Location = new System.Drawing.Point(72, 12);
-            this.animationRepositoryControl1.Name = "animationRepositoryControl1";
-            this.animationRepositoryControl1.Size = new System.Drawing.Size(503, 292);
-            this.animationRepositoryControl1.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.animationRepositoryControl1);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -53,8 +43,6 @@ namespace Tools
         }
 
         #endregion
-
-        private Animations.AnimationRepositoryControl animationRepositoryControl1;
     }
 }
 

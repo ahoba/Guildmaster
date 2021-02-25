@@ -15,6 +15,8 @@ using System.Windows.Forms;
 using ToolMock;
 using Tools.Animations;
 using Tools.Content;
+using Tools.Factories;
+using Tools.Scenes.Tiles;
 
 namespace Tools
 {
@@ -23,13 +25,22 @@ namespace Tools
         private TextureRepository _textureRepository;
 
         private AnimationRepository _animationRepository;
+
+        private TileSetRepository _tileSetRepository;
+
+        private TileMapEditorControlFactory _tileMapEditorFactory;
+
         public MainForm()
         {
             InitializeComponent();
 
             _textureRepository = new TextureRepository();
 
-            _animationRepository = new AnimationRepository(_textureRepository);
+            _animationRepository = new AnimationRepository();
+
+            _tileSetRepository = new TileSetRepository();
+
+            _tileMapEditorFactory = new TileMapEditorControlFactory(_tileSetRepository);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -46,9 +57,16 @@ namespace Tools
 
                     _textureRepository.AddTexture(openFileDialog.SafeFileName, texture);
 
-                    animationRepositoryControl1.TextureRepository = _textureRepository;
-                    animationRepositoryControl1.AnimationRepository = _animationRepository;
+                    _tileSetRepository.AddTileSet(
+                        new TileSet(16, openFileDialog.SafeFileName, texture, texture.Height / 16, texture.Width / 16)
+                        {
+                            Id = Guid.NewGuid()
+                        });
 
+                    this.Controls.Add(_tileMapEditorFactory.CreateControl(new MapEditorFactoryArgs()
+                    {
+                        TileDimension = 16
+                    }));
                     //tileImageControl1.SetTexture(openFileDialog.SafeFileName, texture);
                 }
             }

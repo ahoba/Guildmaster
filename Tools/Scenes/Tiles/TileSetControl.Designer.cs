@@ -1,5 +1,5 @@
 ﻿
-namespace Tools.Scenes
+namespace Tools.Scenes.Tiles
 {
     partial class TileSetControl
     {
@@ -29,54 +29,46 @@ namespace Tools.Scenes
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.panel = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.panel.SuspendLayout();
+            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.tileTextureControl = new Tools.Util.TileTextureControl();
             this.SuspendLayout();
             // 
-            // pictureBox
+            // comboBox
             // 
-            this.pictureBox.BackColor = System.Drawing.Color.LightGreen;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
-            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
-            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.comboBox.DisplayMember = "Name";
+            this.comboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Location = new System.Drawing.Point(0, 0);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(216, 21);
+            this.comboBox.TabIndex = 0;
+            this.comboBox.ValueMember = "Name";
+            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
-            // panel
+            // tileTextureControl
             // 
-            this.panel.AutoScroll = true;
-            this.panel.BackColor = System.Drawing.SystemColors.Control;
-            this.panel.Controls.Add(this.pictureBox);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(364, 343);
-            this.panel.TabIndex = 1;
+            this.tileTextureControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileTextureControl.Location = new System.Drawing.Point(0, 21);
+            this.tileTextureControl.Name = "tileTextureControl";
+            this.tileTextureControl.Size = new System.Drawing.Size(216, 243);
+            this.tileTextureControl.TabIndex = 1;
+            this.tileTextureControl.TileDimension = 16;
             // 
             // TileSetControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.Controls.Add(this.panel);
+            this.Controls.Add(this.tileTextureControl);
+            this.Controls.Add(this.comboBox);
             this.Name = "TileSetControl";
-            this.Size = new System.Drawing.Size(364, 343);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
+            this.Size = new System.Drawing.Size(216, 264);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.ComboBox comboBox;
+        private Util.TileTextureControl tileTextureControl;
     }
 }

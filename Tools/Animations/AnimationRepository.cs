@@ -2,6 +2,7 @@
 using Danke.Content;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace Tools.Animations
 {
     public class AnimationRepository : AnimationRepository<Image>
     {
-        public AnimationRepository(TextureRepository<Image> textureRepository) : base(textureRepository)
+        public BindingList<Animation> Animations { get; } = new BindingList<Animation>();
+
+        public AnimationRepository() : base()
         {
 
         }
@@ -19,6 +22,8 @@ namespace Tools.Animations
         public void AddAnimation(Animation animation)
         {
             _animations[animation.Id] = animation;
+
+            Animations.Add(animation);
         }
     }
 }
