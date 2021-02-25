@@ -14,7 +14,7 @@ namespace Tools.Animations
     {
         public BindingList<Animation> Animations { get; } = new BindingList<Animation>();
 
-        public AnimationRepository(TextureRepository<Image> textureRepository) : base(textureRepository)
+        public AnimationRepository() : base()
         {
 
         }

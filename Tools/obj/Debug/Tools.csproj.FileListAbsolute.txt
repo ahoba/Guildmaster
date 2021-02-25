@@ -23,3 +23,6 @@ C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationEdi
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Animations.AnimationRepositoryControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Content.TextureRepositoryControl.resources
 C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.Tiles.TileRepositoryControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.Tiles.TileMapControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.Tiles.TileMapEditorControl.resources
+C:\Users\Ken\source\repos\Monogame\Tools\obj\Debug\Tools.Scenes.Tiles.TileSetControl.resources

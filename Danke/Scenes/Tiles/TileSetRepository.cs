@@ -6,6 +6,11 @@ namespace Danke.Scenes.Tiles
 {
     public class TileSetRepository<T>
     {
-        protected Dictionary<Guid, TileSet<T>> _tilesets;
+        protected Dictionary<Guid, TileSet<T>> _tileSets;
+
+        public TileSetRepository()
+        {
+            _tileSets = new Dictionary<Guid, TileSet<T>>();
+        }
     }
 }

@@ -85,6 +85,11 @@
     <Compile Include="Content\TileTextureSelector.Designer.cs">
       <DependentUpon>TileTextureSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factories\_\AnimationRepositoryControlFactory.cs" />
+    <Compile Include="Factories\AbstractControlFactory.cs" />
+    <Compile Include="Factories\_\TileRepositoryControlFactory.cs" />
+    <Compile Include="Factories\_\TileMapEditorControlFactory.cs" />
+    <Compile Include="Factories\_\TileSetControlFactory.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,7 +115,19 @@
     <Compile Include="Scenes\Tiles\TileMapControl.Designer.cs">
       <DependentUpon>TileMapControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scenes\Tiles\TileMapEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenes\Tiles\TileMapEditorControl.Designer.cs">
+      <DependentUpon>TileMapEditorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\Tiles\TileSet.cs" />
+    <Compile Include="Scenes\Tiles\TileSetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenes\Tiles\TileSetControl.Designer.cs">
+      <DependentUpon>TileSetControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\Tiles\TileSetRepository.cs" />
     <Compile Include="Scenes\Tiles\TileRepositoryControl.cs">
       <SubType>UserControl</SubType>
@@ -151,8 +168,17 @@
     <EmbeddedResource Include="Scenes\Tiles\TileControl.resx">
       <DependentUpon>TileControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Scenes\Tiles\TileMapControl.resx">
+      <DependentUpon>TileMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenes\Tiles\TileMapEditorControl.resx">
+      <DependentUpon>TileMapEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Scenes\Tiles\TileRepositoryControl.resx">
       <DependentUpon>TileRepositoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenes\Tiles\TileSetControl.resx">
+      <DependentUpon>TileSetControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Util\TileTextureControl.resx">
       <DependentUpon>TileTextureControl.cs</DependentUpon>
@@ -189,6 +215,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blue-document-hf-delete-footer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eraser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

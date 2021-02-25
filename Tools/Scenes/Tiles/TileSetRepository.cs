@@ -13,9 +13,11 @@ namespace Tools.Scenes.Tiles
     {
         public BindingList<TileSet> TileSets { get; } = new BindingList<TileSet>();
 
-        public void AddTileSet(TileSet<Image> tileSet)
+        public void AddTileSet(TileSet tileSet)
         {
-            _tilesets[tileSet.Id] = tileSet;
+            _tileSets[tileSet.Id] = tileSet;
+
+            TileSets.Add(tileSet);
         }
     }
 }

@@ -79,6 +79,47 @@ namespace Tools.Util
             }
         }
 
+        public IEnumerable<int> SelectedTileIds
+        {
+            get
+            {
+                int columns = Texture.Width / TileDimension;
+
+                for (int i = Math.Min(_selectionStart.Y, _selectionEnd.Y); i <= Math.Max(_selectionStart.Y, _selectionEnd.Y); i++)
+                {
+                    for (int j = Math.Min(_selectionStart.X, _selectionEnd.X); j <= Math.Max(_selectionStart.X, _selectionEnd.X); j++)
+                    {
+                        yield return i * columns + j;
+                    }
+                }
+            }
+        }
+
+        public int[][] SelectionMatrix
+        {
+            get
+            {
+                int[][] ret = new int[Math.Abs(_selectionStart.Y - _selectionEnd.Y) + 1][];
+
+                int x = Math.Min(_selectionStart.X, _selectionEnd.X);
+                int y = Math.Min(_selectionStart.Y, _selectionEnd.Y);
+
+                int columns = Texture.Width / TileDimension;
+
+                for (int i = 0; i < ret.Length; i++)
+                {
+                    ret[i] = new int[Math.Abs(_selectionStart.X - _selectionEnd.X) + 1];
+
+                    for (int j = 0; j < ret[i].Length; j++)
+                    {
+                        ret[i][j] = x + j + (y + i) * columns;
+                    }
+                }
+
+                return ret;
+            }
+        }
+
         public TileTextureControl()
         {
             InitializeComponent();

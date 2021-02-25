@@ -25,7 +25,7 @@ namespace Danke.Scenes.Tiles
 
     public class Tile
     {
-        public Rectangle TextureRectangle { get; set; }
+        public Rectangle Rectangle { get; set; }
 
         public TileType Type { get; set; }
 

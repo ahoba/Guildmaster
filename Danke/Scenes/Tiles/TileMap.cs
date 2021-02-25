@@ -12,6 +12,8 @@ namespace Danke.Scenes.Tiles
 
     public class TileMap<T>
     {
+        public Guid Id { get; set; }
+
         public int TileDimension { get => TileSet.TileDimension; }
 
         public TileSet<T> TileSet { get; set; }

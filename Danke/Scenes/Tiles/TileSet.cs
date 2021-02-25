@@ -29,7 +29,7 @@ namespace Danke.Scenes.Tiles
         {
             get
             {
-                if (tile >= Rows * Columns)
+                if (tile < 0 || tile >= Rows * Columns)
                 {
                     return null;
                 }
@@ -57,6 +57,18 @@ namespace Danke.Scenes.Tiles
             for (int i = 0; i < rows; i++)
             {
                 Tiles[i] = new Tile[columns];
+
+                for (int j = 0; j < columns; j++)
+                {
+                    Tiles[i][j] = new Tile()
+                    {
+                        Rectangle = new Rectangle(
+                            j * tileDimension,
+                            i * tileDimension,
+                            tileDimension,
+                            tileDimension)
+                    };
+                }
             }
         }
     }

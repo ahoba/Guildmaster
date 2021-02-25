@@ -54,7 +54,7 @@ namespace Tools.Scenes
                         g.DrawImage(
                             TileSet.Texture,
                             new Rectangle(0, 0, TileSet.TileDimension, TileSet.TileDimension),
-                            Util.XnaToDrawing.Rectangle(_tile.TextureRectangle),
+                            Util.XnaToDrawing.Rectangle(_tile.Rectangle),
                             GraphicsUnit.Pixel);
                     }
 
