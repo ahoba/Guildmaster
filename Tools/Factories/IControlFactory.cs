@@ -7,13 +7,8 @@ using System.Windows.Forms;
 
 namespace Tools.Factories
 {
-    public abstract class AbstractControlFactory<T> where T : ControlFactoryArgs
+    public interface IControlFactory
     {
-        public abstract Control CreateControl(T args);
-    }
-
-    public class ControlFactoryArgs
-    {
-
+        Control CreateControl();
     }
 }

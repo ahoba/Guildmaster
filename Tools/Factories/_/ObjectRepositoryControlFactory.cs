@@ -8,7 +8,7 @@ using Tools.Objects;
 
 namespace Tools.Factories
 {
-    public class ObjectRepositoryControlFactory : AbstractControlFactory<ControlFactoryArgs>
+    public class ObjectRepositoryControlFactory : IControlFactory
     {
         private GameObjectRepository _objectRepository;
 
@@ -17,7 +17,7 @@ namespace Tools.Factories
             _objectRepository = objectRepository;
         }
 
-        public override Control CreateControl(ControlFactoryArgs args)
+        public Control CreateControl()
         {
             return new ObjectRepositoryControl()
             {

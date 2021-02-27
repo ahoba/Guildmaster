@@ -1,7 +1,7 @@
 ﻿
 namespace Tools.Scenes.Tiles
 {
-    partial class TileRepositoryControl
+    partial class TileSetRepositoryControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -90,6 +90,7 @@ namespace Tools.Scenes.Tiles
             // 
             // listBoxTileSets
             // 
+            this.listBoxTileSets.DisplayMember = "Name";
             this.listBoxTileSets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxTileSets.FormattingEnabled = true;
             this.listBoxTileSets.Location = new System.Drawing.Point(3, 3);
@@ -97,6 +98,7 @@ namespace Tools.Scenes.Tiles
             this.tableLayoutPanel1.SetRowSpan(this.listBoxTileSets, 2);
             this.listBoxTileSets.Size = new System.Drawing.Size(146, 243);
             this.listBoxTileSets.TabIndex = 3;
+            this.listBoxTileSets.ValueMember = "Name";
             this.listBoxTileSets.SelectedIndexChanged += new System.EventHandler(this.listBoxTileSets_SelectedIndexChanged);
             // 
             // tileTextureSelector
@@ -108,12 +110,12 @@ namespace Tools.Scenes.Tiles
             this.tileTextureSelector.TabIndex = 4;
             this.tileTextureSelector.TextureRepository = null;
             // 
-            // TileRepositoryControl
+            // TileSetRepositoryControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "TileRepositoryControl";
+            this.Name = "TileSetRepositoryControl";
             this.Size = new System.Drawing.Size(305, 278);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

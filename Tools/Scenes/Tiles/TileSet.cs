@@ -24,6 +24,43 @@ namespace Tools.Scenes.Tiles
             }
         }
 
+        private Image _texture;
+
+        public override Image Texture 
+        { 
+            get => _texture; 
+            set
+            {
+                _texture = value;
+
+                if (_texture != null)
+                {
+                    int rows = _texture.Height / TileDimension;
+                    int columns = _texture.Width / TileDimension;
+
+                    Tiles = new Tile[rows][];
+
+                    for (int i = 0; i < rows; i++)
+                    {
+                        Tiles[i] = new Tile[columns];
+
+                        for (int j = 0; j < columns; j++)
+                        {
+                            Tiles[i][j] = new Tile()
+                            {
+                                EnabledDirections = new bool[4],
+                                Rectangle = new Microsoft.Xna.Framework.Rectangle(
+                                    j * TileDimension,
+                                    i * TileDimension,
+                                    TileDimension,
+                                    TileDimension)
+                            };
+                        }
+                    }
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public TileSet(int tileDimension, string textureId, Image texture, int rows, int columns) : base(tileDimension, textureId, texture, rows, columns)

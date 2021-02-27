@@ -8,7 +8,7 @@ using Tools.Scenes.Tiles;
 
 namespace Tools.Factories
 {
-    public class TileMapEditorControlFactory : AbstractControlFactory<MapEditorFactoryArgs>
+    public class TileMapEditorControlFactory : IControlFactory
     {
         private TileSetRepository _tileSetRepository;
 
@@ -17,18 +17,13 @@ namespace Tools.Factories
             _tileSetRepository = tileSetRepository;
         }
 
-        public override Control CreateControl(MapEditorFactoryArgs args)
+        public Control CreateControl()
         {
             return new TileMapEditorControl()
             {
                 TileSetRepository = _tileSetRepository,
-                TileDimension = args.TileDimension
+                TileDimension = 16,
             };
         }
-    }
-
-    public class MapEditorFactoryArgs : ControlFactoryArgs
-    {
-        public int TileDimension { get; set; } = 16;
     }
 }

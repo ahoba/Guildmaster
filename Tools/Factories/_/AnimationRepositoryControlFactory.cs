@@ -9,7 +9,7 @@ using Tools.Content;
 
 namespace Tools.Factories
 {
-    public class AnimationRepositoryControlFactory : AbstractControlFactory<ControlFactoryArgs>
+    public class AnimationRepositoryControlFactory : IControlFactory
     {
         private TextureRepository _textureRepository;
 
@@ -24,7 +24,7 @@ namespace Tools.Factories
             _animationRepository = animationRepository;
         }
 
-        public override Control CreateControl(ControlFactoryArgs args)
+        public Control CreateControl()
         {
             return new AnimationRepositoryControl()
             {

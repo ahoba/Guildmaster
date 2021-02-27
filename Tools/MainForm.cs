@@ -30,6 +30,8 @@ namespace Tools
 
         private TileMapEditorControlFactory _tileMapEditorFactory;
 
+        private Dictionary<string, IControlFactory> _controlFactories;
+
         public MainForm()
         {
             InitializeComponent();
@@ -40,36 +42,45 @@ namespace Tools
 
             _tileSetRepository = new TileSetRepository();
 
-            _tileMapEditorFactory = new TileMapEditorControlFactory(_tileSetRepository);
+            _controlFactories = new Dictionary<string, IControlFactory>();
+
+            _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
+
+            _controlFactories[nameof(TileSetRepositoryControl)] = new TileSetRepositoryControlFactory(_tileSetRepository, _textureRepository);
+
+            _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository);
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void ShowControlOnForm(Control control)
         {
-            base.OnLoad(e);
+            control.Dock = DockStyle.Fill;
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Form form = new Form();
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
-                {
-                    Image texture = Image.FromStream(fileStream);
+            form.Controls.Add(control);
 
-                    _textureRepository.AddTexture(openFileDialog.SafeFileName, texture);
+            form.Show();
+        }
 
-                    _tileSetRepository.AddTileSet(
-                        new TileSet(16, openFileDialog.SafeFileName, texture, texture.Height / 16, texture.Width / 16)
-                        {
-                            Id = Guid.NewGuid()
-                        });
+        private void toolStripButtonTextureRepository_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(TextureRepositoryControl)].CreateControl();
 
-                    this.Controls.Add(_tileMapEditorFactory.CreateControl(new MapEditorFactoryArgs()
-                    {
-                        TileDimension = 16
-                    }));
-                    //tileImageControl1.SetTexture(openFileDialog.SafeFileName, texture);
-                }
-            }
+            ShowControlOnForm(control);
+        }
+
+        private void toolStripButtonTileSetRepository_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(TileSetRepositoryControl)].CreateControl();
+            
+            ShowControlOnForm(control);
+        }
+
+        private void toolStripButtonMapEditor_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(TileMapEditorControl)].CreateControl();
+
+            ShowControlOnForm(control);
         }
     }
 }

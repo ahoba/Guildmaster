@@ -9,25 +9,26 @@ using Tools.Scenes.Tiles;
 
 namespace Tools.Factories
 {
-    public class TileRepositoryControlFactory : AbstractControlFactory<ControlFactoryArgs>
+    public class TileSetRepositoryControlFactory : IControlFactory
     {
         private TileSetRepository _tileSetRepository;
 
         private TextureRepository _textureRepository;
 
-        public TileRepositoryControlFactory(TileSetRepository tileSetRepository, TextureRepository textureRepository)
+        public TileSetRepositoryControlFactory(TileSetRepository tileSetRepository, TextureRepository textureRepository)
         {
             _tileSetRepository = tileSetRepository;
 
             _textureRepository = textureRepository;
         }
 
-        public override Control CreateControl(ControlFactoryArgs args)
+        public Control CreateControl()
         {
-            return new TileRepositoryControl
+            return new TileSetRepositoryControl
             {
                 TileSetRepository = _tileSetRepository,
-                TextureRepository = _textureRepository
+                TextureRepository = _textureRepository,
+                TileDimension = 16
             };
         }
     }

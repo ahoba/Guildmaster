@@ -13,7 +13,7 @@ namespace Danke.Scenes.Tiles
 
         public virtual string Name { get; set; }
 
-        public T Texture { get; set; }
+        public virtual T Texture { get; set; }
 
         public string TextureId { get; set; }
 
@@ -48,6 +48,8 @@ namespace Danke.Scenes.Tiles
         /// <param name="columns">TileSet column count in tiles</param>
         public TileSet(int tileDimension, string textureId, T texture, int rows, int columns)
         {
+            TileDimension = tileDimension;
+
             TextureId = textureId;
 
             Texture = texture;

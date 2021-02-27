@@ -12,7 +12,7 @@ using Tools.Content;
 
 namespace Tools.Scenes.Tiles
 {
-    public partial class TileRepositoryControl : UserControl
+    public partial class TileSetRepositoryControl : UserControl
     {
         private TileSetRepository _tileSetRepository;
 
@@ -47,7 +47,7 @@ namespace Tools.Scenes.Tiles
             }
         }
 
-        public TileRepositoryControl()
+        public TileSetRepositoryControl()
         {
             InitializeComponent();
         }
@@ -56,7 +56,8 @@ namespace Tools.Scenes.Tiles
         {
             TileSet tileSet = new TileSet(_tileDimension, string.Empty, null, 0, 0)
             {
-                Id = new Guid()
+                Id = new Guid(),
+                TileDimension = _tileDimension
             };
 
             _tileSetRepository.AddTileSet(tileSet);
@@ -68,7 +69,7 @@ namespace Tools.Scenes.Tiles
         {
             if (listBoxTileSets.SelectedItem is TileSet tileSet)
             {
-                tileSet.Name = tileSet.Name;
+                tileSet.Name = textBoxTileSetName.Text;
 
                 tileSet.Texture = tileTextureSelector.TileTextureControl.Texture;
                 tileSet.TextureId = tileTextureSelector.TileTextureControl.TextureId;

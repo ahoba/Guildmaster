@@ -129,7 +129,10 @@ namespace Tools.Util
         {
             TextureId = textureId;
 
-            Texture = (Image)texture.Clone();
+            if (texture != null)
+            {
+                Texture = (Image)texture.Clone();
+            }
 
             pictureBox.Image = Texture;
         }
