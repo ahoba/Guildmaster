@@ -39,6 +39,23 @@ namespace Tools.Content
             InitializeComponent();
         }
 
+        public void SetTexture(string textureId, Image texture)
+        {
+            if (_textureRepository != null)
+            {
+                if (!string.IsNullOrEmpty(textureId) && _textureRepository.TextureIds.Contains(textureId))
+                {
+                    comboBoxTextureIds.SelectedItem = textureId;
+                }
+                else
+                {
+                    comboBoxTextureIds.SelectedItem = null;
+                }
+
+                tileTextureControl.SetTexture(textureId, texture);
+            }
+        }
+
         private void comboBoxTextureIds_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxTextureIds.SelectedItem is string textureId &&

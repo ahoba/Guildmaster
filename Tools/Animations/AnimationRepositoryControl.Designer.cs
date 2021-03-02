@@ -44,7 +44,7 @@ namespace Tools.Animations
             this.listBoxAnimations.FormattingEnabled = true;
             this.listBoxAnimations.Location = new System.Drawing.Point(3, 3);
             this.listBoxAnimations.Name = "listBoxAnimations";
-            this.listBoxAnimations.Size = new System.Drawing.Size(109, 244);
+            this.listBoxAnimations.Size = new System.Drawing.Size(108, 244);
             this.listBoxAnimations.TabIndex = 0;
             this.listBoxAnimations.ValueMember = "Name";
             this.listBoxAnimations.SelectedIndexChanged += new System.EventHandler(this.listBoxAnimations_SelectedIndexChanged);
@@ -61,7 +61,7 @@ namespace Tools.Animations
             this.buttonCreateAnimation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonCreateAnimation.Location = new System.Drawing.Point(3, 253);
             this.buttonCreateAnimation.Name = "buttonCreateAnimation";
-            this.buttonCreateAnimation.Size = new System.Drawing.Size(109, 36);
+            this.buttonCreateAnimation.Size = new System.Drawing.Size(108, 36);
             this.buttonCreateAnimation.TabIndex = 4;
             this.buttonCreateAnimation.Text = "Create Animation";
             this.buttonCreateAnimation.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@ namespace Tools.Animations
             // animationEditControl
             // 
             this.animationEditControl.Animation = null;
-            this.animationEditControl.Location = new System.Drawing.Point(118, 3);
+            this.animationEditControl.Location = new System.Drawing.Point(117, 3);
             this.animationEditControl.Name = "animationEditControl";
             this.tableLayoutPanel1.SetRowSpan(this.animationEditControl, 2);
             this.animationEditControl.Size = new System.Drawing.Size(293, 286);

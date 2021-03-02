@@ -23,6 +23,8 @@ namespace Tools.Animations
             {
                 _animation = value;
 
+                tileTextureSelector.SetTexture(_animation?.SourceTextureId, _animation?.SourceTexture);
+
                 animationControl.SetAnimation(_animation);
 
                 textBoxAnimationName.Text = _animation?.Name;
@@ -37,8 +39,6 @@ namespace Tools.Animations
             get => tileTextureSelector.TextureRepository;
             set => tileTextureSelector.TextureRepository = value;
         }
-
-        public event EventHandler<EventArgs> AnimationSaved;
 
         public AnimationEditControl()
         {
@@ -69,12 +69,10 @@ namespace Tools.Animations
         {
             if (_animation != null)
             {
-                _animation.Name = textBoxAnimationName.Text;
                 _animation.SourceTexture = tileTextureSelector.TileTextureControl.Texture;
                 _animation.SourceTextureId = tileTextureSelector.TileTextureControl.TextureId;
                 _animation.Sprites = animationControl.Sprites.Select(x => Util.DrawingToXna.Rectangle(x)).ToArray();
-
-                AnimationSaved?.Invoke(this, new EventArgs());
+                _animation.Name = textBoxAnimationName.Text;
             }
         }
     }

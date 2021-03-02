@@ -33,6 +33,7 @@ namespace Tools
             this.toolStripButtonTextureRepository = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonTileSetRepository = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonMapEditor = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAnimations = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +42,8 @@ namespace Tools
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonTextureRepository,
             this.toolStripButtonTileSetRepository,
-            this.toolStripButtonMapEditor});
+            this.toolStripButtonMapEditor,
+            this.toolStripButtonAnimations});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(800, 25);
@@ -78,6 +80,16 @@ namespace Tools
             this.toolStripButtonMapEditor.Text = "Map Editor";
             this.toolStripButtonMapEditor.Click += new System.EventHandler(this.toolStripButtonMapEditor_Click);
             // 
+            // toolStripButtonAnimations
+            // 
+            this.toolStripButtonAnimations.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAnimations.Image = global::Tools.Properties.Resources.film;
+            this.toolStripButtonAnimations.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAnimations.Name = "toolStripButtonAnimations";
+            this.toolStripButtonAnimations.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonAnimations.Text = "Animations";
+            this.toolStripButtonAnimations.Click += new System.EventHandler(this.toolStripButtonAnimations_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +111,7 @@ namespace Tools
         private System.Windows.Forms.ToolStripButton toolStripButtonTextureRepository;
         private System.Windows.Forms.ToolStripButton toolStripButtonTileSetRepository;
         private System.Windows.Forms.ToolStripButton toolStripButtonMapEditor;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAnimations;
     }
 }
 

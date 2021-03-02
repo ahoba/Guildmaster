@@ -14,7 +14,11 @@ namespace Tools.Util
     {
         public Image Texture { get; private set; }
 
-        public string TextureId { get; private set; }
+        public string TextureId 
+        { 
+            get; 
+            private set; 
+        }
 
         private int _tileDimension = 16;
 
@@ -132,9 +136,13 @@ namespace Tools.Util
             if (texture != null)
             {
                 Texture = (Image)texture.Clone();
-            }
 
-            pictureBox.Image = Texture;
+                pictureBox.Image = Texture;
+            }
+            else
+            {
+                pictureBox.Image = null;
+            }
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)

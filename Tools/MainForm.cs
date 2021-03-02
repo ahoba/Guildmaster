@@ -43,12 +43,10 @@ namespace Tools
             _tileSetRepository = new TileSetRepository();
 
             _controlFactories = new Dictionary<string, IControlFactory>();
-
             _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
-
             _controlFactories[nameof(TileSetRepositoryControl)] = new TileSetRepositoryControlFactory(_tileSetRepository, _textureRepository);
-
             _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository);
+            _controlFactories[nameof(AnimationRepositoryControl)] = new AnimationRepositoryControlFactory(_textureRepository, _animationRepository);
         }
 
         private void ShowControlOnForm(Control control)
@@ -79,6 +77,13 @@ namespace Tools
         private void toolStripButtonMapEditor_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(TileMapEditorControl)].CreateControl();
+
+            ShowControlOnForm(control);
+        }
+
+        private void toolStripButtonAnimations_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(AnimationRepositoryControl)].CreateControl();
 
             ShowControlOnForm(control);
         }
