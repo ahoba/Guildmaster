@@ -55,5 +55,13 @@ namespace Tools.Animations
 
             listBoxAnimations.SelectedItem = animation;
         }
+
+        private void listBoxAnimations_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (listBoxAnimations.SelectedItem is Animation animation)
+            {
+                DoDragDrop(animation, DragDropEffects.Move);
+            }
+        }
     }
 }

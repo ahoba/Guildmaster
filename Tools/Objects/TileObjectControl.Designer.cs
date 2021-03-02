@@ -83,6 +83,8 @@ namespace Tools.Objects
             // 
             // listBoxAnimations
             // 
+            this.listBoxAnimations.AllowDrop = true;
+            this.listBoxAnimations.DisplayMember = "Name";
             this.listBoxAnimations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxAnimations.FormattingEnabled = true;
             this.listBoxAnimations.Location = new System.Drawing.Point(3, 96);
@@ -90,7 +92,12 @@ namespace Tools.Objects
             this.tableLayoutPanel1.SetRowSpan(this.listBoxAnimations, 2);
             this.listBoxAnimations.Size = new System.Drawing.Size(72, 87);
             this.listBoxAnimations.TabIndex = 1;
+            this.listBoxAnimations.ValueMember = "Name";
+            this.listBoxAnimations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxAnimations_MouseClick);
             this.listBoxAnimations.SelectedIndexChanged += new System.EventHandler(this.listBoxAnimations_SelectedIndexChanged);
+            this.listBoxAnimations.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxAnimations_DragDrop);
+            this.listBoxAnimations.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxAnimations_DragEnter);
+            this.listBoxAnimations.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxAnimations_MouseClick);
             // 
             // comboBoxTileType
             // 

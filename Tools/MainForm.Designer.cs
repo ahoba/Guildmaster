@@ -34,6 +34,7 @@ namespace Tools
             this.toolStripButtonTileSetRepository = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonMapEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAnimations = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonObjects = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +44,8 @@ namespace Tools
             this.toolStripButtonTextureRepository,
             this.toolStripButtonTileSetRepository,
             this.toolStripButtonMapEditor,
-            this.toolStripButtonAnimations});
+            this.toolStripButtonAnimations,
+            this.toolStripButtonObjects});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(800, 25);
@@ -57,7 +59,7 @@ namespace Tools
             this.toolStripButtonTextureRepository.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonTextureRepository.Name = "toolStripButtonTextureRepository";
             this.toolStripButtonTextureRepository.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonTextureRepository.Text = "Texture Repository";
+            this.toolStripButtonTextureRepository.Text = "Textures";
             this.toolStripButtonTextureRepository.Click += new System.EventHandler(this.toolStripButtonTextureRepository_Click);
             // 
             // toolStripButtonTileSetRepository
@@ -67,7 +69,7 @@ namespace Tools
             this.toolStripButtonTileSetRepository.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonTileSetRepository.Name = "toolStripButtonTileSetRepository";
             this.toolStripButtonTileSetRepository.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonTileSetRepository.Text = "Tile Set Repository";
+            this.toolStripButtonTileSetRepository.Text = "Tile Sets";
             this.toolStripButtonTileSetRepository.Click += new System.EventHandler(this.toolStripButtonTileSetRepository_Click);
             // 
             // toolStripButtonMapEditor
@@ -77,7 +79,7 @@ namespace Tools
             this.toolStripButtonMapEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonMapEditor.Name = "toolStripButtonMapEditor";
             this.toolStripButtonMapEditor.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonMapEditor.Text = "Map Editor";
+            this.toolStripButtonMapEditor.Text = "Maps";
             this.toolStripButtonMapEditor.Click += new System.EventHandler(this.toolStripButtonMapEditor_Click);
             // 
             // toolStripButtonAnimations
@@ -89,6 +91,16 @@ namespace Tools
             this.toolStripButtonAnimations.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonAnimations.Text = "Animations";
             this.toolStripButtonAnimations.Click += new System.EventHandler(this.toolStripButtonAnimations_Click);
+            // 
+            // toolStripButtonObjects
+            // 
+            this.toolStripButtonObjects.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonObjects.Image = global::Tools.Properties.Resources.block__plus;
+            this.toolStripButtonObjects.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonObjects.Name = "toolStripButtonObjects";
+            this.toolStripButtonObjects.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonObjects.Text = "Objects";
+            this.toolStripButtonObjects.Click += new System.EventHandler(this.toolStripButtonObjects_Click);
             // 
             // MainForm
             // 
@@ -112,6 +124,7 @@ namespace Tools
         private System.Windows.Forms.ToolStripButton toolStripButtonTileSetRepository;
         private System.Windows.Forms.ToolStripButton toolStripButtonMapEditor;
         private System.Windows.Forms.ToolStripButton toolStripButtonAnimations;
+        private System.Windows.Forms.ToolStripButton toolStripButtonObjects;
     }
 }
 

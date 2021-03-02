@@ -16,6 +16,7 @@ using ToolMock;
 using Tools.Animations;
 using Tools.Content;
 using Tools.Factories;
+using Tools.Objects;
 using Tools.Scenes.Tiles;
 
 namespace Tools
@@ -28,7 +29,7 @@ namespace Tools
 
         private TileSetRepository _tileSetRepository;
 
-        private TileMapEditorControlFactory _tileMapEditorFactory;
+        private GameObjectRepository _objectRepository;
 
         private Dictionary<string, IControlFactory> _controlFactories;
 
@@ -42,11 +43,14 @@ namespace Tools
 
             _tileSetRepository = new TileSetRepository();
 
+            _objectRepository = new GameObjectRepository();
+
             _controlFactories = new Dictionary<string, IControlFactory>();
             _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
             _controlFactories[nameof(TileSetRepositoryControl)] = new TileSetRepositoryControlFactory(_tileSetRepository, _textureRepository);
             _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository);
             _controlFactories[nameof(AnimationRepositoryControl)] = new AnimationRepositoryControlFactory(_textureRepository, _animationRepository);
+            _controlFactories[nameof(ObjectRepositoryControl)] = new ObjectRepositoryControlFactory(_objectRepository);
         }
 
         private void ShowControlOnForm(Control control)
@@ -84,6 +88,13 @@ namespace Tools
         private void toolStripButtonAnimations_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(AnimationRepositoryControl)].CreateControl();
+
+            ShowControlOnForm(control);
+        }
+
+        private void toolStripButtonObjects_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(ObjectRepositoryControl)].CreateControl();
 
             ShowControlOnForm(control);
         }

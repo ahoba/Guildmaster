@@ -48,6 +48,7 @@ namespace Tools.Animations
             this.listBoxAnimations.TabIndex = 0;
             this.listBoxAnimations.ValueMember = "Name";
             this.listBoxAnimations.SelectedIndexChanged += new System.EventHandler(this.listBoxAnimations_SelectedIndexChanged);
+            this.listBoxAnimations.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxAnimations_MouseDown);
             // 
             // panel1
             // 

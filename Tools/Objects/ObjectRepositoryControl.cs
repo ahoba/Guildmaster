@@ -39,13 +39,13 @@ namespace Tools.Objects
             {
                 Id = Guid.NewGuid(),
                 Animations = new Danke.Animations.Animation<Image>[0],
-                Name = string.Empty
+                Name = "New Object"
             });
         }
 
         private void listBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxObjects.SelectedValue is TileObject obj)
+            if (listBoxObjects.SelectedItem is TileObject obj)
             {
                 tileObjectControl.SetTileObject(obj);
             }

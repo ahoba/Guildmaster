@@ -62,27 +62,41 @@ namespace Tools.Objects
         {
             _tileObject = tileObject;
 
+            textBoxName.Text = _tileObject?.Name;
+
+            pictureBox.Image = null;
+
             Animations.Clear();
 
             int w = 0;
             int h = 0;
 
-            foreach (Animation animation in tileObject.Animations)
+            if (tileObject.Animations != null)
             {
-                w = Math.Max(animation.Sprites.Max(x => x.Width), w);
-                h = Math.Max(animation.Sprites.Max(x => x.Height), h);
+                foreach (Animation animation in tileObject.Animations)
+                {
+                    w = Math.Max(animation.Sprites.Max(x => x.Width), w);
+                    h = Math.Max(animation.Sprites.Max(x => x.Height), h);
 
-                Animations.Add(animation);
+                    Animations.Add(animation);
+                }
             }
 
             _tileWidth = w;
             _tileHeight = h;
 
-            TileData = new TileType[_tileHeight][];
-
-            for (int i = 0; i < _tileHeight; i++)
+            if (_tileObject.TileData == null)
             {
-                TileData[i] = new TileType[_tileWidth];
+                TileData = new TileType[_tileHeight][];
+
+                for (int i = 0; i < _tileHeight; i++)
+                {
+                    TileData[i] = new TileType[_tileWidth];
+                }
+            }
+            else
+            {
+                TileData = _tileObject.TileData;
             }
         }
 
@@ -92,13 +106,18 @@ namespace Tools.Objects
         public TileObjectControl()
         {
             InitializeComponent();
+
+            listBoxAnimations.DataSource = Animations;
         }
 
         public void SaveTileObject()
         {
-            _tileObject.Name = textBoxName.Text;
-            _tileObject.Animations = (listBoxAnimations.DataSource as IEnumerable<Animation>).ToArray();
-            _tileObject.TileData = TileData;
+            if (_tileObject != null)
+            {
+                _tileObject.Animations = listBoxAnimations.DataSource == null ? null :(listBoxAnimations.DataSource as IEnumerable<Animation>).ToArray();
+                _tileObject.TileData = TileData;
+                _tileObject.Name = textBoxName.Text;
+            }
         }
 
         private void listBoxAnimations_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,6 +192,45 @@ namespace Tools.Objects
                 _selectedColumn.HasValue)
             {
                 TileData[_selectedRow.Value][_selectedColumn.Value] = tileType;
+            }
+        }
+
+        private void listBoxAnimations_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(Animation)) is Animation animation)
+            {
+                if (!Animations.Contains(animation))
+                {
+                    Animations.Add(animation);
+                }
+            }
+        }
+
+        private void listBoxAnimations_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(Animation)) is Animation animation)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+
+        private void listBoxAnimations_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listBoxAnimations.ContextMenu == null)
+                {
+                    listBoxAnimations.ContextMenu = new ContextMenu();
+                    listBoxAnimations.ContextMenu.MenuItems.Add(new MenuItem("Remove", (object s, EventArgs args) =>
+                    {
+                        if (listBoxAnimations.SelectedItem is Animation animation)
+                        {
+                            Animations.Remove(animation);
+                        }
+                    }));
+                }
+
+                listBoxAnimations.ContextMenu.Show(listBoxAnimations, new Point(e.X, e.Y));
             }
         }
     }
