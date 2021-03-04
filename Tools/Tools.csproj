@@ -223,10 +223,6 @@
       <Project>{75b0488d-04a2-4d66-93c3-87dac1622e43}</Project>
       <Name>Danke</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToolMock\ToolsMock.csproj">
-      <Project>{5561cadb-7736-442e-aaec-35416aa9de74}</Project>
-      <Name>ToolsMock</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\block--plus.png" />
