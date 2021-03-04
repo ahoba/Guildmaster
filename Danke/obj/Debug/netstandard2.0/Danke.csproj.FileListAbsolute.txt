@@ -1,9 +1,0 @@
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.csprojAssemblyReference.cache
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.AssemblyInfoInputs.cache
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.AssemblyInfo.cs
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.csproj.CoreCompileInputs.cache
-C:\Users\Ken\source\repos\Monogame\Danke\bin\Debug\netstandard2.0\Danke.deps.json
-C:\Users\Ken\source\repos\Monogame\Danke\bin\Debug\netstandard2.0\Danke.dll
-C:\Users\Ken\source\repos\Monogame\Danke\bin\Debug\netstandard2.0\Danke.pdb
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.dll
-C:\Users\Ken\source\repos\Monogame\Danke\obj\Debug\netstandard2.0\Danke.pdb
