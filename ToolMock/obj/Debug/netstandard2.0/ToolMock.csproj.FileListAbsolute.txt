@@ -1,8 +1,0 @@
-C:\Users\Ken\source\repos\Monogame\ToolMock\bin\Debug\netstandard2.0\ToolMock.deps.json
-C:\Users\Ken\source\repos\Monogame\ToolMock\bin\Debug\netstandard2.0\ToolMock.dll
-C:\Users\Ken\source\repos\Monogame\ToolMock\bin\Debug\netstandard2.0\ToolMock.pdb
-C:\Users\Ken\source\repos\Monogame\ToolMock\obj\Debug\netstandard2.0\ToolMock.AssemblyInfoInputs.cache
-C:\Users\Ken\source\repos\Monogame\ToolMock\obj\Debug\netstandard2.0\ToolMock.AssemblyInfo.cs
-C:\Users\Ken\source\repos\Monogame\ToolMock\obj\Debug\netstandard2.0\ToolMock.csproj.CoreCompileInputs.cache
-C:\Users\Ken\source\repos\Monogame\ToolMock\obj\Debug\netstandard2.0\ToolMock.dll
-C:\Users\Ken\source\repos\Monogame\ToolMock\obj\Debug\netstandard2.0\ToolMock.pdb
