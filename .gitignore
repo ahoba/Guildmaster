@@ -360,3 +360,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# XNA - Monogame
+*.suo
+*.assets.cache
+*.FileListAbsolute.txt
