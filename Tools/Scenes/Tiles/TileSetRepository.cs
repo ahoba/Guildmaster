@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Scenes.Tiles
 {
+    [Serializable]
     public class TileSetRepository : TileSetRepository<Image>
     {
         public BindingList<TileSet> TileSets { get; } = new BindingList<TileSet>();

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Objects
 {
+    [Serializable]
     public class GameObjectRepository : Danke.Objects.GameObjectRepository
     {
         public BindingList<TileObject> Objects { get; } = new BindingList<TileObject>();

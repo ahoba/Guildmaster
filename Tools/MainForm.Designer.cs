@@ -30,11 +30,13 @@ namespace Tools
         private void InitializeComponent()
         {
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonTextureRepository = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonTileSetRepository = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonMapEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAnimations = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonObjects = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSerialize = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,12 +47,19 @@ namespace Tools
             this.toolStripButtonTileSetRepository,
             this.toolStripButtonMapEditor,
             this.toolStripButtonAnimations,
-            this.toolStripButtonObjects});
+            this.toolStripButtonObjects,
+            this.toolStripSeparator1,
+            this.toolStripButtonSerialize});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(800, 25);
             this.toolStripMain.TabIndex = 0;
             this.toolStripMain.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonTextureRepository
             // 
@@ -102,6 +111,16 @@ namespace Tools
             this.toolStripButtonObjects.Text = "Objects";
             this.toolStripButtonObjects.Click += new System.EventHandler(this.toolStripButtonObjects_Click);
             // 
+            // toolStripButtonSerialize
+            // 
+            this.toolStripButtonSerialize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSerialize.Image = global::Tools.Properties.Resources.disk__pencil;
+            this.toolStripButtonSerialize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSerialize.Name = "toolStripButtonSerialize";
+            this.toolStripButtonSerialize.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSerialize.Text = "Serialize";
+            this.toolStripButtonSerialize.Click += new System.EventHandler(this.toolStripButtonSerialize_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,6 +144,8 @@ namespace Tools
         private System.Windows.Forms.ToolStripButton toolStripButtonMapEditor;
         private System.Windows.Forms.ToolStripButton toolStripButtonAnimations;
         private System.Windows.Forms.ToolStripButton toolStripButtonObjects;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSerialize;
     }
 }
 

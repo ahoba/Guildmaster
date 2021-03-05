@@ -1,11 +1,13 @@
 ﻿using Danke.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Danke.Animations
 {
+    [Serializable]
     public class AnimationRepository<T>
     {   
         protected Dictionary<Guid, Animation<T>> _animations;

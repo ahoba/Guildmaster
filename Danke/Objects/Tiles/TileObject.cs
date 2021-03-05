@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Danke.Objects.Tiles
 {
+    [Serializable]
     public class TileObject<T> : GameObject
     {
         public Animation<T>[] Animations { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -7,12 +8,14 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
+    [Serializable]
     public class TileSet<T>
     {
         public Guid Id { get; set; }
 
         public virtual string Name { get; set; }
 
+        [JsonIgnore]
         public virtual T Texture { get; set; }
 
         public string TextureId { get; set; }

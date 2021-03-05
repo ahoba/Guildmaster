@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
+    [Serializable]
     public class TileMapLayer
     {
         public int[][] Tiles { get; set; }
     }
 
+    [Serializable]
     public class TileMap<T>
     {
         public Guid Id { get; set; }

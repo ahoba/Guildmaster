@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
+    [Serializable]
     public class TileMapRepository<T>
     {
         protected Dictionary<Guid, TileMap<T>> _maps;

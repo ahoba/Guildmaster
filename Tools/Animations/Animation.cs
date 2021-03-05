@@ -1,4 +1,5 @@
 ﻿using Danke.Animations;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Animations
 {
+    [Serializable]
     public class Animation : Animation<Image>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

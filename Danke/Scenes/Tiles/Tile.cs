@@ -22,7 +22,7 @@ namespace Danke.Scenes.Tiles
         Right
     }
 
-
+    [Serializable]
     public class Tile
     {
         public Rectangle Rectangle { get; set; }

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Danke.Scenes.Tiles
 {
+    [Serializable]
     public class TileSetRepository<T>
     {
         protected Dictionary<Guid, TileSet<T>> _tileSets;

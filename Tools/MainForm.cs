@@ -2,6 +2,7 @@
 using Danke.Scenes.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -96,6 +97,38 @@ namespace Tools
             Control control = _controlFactories[nameof(ObjectRepositoryControl)].CreateControl();
 
             ShowControlOnForm(control);
+        }
+
+        private void toolStripButtonSerialize_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                SerializeTextures(dialog.SelectedPath);
+            }
+        }
+
+        private void SerializeTextures(string filepath)
+        {
+            using (StreamWriter file = File.CreateText($@"{filepath}/textures.json"))
+            {
+                JsonSerializer serializer = JsonSerializer.Create(
+                    new JsonSerializerSettings()
+                    {
+                        Formatting = Formatting.Indented
+                    });
+
+                serializer.Serialize(file, _textureRepository);
+            }
+
+            foreach (string textureId in _textureRepository.TextureIds)
+            {
+                if (_textureRepository.TryGetTexture(textureId, out Image image))
+                {
+                    image.Save($@"{filepath}/{textureId}");
+                }
+            }
         }
     }
 }

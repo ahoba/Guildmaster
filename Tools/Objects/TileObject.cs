@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Objects
 {
+    [Serializable]
     public class TileObject : TileObject<Image>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

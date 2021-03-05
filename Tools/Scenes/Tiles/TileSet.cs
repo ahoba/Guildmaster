@@ -1,4 +1,5 @@
 ﻿using Danke.Scenes.Tiles;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Scenes.Tiles
 {
+    [Serializable]
     public class TileSet : TileSet<Image>, INotifyPropertyChanged
     {
         private string _name;
@@ -24,8 +26,10 @@ namespace Tools.Scenes.Tiles
             }
         }
 
+        [JsonIgnore]
         private Image _texture;
 
+        [JsonIgnore]
         public override Image Texture 
         { 
             get => _texture; 

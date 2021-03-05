@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Tools.Animations
 {
+    [Serializable]
     public class AnimationRepository : AnimationRepository<Image>
     {
         public BindingList<Animation> Animations { get; } = new BindingList<Animation>();
