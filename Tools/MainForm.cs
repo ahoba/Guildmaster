@@ -106,12 +106,27 @@ namespace Tools
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 SerializeTextures(dialog.SelectedPath);
+
+                Serialize(_tileSetRepository, nameof(TileSetRepository), dialog.SelectedPath);
             }
         }
 
-        private void SerializeTextures(string filepath)
+        private void SerializeTextures(string filePath)
         {
-            using (StreamWriter file = File.CreateText($@"{filepath}/textures.json"))
+            Serialize(_textureRepository, nameof(TextureRepository), filePath);
+
+            foreach (string textureId in _textureRepository.TextureIds)
+            {
+                if (_textureRepository.TryGetTexture(textureId, out Image image))
+                {
+                    image.Save($@"{filePath}/{textureId}");
+                }
+            }
+        }
+
+        private void Serialize(object obj, string objName, string filepath)
+        {
+            using (StreamWriter file = File.CreateText($@"{filepath}/{objName}.json"))
             {
                 JsonSerializer serializer = JsonSerializer.Create(
                     new JsonSerializerSettings()
@@ -119,15 +134,7 @@ namespace Tools
                         Formatting = Formatting.Indented
                     });
 
-                serializer.Serialize(file, _textureRepository);
-            }
-
-            foreach (string textureId in _textureRepository.TextureIds)
-            {
-                if (_textureRepository.TryGetTexture(textureId, out Image image))
-                {
-                    image.Save($@"{filepath}/{textureId}");
-                }
+                serializer.Serialize(file, obj);
             }
         }
     }

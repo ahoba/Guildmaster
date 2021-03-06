@@ -56,8 +56,9 @@ namespace Tools.Scenes.Tiles
         {
             TileSet tileSet = new TileSet(_tileDimension, string.Empty, null, 0, 0)
             {
-                Id = new Guid(),
-                TileDimension = _tileDimension
+                Id = Guid.NewGuid(),
+                TileDimension = _tileDimension,
+                Name = "New TileSet"
             };
 
             _tileSetRepository.AddTileSet(tileSet);
@@ -69,10 +70,9 @@ namespace Tools.Scenes.Tiles
         {
             if (listBoxTileSets.SelectedItem is TileSet tileSet)
             {
-                tileSet.Name = textBoxTileSetName.Text;
-
                 tileSet.Texture = tileTextureSelector.TileTextureControl.Texture;
                 tileSet.TextureId = tileTextureSelector.TileTextureControl.TextureId;
+                tileSet.Name = textBoxTileSetName.Text;
             }
         }
 

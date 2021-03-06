@@ -26,6 +26,7 @@ namespace Danke.Scenes.Tiles
 
         public int Columns { get => Tiles == null ? 0 : Tiles[0].Length; }
 
+        [JsonIgnore]
         public Tile[][] Tiles { get; set; }
 
         public Tile this[int tile]
