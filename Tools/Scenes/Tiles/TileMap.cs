@@ -1,4 +1,5 @@
 ﻿using Danke.Scenes.Tiles;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace Tools.Scenes.Tiles
 {
+    [Serializable]
     public class TileMap : Danke.Scenes.Tiles.TileMap<Image>, INotifyPropertyChanged
     {
+        [JsonIgnore]
         private string _name;
 
         public override string Name 

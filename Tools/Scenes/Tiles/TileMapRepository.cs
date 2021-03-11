@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Tools.Scenes.Tiles
 {
+    [Serializable]
     public class TileMapRepository : Danke.Scenes.Tiles.TileMapRepository<Image>
     {
+        [JsonIgnore]
         public BindingList<TileMap> Maps { get; }
 
         public TileMapRepository()

@@ -112,6 +112,7 @@ namespace Tools
                 SerializeTextures(dialog.SelectedPath);
 
                 Serialize(_tileSetRepository, nameof(TileSetRepository), dialog.SelectedPath);
+                Serialize(_tileMapRepository, nameof(TileMapRepository), dialog.SelectedPath);
             }
         }
 
