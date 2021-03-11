@@ -188,6 +188,7 @@ namespace Tools.Scenes.Tiles
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // textBoxMapName
             // 
@@ -216,7 +217,6 @@ namespace Tools.Scenes.Tiles
             this.tileMapControl.SelectedRow = null;
             this.tileMapControl.Size = new System.Drawing.Size(273, 234);
             this.tileMapControl.TabIndex = 2;
-            this.tileMapControl.TileDimension = 16;
             this.tileMapControl.TileSet = null;
             this.tileMapControl.SelectedTileChanged += new System.EventHandler<Tools.Scenes.Tiles.SelectedTileChangedEventArgs>(this.tileMapControl_SelectedTileChanged);
             // 

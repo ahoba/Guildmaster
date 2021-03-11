@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Danke.Scenes.Tiles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,13 +48,13 @@ namespace Tools.Scenes
 
                     if (TileSet != null)
                     {
-                        Bitmap bitmap = new Bitmap(TileSet.TileDimension, TileSet.TileDimension);
+                        Bitmap bitmap = new Bitmap(TileScene.TileDimension, TileScene.TileDimension);
 
                         Graphics g = Graphics.FromImage(bitmap);
 
                         g.DrawImage(
                             TileSet.Texture,
-                            new Rectangle(0, 0, TileSet.TileDimension, TileSet.TileDimension),
+                            new Rectangle(0, 0, TileScene.TileDimension, TileScene.TileDimension),
                             Util.XnaToDrawing.Rectangle(_tile.Rectangle),
                             GraphicsUnit.Pixel);
                     }

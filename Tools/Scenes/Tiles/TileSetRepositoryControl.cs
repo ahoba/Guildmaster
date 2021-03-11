@@ -34,19 +34,6 @@ namespace Tools.Scenes.Tiles
             set => tileTextureSelector.TextureRepository = value;
         }
 
-        private int _tileDimension = 16;
-
-        public int TileDimension
-        {
-            get => _tileDimension;
-            set
-            {
-                _tileDimension = value;
-
-                tileTextureSelector.TileTextureControl.TileDimension = _tileDimension;
-            }
-        }
-
         public TileSetRepositoryControl()
         {
             InitializeComponent();
@@ -54,10 +41,9 @@ namespace Tools.Scenes.Tiles
 
         private void buttonCreateTileSet_Click(object sender, EventArgs e)
         {
-            TileSet tileSet = new TileSet(_tileDimension, string.Empty, null, 0, 0)
+            TileSet tileSet = new TileSet(string.Empty, null, 0, 0)
             {
                 Id = Guid.NewGuid(),
-                TileDimension = _tileDimension,
                 Name = "New TileSet"
             };
 

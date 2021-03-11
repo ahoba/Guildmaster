@@ -20,8 +20,6 @@ namespace Danke.Scenes.Tiles
 
         public string TextureId { get; set; }
 
-        public int TileDimension { get; set; }
-
         public int Rows { get => Tiles == null ? 0 : Tiles.Length; }
 
         public int Columns { get => Tiles == null ? 0 : Tiles[0].Length; }
@@ -45,15 +43,12 @@ namespace Danke.Scenes.Tiles
         /// <summary>
         /// TileSet constructor
         /// </summary>
-        /// <param name="tileDimension">Tile's dimension in pixels</param>
         /// <param name="textureId">Texture's Id</param>
         /// <param name="texture">Texture, either Image or Texture2D</param>
         /// <param name="rows">TileSet row count in tiles</param>
         /// <param name="columns">TileSet column count in tiles</param>
-        public TileSet(int tileDimension, string textureId, T texture, int rows, int columns)
+        public TileSet(string textureId, T texture, int rows, int columns)
         {
-            TileDimension = tileDimension;
-
             TextureId = textureId;
 
             Texture = texture;
@@ -69,10 +64,10 @@ namespace Danke.Scenes.Tiles
                     Tiles[i][j] = new Tile()
                     {
                         Rectangle = new Rectangle(
-                            j * tileDimension,
-                            i * tileDimension,
-                            tileDimension,
-                            tileDimension)
+                            j * TileScene.TileDimension,
+                            i * TileScene.TileDimension,
+                            TileScene.TileDimension,
+                            TileScene.TileDimension)
                     };
                 }
             }

@@ -93,7 +93,7 @@
     <Compile Include="Factories\_\AnimationRepositoryControlFactory.cs" />
     <Compile Include="Factories\IControlFactory.cs" />
     <Compile Include="Factories\_\TileSetRepositoryControlFactory.cs" />
-    <Compile Include="Factories\_\TileMapEditorControlFactory.cs" />
+    <Compile Include="Factories\_\TileMapRepositoryEditorControlFactory.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,12 +121,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scenes\Tiles\TileMapRepositoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenes\Tiles\TileMapRepositoryControl.Designer.cs">
+      <DependentUpon>TileMapRepositoryControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\Tiles\TileControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Scenes\Tiles\TileControl.Designer.cs">
       <DependentUpon>TileControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scenes\Tiles\TileMap.cs" />
     <Compile Include="Scenes\Tiles\TileMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,6 +146,7 @@
     <Compile Include="Scenes\Tiles\TileMapEditorControl.Designer.cs">
       <DependentUpon>TileMapEditorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scenes\Tiles\TileMapRepository.cs" />
     <Compile Include="Scenes\Tiles\TileSet.cs" />
     <Compile Include="Scenes\Tiles\TileSetControl.cs">
       <SubType>UserControl</SubType>
@@ -188,6 +196,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenes\Tiles\TileMapRepositoryControl.resx">
+      <DependentUpon>TileMapRepositoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Scenes\Tiles\TileControl.resx">
       <DependentUpon>TileControl.cs</DependentUpon>

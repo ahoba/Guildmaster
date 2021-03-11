@@ -39,8 +39,8 @@ namespace Tools.Scenes.Tiles
 
                 if (_texture != null)
                 {
-                    int rows = _texture.Height / TileDimension;
-                    int columns = _texture.Width / TileDimension;
+                    int rows = _texture.Height / TileScene.TileDimension;
+                    int columns = _texture.Width / TileScene.TileDimension;
 
                     Tiles = new Tile[rows][];
 
@@ -54,10 +54,10 @@ namespace Tools.Scenes.Tiles
                             {
                                 EnabledDirections = new bool[4],
                                 Rectangle = new Microsoft.Xna.Framework.Rectangle(
-                                    j * TileDimension,
-                                    i * TileDimension,
-                                    TileDimension,
-                                    TileDimension)
+                                    j * TileScene.TileDimension,
+                                    i * TileScene.TileDimension,
+                                    TileScene.TileDimension,
+                                    TileScene.TileDimension)
                             };
                         }
                     }
@@ -67,7 +67,7 @@ namespace Tools.Scenes.Tiles
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TileSet(int tileDimension, string textureId, Image texture, int rows, int columns) : base(tileDimension, textureId, texture, rows, columns)
+        public TileSet(string textureId, Image texture, int rows, int columns) : base(textureId, texture, rows, columns)
         {
 
         }

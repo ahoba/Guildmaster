@@ -16,7 +16,7 @@ namespace Danke.Scenes.Tiles
     {
         public Guid Id { get; set; }
 
-        public int TileDimension { get => TileSet.TileDimension; }
+        public virtual string Name { get; set; }
 
         public TileSet<T> TileSet { get; set; }
 
@@ -24,7 +24,7 @@ namespace Danke.Scenes.Tiles
 
         public int Width { get => Layers[0].Tiles[0].Length; }
 
-        public TileMapLayer[] Layers { get; protected set; } = new TileMapLayer[2];
+        public virtual TileMapLayer[] Layers { get; protected set; } = new TileMapLayer[2];
 
         public TileMap(int height, int width)
         {

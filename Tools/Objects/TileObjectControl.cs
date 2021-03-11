@@ -54,8 +54,6 @@ namespace Tools.Objects
             }
         }
 
-        public int TileDimension { get; set; } = 16;
-
         public TileType[][] TileData { get; set; }
 
         public void SetTileObject(TileObject tileObject)
@@ -143,7 +141,7 @@ namespace Tools.Objects
                 {
                     for (int j = 0; j < _tileWidth; j++)
                     {
-                        Rectangle r = new Rectangle(i * TileDimension, j * TileDimension, TileDimension, TileDimension);
+                        Rectangle r = new Rectangle(i * TileScene.TileDimension, j * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension);
 
                         g.DrawRectangle(Pens.Black, r);
                     }
@@ -158,8 +156,8 @@ namespace Tools.Objects
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            _selectedRow = e.Y / TileDimension;
-            _selectedColumn = e.X / TileDimension;
+            _selectedRow = e.Y / TileScene.TileDimension;
+            _selectedColumn = e.X / TileScene.TileDimension;
 
             if (pictureBox.Image != null)
             {
@@ -169,7 +167,7 @@ namespace Tools.Objects
                 {
                     for (int j = 0; j < _tileWidth; j++)
                     {
-                        Rectangle r = new Rectangle(i * TileDimension, j * TileDimension, TileDimension, TileDimension);
+                        Rectangle r = new Rectangle(i * TileScene.TileDimension, j * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension);
 
                         g.DrawRectangle(Pens.Black, r);
                     }
@@ -178,10 +176,10 @@ namespace Tools.Objects
                 g.DrawRectangle(
                     Pens.White,
                     new Rectangle(
-                        _selectedColumn.Value * TileDimension,
-                        _selectedRow.Value * TileDimension,
-                        TileDimension,
-                        TileDimension));
+                        _selectedColumn.Value * TileScene.TileDimension,
+                        _selectedRow.Value * TileScene.TileDimension,
+                        TileScene.TileDimension,
+                        TileScene.TileDimension));
             }
         }
 

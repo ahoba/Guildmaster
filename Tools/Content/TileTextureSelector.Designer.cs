@@ -50,7 +50,6 @@ namespace Tools.Content
             this.tileTextureControl.Name = "tileTextureControl";
             this.tileTextureControl.Size = new System.Drawing.Size(283, 262);
             this.tileTextureControl.TabIndex = 1;
-            this.tileTextureControl.TileDimension = 16;
             // 
             // TileTextureSelector
             // 

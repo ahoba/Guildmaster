@@ -12,17 +12,23 @@ namespace Tools.Factories
     {
         private TileSetRepository _tileSetRepository;
 
-        public TileMapEditorControlFactory(TileSetRepository tileSetRepository)
+        private TileMapRepository _tileMapRepository;
+
+        public TileMapEditorControlFactory(
+            TileSetRepository tileSetRepository,
+            TileMapRepository tileMapRepository)
         {
             _tileSetRepository = tileSetRepository;
+
+            _tileMapRepository = tileMapRepository;
         }
 
         public Control CreateControl()
         {
-            return new TileMapEditorControl()
+            return new TileMapRepositoryControl()
             {
                 TileSetRepository = _tileSetRepository,
-                TileDimension = 16,
+                TileMapRepository = _tileMapRepository
             };
         }
     }

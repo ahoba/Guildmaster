@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Danke.Scenes.Tiles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,17 +21,6 @@ namespace Tools.Util
             private set; 
         }
 
-        private int _tileDimension = 16;
-
-        public int TileDimension 
-        { 
-            get => _tileDimension;
-            set
-            {
-                _tileDimension = value;
-            }
-        }
-
         private Point _selectionStart;
 
         private Point _selectionEnd;
@@ -44,15 +34,15 @@ namespace Tools.Util
                 Rectangle[] rects = new Rectangle[]
                 {
                     new Rectangle(
-                        _selectionStart.X * TileDimension,
-                        _selectionStart.Y * TileDimension,
-                        TileDimension,
-                        TileDimension),
+                        _selectionStart.X * TileScene.TileDimension,
+                        _selectionStart.Y * TileScene.TileDimension,
+                        TileScene.TileDimension,
+                        TileScene.TileDimension),
                     new Rectangle(
-                        _selectionEnd.X * TileDimension,
-                        _selectionEnd.Y * TileDimension,
-                        TileDimension,
-                        TileDimension)
+                        _selectionEnd.X * TileScene.TileDimension,
+                        _selectionEnd.Y * TileScene.TileDimension,
+                        TileScene.TileDimension,
+                        TileScene.TileDimension)
                 };
 
                 int x0 = rects.Min(r => r.X);
@@ -69,15 +59,15 @@ namespace Tools.Util
         {
             get
             {
-                for (int i = 0; i * TileDimension < Selection.Height; i++)
+                for (int i = 0; i * TileScene.TileDimension < Selection.Height; i++)
                 {
-                    for (int j = 0; j * TileDimension < Selection.Width; j++)
+                    for (int j = 0; j * TileScene.TileDimension < Selection.Width; j++)
                     {
                         yield return new Rectangle(
-                            i * TileDimension,
-                            j * TileDimension,
-                            TileDimension,
-                            TileDimension);
+                            i * TileScene.TileDimension,
+                            j * TileScene.TileDimension,
+                            TileScene.TileDimension,
+                            TileScene.TileDimension);
                     }
                 }
             }
@@ -87,7 +77,7 @@ namespace Tools.Util
         {
             get
             {
-                int columns = Texture.Width / TileDimension;
+                int columns = Texture.Width / TileScene.TileDimension;
 
                 for (int i = Math.Min(_selectionStart.Y, _selectionEnd.Y); i <= Math.Max(_selectionStart.Y, _selectionEnd.Y); i++)
                 {
@@ -108,7 +98,7 @@ namespace Tools.Util
                 int x = Math.Min(_selectionStart.X, _selectionEnd.X);
                 int y = Math.Min(_selectionStart.Y, _selectionEnd.Y);
 
-                int columns = Texture.Width / TileDimension;
+                int columns = Texture.Width / TileScene.TileDimension;
 
                 for (int i = 0; i < ret.Length; i++)
                 {
@@ -149,15 +139,15 @@ namespace Tools.Util
         {
             if (pictureBox.Image != null)
             {
-                for (int i = 0; i * TileDimension < pictureBox.Image.Height; i++)
+                for (int i = 0; i * TileScene.TileDimension < pictureBox.Image.Height; i++)
                 {
-                    for (int j = 0; j * TileDimension < pictureBox.Image.Width; j++)
+                    for (int j = 0; j * TileScene.TileDimension < pictureBox.Image.Width; j++)
                     {
                         Rectangle rectangle = new Rectangle(
-                            j * TileDimension,
-                            i * TileDimension,
-                            TileDimension,
-                            TileDimension);
+                            j * TileScene.TileDimension,
+                            i * TileScene.TileDimension,
+                            TileScene.TileDimension,
+                            TileScene.TileDimension);
 
                         e.Graphics.DrawRectangle(Pens.Black, rectangle);
                     }
@@ -173,8 +163,8 @@ namespace Tools.Util
             {
                 _selection = true;
 
-                _selectionStart = new Point(e.X / TileDimension, e.Y / TileDimension);
-                _selectionEnd = new Point(e.X / TileDimension, e.Y / TileDimension);
+                _selectionStart = new Point(e.X / TileScene.TileDimension, e.Y / TileScene.TileDimension);
+                _selectionEnd = new Point(e.X / TileScene.TileDimension, e.Y / TileScene.TileDimension);
 
                 pictureBox.Refresh();
             }
@@ -187,7 +177,7 @@ namespace Tools.Util
                 int x = Math.Min(Math.Max(0, e.X), pictureBox.Image.Width);
                 int y = Math.Min(Math.Max(0, e.Y), pictureBox.Image.Height);
 
-                _selectionEnd = new Point(x / TileDimension, y / TileDimension);
+                _selectionEnd = new Point(x / TileScene.TileDimension, y / TileScene.TileDimension);
 
                 pictureBox.Refresh();
             }

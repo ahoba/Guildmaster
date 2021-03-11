@@ -12,19 +12,31 @@ namespace Tools.Scenes.Tiles
 {
     public partial class TileMapEditorControl : UserControl
     {
+        private TileMap _map;
+
+        public TileMap Map
+        {
+            get => _map;
+            set
+            {
+                _map = value;
+
+                if (_map != null)
+                {
+                    textBoxMapName.Text = _map.Name;
+
+                    numericUpDownHeight.Value = _map.Height;
+                    numericUpDownWidth.Value = _map.Width;
+
+                    tileMapControl.SetMap(_map);
+                }
+            }
+        }
+
         public TileSetRepository TileSetRepository
         {
             get => tileSetControl.TileSetRepository;
             set => tileSetControl.TileSetRepository = value;
-        }
-
-        public int TileDimension
-        {
-            get => tileMapControl.TileDimension;
-            set
-            {
-                tileMapControl.TileDimension = value;
-            }
         }
 
         public TileMapEditorControl()
@@ -88,6 +100,16 @@ namespace Tools.Scenes.Tiles
         private void numericUpDownWidth_ValueChanged(object sender, EventArgs e)
         {
             tileMapControl.ColumnCount = (int)numericUpDownWidth.Value;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            _map.Layers[0] = tileMapControl.Layers[0];
+            _map.Layers[1] = tileMapControl.Layers[1];
+
+            _map.TileSet = tileMapControl.TileSet;
+
+            _map.Name = textBoxMapName.Text;
         }
     }
 }

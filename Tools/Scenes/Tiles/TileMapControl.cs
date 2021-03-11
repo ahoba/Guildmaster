@@ -13,19 +13,6 @@ namespace Tools.Scenes.Tiles
 {
     public partial class TileMapControl : UserControl
     {
-        private int _tileDimension;
-
-        public int TileDimension 
-        { 
-            get => _tileDimension; 
-            set
-            {
-                _tileDimension = value;
-
-                AdjustSize();
-            }
-        }
-
         private TileSet _tileSet;
 
         public TileSet TileSet
@@ -37,7 +24,7 @@ namespace Tools.Scenes.Tiles
             }
         }
 
-        private TileMapLayer[] _layers;
+        public TileMapLayer[] Layers { get; private set; }
 
         private int _rowCount;
 
@@ -53,33 +40,33 @@ namespace Tools.Scenes.Tiles
 
                 _rowCount = value;
 
-                for (int layer = 0; layer < _layers.Length; layer++)
+                for (int layer = 0; layer < Layers.Length; layer++)
                 {
-                    if (_layers[layer].Tiles == null)
+                    if (Layers[layer].Tiles == null)
                     {
-                        _layers[layer].Tiles = new int[_rowCount][];
+                        Layers[layer].Tiles = new int[_rowCount][];
 
                         for (int i = 0; i < _rowCount; i++)
                         {
-                            _layers[layer].Tiles[i] = new int[_columnCount];
+                            Layers[layer].Tiles[i] = new int[_columnCount];
                         }
                     }
                     else
                     {
                         int[][] newTiles = new int[_rowCount][];
 
-                        for (int i = 0; i < Math.Max(_rowCount, _layers[layer].Tiles.Length); i++)
+                        for (int i = 0; i < Math.Max(_rowCount, Layers[layer].Tiles.Length); i++)
                         {
                             if (i >= _rowCount)
                             {
                                 break;
                             }
 
-                            newTiles[i] = i >= _layers[layer].Tiles.Length ?
-                                CreateEmptyRow(_columnCount) : _layers[layer].Tiles[i];
+                            newTiles[i] = i >= Layers[layer].Tiles.Length ?
+                                CreateEmptyRow(_columnCount) : Layers[layer].Tiles[i];
                         }
 
-                        _layers[layer].Tiles = newTiles;
+                        Layers[layer].Tiles = newTiles;
                     }
                 }
 
@@ -101,40 +88,40 @@ namespace Tools.Scenes.Tiles
 
                 _columnCount = value;
 
-                for (int layer = 0; layer < _layers.Length; layer++)
+                for (int layer = 0; layer < Layers.Length; layer++)
                 {
-                    if (_layers[layer].Tiles == null)
+                    if (Layers[layer].Tiles == null)
                     {
-                        _layers[layer].Tiles = new int[_rowCount][];
+                        Layers[layer].Tiles = new int[_rowCount][];
 
                         for (int i = 0; i < _rowCount; i++)
                         {
-                            _layers[layer].Tiles[i] = CreateEmptyRow(_columnCount);
+                            Layers[layer].Tiles[i] = CreateEmptyRow(_columnCount);
                         }
                     }
                     else
                     {
                         for (int i = 0; i < _rowCount; i++)
                         {
-                            if (_layers[layer].Tiles[i] == null)
+                            if (Layers[layer].Tiles[i] == null)
                             {
-                                _layers[layer].Tiles[i] = CreateEmptyRow(_columnCount);
+                                Layers[layer].Tiles[i] = CreateEmptyRow(_columnCount);
                             }
                             else
                             {
                                 int[] newRow = new int[_columnCount];
 
-                                for (int j = 0; j < Math.Max(_rowCount, _layers[layer].Tiles[i].Length); j++)
+                                for (int j = 0; j < Math.Max(_rowCount, Layers[layer].Tiles[i].Length); j++)
                                 {
                                     if (j >= _columnCount)
                                     {
                                         break;
                                     }
 
-                                    newRow[j] = j >= _layers[layer].Tiles[i].Length ? -1 : _layers[layer].Tiles[i][j];
+                                    newRow[j] = j >= Layers[layer].Tiles[i].Length ? -1 : Layers[layer].Tiles[i][j];
                                 }
 
-                                _layers[layer].Tiles[i] = newRow;
+                                Layers[layer].Tiles[i] = newRow;
                             }
                         }
                     }
@@ -168,18 +155,18 @@ namespace Tools.Scenes.Tiles
         {
             InitializeComponent();
 
-            _layers = new TileMapLayer[2];
+            Layers = new TileMapLayer[2];
 
-            _layers[0] = new TileMapLayer();
-            _layers[1] = new TileMapLayer();
+            Layers[0] = new TileMapLayer();
+            Layers[1] = new TileMapLayer();
         }
 
         private void AdjustSize()
         {
             pictureBoxMap.SuspendLayout();
 
-            pictureBoxMap.Height = _rowCount * _tileDimension;
-            pictureBoxMap.Width = _columnCount * _tileDimension;
+            pictureBoxMap.Height = _rowCount * TileScene.TileDimension;
+            pictureBoxMap.Width = _columnCount * TileScene.TileDimension;
 
             if (pictureBoxMap.Height > 0 && pictureBoxMap.Width > 0)
             {
@@ -195,7 +182,7 @@ namespace Tools.Scenes.Tiles
                     {
                         for (int j = 0; j < _columnCount; j++)
                         {
-                            g.DrawRectangle(Pens.Black, new Rectangle(j * TileDimension, i * TileDimension, TileDimension, TileDimension));
+                            g.DrawRectangle(Pens.Black, new Rectangle(j * TileScene.TileDimension, i * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension));
                         }
                     }
                 }
@@ -208,7 +195,7 @@ namespace Tools.Scenes.Tiles
 
         public void SetTile(int layer, int row, int column, int tileId)
         {
-            if (layer < _layers.Length &&
+            if (layer < Layers.Length &&
                 row < RowCount &&
                 column < ColumnCount &&
                 TileSet != null)
@@ -221,28 +208,28 @@ namespace Tools.Scenes.Tiles
 
                 if (pictureBoxMap.Image == null)
                 {
-                    pictureBoxMap.Image = new Bitmap(ColumnCount * TileDimension, RowCount * TileDimension);
+                    pictureBoxMap.Image = new Bitmap(ColumnCount * TileScene.TileDimension, RowCount * TileScene.TileDimension);
                 }
 
-                _layers[layer].Tiles[row][column] = tileId;
+                Layers[layer].Tiles[row][column] = tileId;
                 
-                for (int i = 0; i < TileDimension; i++)
+                for (int i = 0; i < TileScene.TileDimension; i++)
                 {
-                    for (int j = 0; j < TileDimension; j++)
+                    for (int j = 0; j < TileScene.TileDimension; j++)
                     {
-                        (pictureBoxMap.Image as Bitmap).SetPixel(column * TileDimension + j, row * TileDimension + i, Color.Transparent);
+                        (pictureBoxMap.Image as Bitmap).SetPixel(column * TileScene.TileDimension + j, row * TileScene.TileDimension + i, Color.Transparent);
                     }
                 }
                 
                 Graphics g = Graphics.FromImage(pictureBoxMap.Image);
 
-                for (int k = 0; k < _layers.Length; k++)
+                for (int k = 0; k < Layers.Length; k++)
                 {
-                    tileId = _layers[k].Tiles[row][column];
+                    tileId = Layers[k].Tiles[row][column];
 
                     Tile tile = TileSet[tileId];
 
-                    Rectangle r = new Rectangle(column * TileDimension, row * TileDimension, TileDimension, TileDimension);
+                    Rectangle r = new Rectangle(column * TileScene.TileDimension, row * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension);
                     
                     if (tile != null)
                     {
@@ -258,6 +245,56 @@ namespace Tools.Scenes.Tiles
 
                 pictureBoxMap.Refresh();
             }
+        }
+
+        public void SetMap(TileMap map)
+        {
+            _tileSet = (TileSet)map.TileSet;
+
+            _rowCount = map.Height;
+            _columnCount = map.Width;
+
+            Layers[0] = new TileMapLayer()
+            {
+                Tiles = map.GetLayerTiles(TileMapLayers.Background).Select(x => x.ToArray()).ToArray()
+            };
+
+            Layers[1] = new TileMapLayer()
+            {
+                Tiles = map.GetLayerTiles(TileMapLayers.Foreground).Select(x => x.ToArray()).ToArray()
+            };
+
+            pictureBoxMap.SuspendLayout();
+
+            pictureBoxMap.Image = new Bitmap(ColumnCount * TileScene.TileDimension, RowCount * TileScene.TileDimension);
+
+            if (_tileSet != null)
+            {
+                Graphics g = Graphics.FromImage(pictureBoxMap.Image);
+
+                for (int layer = 0; layer < Layers.Length; layer++)
+                {
+                    for (int i = 0; i < _rowCount; i++)
+                    {
+                        for (int j = 0; j < _columnCount; j++)
+                        {
+                            int tileId = Layers[layer].Tiles[i][j];
+
+                            Tile tile = TileSet[tileId];
+
+                            g.DrawImage(
+                                _tileSet.Texture,
+                                new Rectangle(j * TileScene.TileDimension, i * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension),
+                                Util.XnaToDrawing.Rectangle(tile.Rectangle),
+                                GraphicsUnit.Pixel);
+                        }
+                    }
+                }   
+            }
+
+            pictureBoxMap.ResumeLayout();
+
+            AdjustSize();
         }
 
         private void pictureBoxMap_MouseDown(object sender, MouseEventArgs e)
@@ -277,9 +314,9 @@ namespace Tools.Scenes.Tiles
 
         private void HandleSelection(MouseEventArgs e)
         {
-            int selectedRow = e.Y / TileDimension;
+            int selectedRow = e.Y / TileScene.TileDimension;
 
-            int selectedColumn = e.X / TileDimension;
+            int selectedColumn = e.X / TileScene.TileDimension;
 
             if (SelectedRow.HasValue && SelectedColumn.HasValue)
             {

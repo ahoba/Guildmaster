@@ -29,6 +29,8 @@ namespace Tools
 
         private TileSetRepository _tileSetRepository;
 
+        private TileMapRepository _tileMapRepository;
+
         private GameObjectRepository _objectRepository;
 
         private Dictionary<string, IControlFactory> _controlFactories;
@@ -43,12 +45,14 @@ namespace Tools
 
             _tileSetRepository = new TileSetRepository();
 
+            _tileMapRepository = new TileMapRepository();
+
             _objectRepository = new GameObjectRepository();
 
             _controlFactories = new Dictionary<string, IControlFactory>();
             _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
             _controlFactories[nameof(TileSetRepositoryControl)] = new TileSetRepositoryControlFactory(_tileSetRepository, _textureRepository);
-            _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository);
+            _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository, _tileMapRepository);
             _controlFactories[nameof(AnimationRepositoryControl)] = new AnimationRepositoryControlFactory(_textureRepository, _animationRepository);
             _controlFactories[nameof(ObjectRepositoryControl)] = new ObjectRepositoryControlFactory(_objectRepository);
         }

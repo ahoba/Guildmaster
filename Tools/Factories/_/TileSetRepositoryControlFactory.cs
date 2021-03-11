@@ -27,8 +27,7 @@ namespace Tools.Factories
             return new TileSetRepositoryControl
             {
                 TileSetRepository = _tileSetRepository,
-                TextureRepository = _textureRepository,
-                TileDimension = 16
+                TextureRepository = _textureRepository
             };
         }
     }

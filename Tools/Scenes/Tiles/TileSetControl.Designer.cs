@@ -52,7 +52,6 @@ namespace Tools.Scenes.Tiles
             this.tileTextureControl.Name = "tileTextureControl";
             this.tileTextureControl.Size = new System.Drawing.Size(216, 243);
             this.tileTextureControl.TabIndex = 1;
-            this.tileTextureControl.TileDimension = 16;
             // 
             // TileSetControl
             // 

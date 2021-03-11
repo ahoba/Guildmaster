@@ -13,6 +13,8 @@ namespace Danke.Scenes.Tiles
 {
     public class TileScene : Scene
     {
+        public static int TileDimension { get; set; } = 16;
+
         private struct TextureWrapper
         {
             public Vector2 Position { get; set; }
@@ -69,10 +71,10 @@ namespace Danke.Scenes.Tiles
                     //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Background).Texture, position, Color.White);
                     //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Foreground).Texture, position, Color.White);
 
-                    position.X += _baseMap.TileDimension;
+                    position.X += TileScene.TileDimension;
                 }
 
-                position.Y += _baseMap.TileDimension;
+                position.Y += TileScene.TileDimension;
             }
 
             foreach (GameObject obj in Objects)

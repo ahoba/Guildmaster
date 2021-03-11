@@ -77,7 +77,6 @@ namespace Tools.Objects
             this.tileObjectControl.Size = new System.Drawing.Size(257, 260);
             this.tileObjectControl.TabIndex = 1;
             this.tileObjectControl.TileData = null;
-            this.tileObjectControl.TileDimension = 16;
             this.tileObjectControl.TileHeight = 0;
             this.tileObjectControl.TileWidth = 0;
             // 
