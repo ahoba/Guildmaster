@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Danke.Scenes.Tiles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools.Objects;
 
 namespace Tools.Scenes.Tiles
 {
@@ -46,7 +48,7 @@ namespace Tools.Scenes.Tiles
             numericUpDownWidth.Value = 10;
             numericUpDownHeight.Value = 10;
 
-            comboBoxLayer.DataSource = Enum.GetValues(typeof(Danke.Scenes.Tiles.TileMapLayers));
+            comboBoxLayer.DataSource = Enum.GetValues(typeof(TileMapLayers));
         }
 
         private void tileSetControl_SelectedTileSetChanged(object sender, SelectedTileSetChangedEventArgs e)
@@ -56,7 +58,7 @@ namespace Tools.Scenes.Tiles
 
         private void tileMapControl_SelectedTileChanged(object sender, SelectedTileChangedEventArgs e)
         {
-            if (comboBoxLayer.SelectedItem is Danke.Scenes.Tiles.TileMapLayers layer)
+            if (comboBoxLayer.SelectedItem is TileMapLayers layer)
             {
                 //tileMapControl.SetTile((int)layer, e.Row, e.Column, _eraser ? -1 : tileSetControl.SelectedTileId);
 
@@ -64,7 +66,7 @@ namespace Tools.Scenes.Tiles
                 {
                     tileMapControl.SetTile((int)layer, e.Row, e.Column, -1);
                 }
-                else
+                else if (tileSetControl.Texture != null)
                 {
                     int[][] selectedTiles = tileSetControl.SelectionMatrix;
 
@@ -110,6 +112,36 @@ namespace Tools.Scenes.Tiles
             _map.TileSet = tileMapControl.TileSet;
 
             _map.Name = textBoxMapName.Text;
+        }
+
+        private void tileMapControl_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(TileObject)) is TileObject tileObject)
+            {
+                //comboBoxLayer.SelectedItem = TileMapLayers.Objects;
+
+                Point controlPoint = tileMapControl.PointToClient(new Point(e.X, e.Y));
+
+                TileObjectInstance instance = new TileObjectInstance(
+                    tileObject,
+                    controlPoint.Y / TileScene.TileDimension,
+                    controlPoint.X / TileScene.TileDimension);
+
+                if (!_map.TryAddObjectInstance(instance, out var error))
+                {
+                    return;
+                }
+
+                tileMapControl.AddObject(instance);
+            }
+        }
+
+        private void tileMapControl_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(TileObject)) is TileObject)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
         }
     }
 }

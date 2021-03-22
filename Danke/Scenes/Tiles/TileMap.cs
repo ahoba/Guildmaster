@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Danke.Objects.Tiles;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
@@ -24,69 +25,29 @@ namespace Danke.Scenes.Tiles
 
         public int Width { get => Layers[0].Tiles[0].Length; }
 
-        public virtual TileMapLayer[] Layers { get; protected set; } = new TileMapLayer[2];
+        public virtual TileMapLayer[] Layers { get; protected set; } = new TileMapLayer[Enum.GetNames(typeof(TileMapLayers)).Length];
+
+        public List<TileObjectInstance<T>> Objects { get; } = new List<TileObjectInstance<T>>();
 
         public TileMap(int height, int width)
         {
-            Layers[0] = new TileMapLayer()
+            for (int i = 0; i < Layers.Length; i++)
             {
-                Tiles = new int[height][]
-            };
-
-            Layers[1] = new TileMapLayer()
-            {
-                Tiles = new int[height][]
-            };
-
-            for (int i = 0; i < height; i++)
-            {
-                Layers[0].Tiles[i] = new int[width];
-                Layers[1].Tiles[i] = new int[width];
-
-                for (int j = 0; j < width; j++)
+                Layers[i] = new TileMapLayer()
                 {
-                    Layers[0].Tiles[i][j] = -1;
-                    Layers[1].Tiles[i][j] = -1;
+                    Tiles = new int[height][]
+                };
+                
+                for (int j = 0; j < height; j++)
+                {
+                    Layers[i].Tiles[j] = new int[width];
+                    
+                    for (int k = 0; k < width; k++)
+                    {
+                        Layers[i].Tiles[j][k] = -1;
+                    }
                 }
             }
-        }
-
-        public TileMap(int[][] backgroundLayer)
-        {
-            Layers[0] = new TileMapLayer()
-            {
-                Tiles = backgroundLayer
-            };
-
-            int[][] foregroundLayer = new int[Height][];
-
-            for (int i = 0; i < backgroundLayer.Length; i++)
-            {
-                foregroundLayer[i] = new int[Width];
-
-                for (int j = 0; j < Width; j++)
-                {
-                    foregroundLayer[i][j] = -1;
-                }
-            }
-
-            Layers[1] = new TileMapLayer()
-            {
-                Tiles = foregroundLayer
-            };
-        }
-
-        public TileMap(int[][] backgroundLayer, int[][] foregroundLayer)
-        {
-            Layers[0] = new TileMapLayer()
-            {
-                Tiles = backgroundLayer
-            };
-
-            Layers[1] = new TileMapLayer()
-            {
-                Tiles = foregroundLayer
-            };
         }
 
         public Tile TileAt(int row, int column, TileMapLayers layer)
@@ -110,6 +71,67 @@ namespace Danke.Scenes.Tiles
         {
             return Layers[(int)layer].Tiles;
         }
+
+        public enum AddObjectError
+        {
+            None,
+            BlockingBackground,
+            BlockingForeground,
+            BlockingObject,
+            MapWidthError,
+            MapHeightError
+        }
+
+        public bool TryAddObjectInstance(TileObjectInstance<T> tileObjectInstance, out AddObjectError error)
+        {
+            error = AddObjectError.None;
+
+            if (tileObjectInstance.Y + tileObjectInstance.TileHeight > Height)
+            {
+                error = AddObjectError.MapHeightError;
+
+                return false;
+            }
+
+            if (tileObjectInstance.X + tileObjectInstance.TileWidth > Width)
+            {
+                error = AddObjectError.MapWidthError;
+
+                return false;
+            }
+
+            for (int y = 0; y < tileObjectInstance.TileHeight; y++)
+            {
+                for (int x = 0; x < tileObjectInstance.TileWidth; x++)
+                {
+                    Tile tile = TileAt(tileObjectInstance.Y + y, tileObjectInstance.X + x, TileMapLayers.Background);
+
+                    if (tile != null && tile.Type != TileType.Floor)
+                    {
+                        error = AddObjectError.BlockingBackground;
+
+                        return false;
+                    }
+
+                    tile = TileAt(tileObjectInstance.Y + y, tileObjectInstance.X + x, TileMapLayers.Foreground);
+
+                    if (tile != null)
+                    {
+                        error = AddObjectError.BlockingForeground;
+
+                        return false;
+                    }
+
+                    // To do: Check if there is an object already
+                }
+            }
+
+            int index = Objects.Count;
+
+            Objects.Add(tileObjectInstance);
+
+            return true;
+        }
     }
 
     public enum TileMapLayers
@@ -117,5 +139,4 @@ namespace Danke.Scenes.Tiles
         Background = 0,
         Foreground = 1
     }
-
 }

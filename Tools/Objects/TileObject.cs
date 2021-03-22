@@ -27,4 +27,19 @@ namespace Tools.Objects
             }
         }
     }
+
+    [Serializable]
+    public class TileObjectInstance : TileObjectInstance<Image>
+    {
+        public TileObjectInstance(TileObject obj, int row, int column)
+        {
+            this.Y = row;
+            this.X = column;
+
+            Animations = obj.Animations;
+            TileWidth = obj.TileWidth;
+            TileHeight = obj.TileHeight;
+            TileData = obj.TileData;
+        }
+    }
 }

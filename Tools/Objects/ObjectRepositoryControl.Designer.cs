@@ -48,6 +48,8 @@ namespace Tools.Objects
             this.listBoxObjects.TabIndex = 0;
             this.listBoxObjects.ValueMember = "Name";
             this.listBoxObjects.SelectedIndexChanged += new System.EventHandler(this.listBoxObjects_SelectedIndexChanged);
+            this.listBoxObjects.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxObjects_MouseDown);
+            this.listBoxObjects.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listBoxObjects_MouseMove);
             // 
             // tableLayoutPanel1
             // 
@@ -76,7 +78,6 @@ namespace Tools.Objects
             this.tileObjectControl.Name = "tileObjectControl";
             this.tileObjectControl.Size = new System.Drawing.Size(257, 260);
             this.tileObjectControl.TabIndex = 1;
-            this.tileObjectControl.TileData = null;
             this.tileObjectControl.TileHeight = 0;
             this.tileObjectControl.TileWidth = 0;
             // 

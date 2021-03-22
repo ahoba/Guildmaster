@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools.Animations;
+using Tools.Objects;
 
 namespace Tools.Scenes.Tiles
 {
@@ -25,6 +27,8 @@ namespace Tools.Scenes.Tiles
         }
 
         public TileMapLayer[] Layers { get; private set; }
+
+        public List<TileObjectInstance> Objects { get; private set; } = new List<TileObjectInstance>();
 
         private int _rowCount;
 
@@ -155,10 +159,12 @@ namespace Tools.Scenes.Tiles
         {
             InitializeComponent();
 
-            Layers = new TileMapLayer[2];
+            Layers = new TileMapLayer[Enum.GetValues(typeof(TileMapLayers)).Length];
 
-            Layers[0] = new TileMapLayer();
-            Layers[1] = new TileMapLayer();
+            for (int i = 0; i < Layers.Length; i++)
+            {
+                Layers[i] = new TileMapLayer();
+            }
         }
 
         private void AdjustSize()
@@ -295,6 +301,39 @@ namespace Tools.Scenes.Tiles
             pictureBoxMap.ResumeLayout();
 
             AdjustSize();
+        }
+
+        public void AddObject(TileObjectInstance instance)
+        {
+            pictureBoxMap.SuspendLayout();
+
+            Objects.Add(instance);
+
+            if (instance.Animations?.Length > 0)
+            {
+                Animation animation = (Animation)instance.Animations[0];
+                
+                if (pictureBoxMap.Image == null)
+                {
+                    pictureBoxMap.Image = new Bitmap(ColumnCount * TileScene.TileDimension, RowCount * TileScene.TileDimension);
+                }
+
+                Graphics g = Graphics.FromImage(pictureBoxMap.Image);
+
+                g.DrawImage(
+                    animation.SourceTexture,
+                    new Rectangle(
+                        instance.X * TileScene.TileDimension,
+                        instance.Y * TileScene.TileDimension,
+                        instance.TileWidth * TileScene.TileDimension,
+                        instance.TileHeight * TileScene.TileDimension),
+                    Util.XnaToDrawing.Rectangle(animation.Sprites[0]),
+                    GraphicsUnit.Pixel);
+            }
+
+            pictureBoxMap.ResumeLayout();
+
+            pictureBoxMap.Refresh();
         }
 
         private void pictureBoxMap_MouseDown(object sender, MouseEventArgs e)

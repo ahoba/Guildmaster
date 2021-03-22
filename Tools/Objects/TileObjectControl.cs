@@ -120,7 +120,7 @@ namespace Tools.Objects
 
         private void listBoxAnimations_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxAnimations.SelectedItem is Animation animation)
+            if (listBoxAnimations.SelectedItem is Animation animation && animation.Sprites?.Length > 0)
             {
                 Rectangle sprite = Util.XnaToDrawing.Rectangle(animation.Sprites[0]);
 
@@ -200,6 +200,12 @@ namespace Tools.Objects
                 if (!Animations.Contains(animation))
                 {
                     Animations.Add(animation);
+
+                    _tileObject.TileHeight = Math.Max(
+                        _tileObject.TileHeight, animation.Sprites.Max(x => x.Height / TileScene.TileDimension));
+
+                    _tileObject.TileWidth = Math.Max(
+                        _tileObject.TileWidth, animation.Sprites.Max(x => x.Width / TileScene.TileDimension));
                 }
             }
         }

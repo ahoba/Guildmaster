@@ -33,15 +33,5 @@ namespace Tools.Scenes.Tiles
         {
 
         }
-
-        public TileMap(int[][] backgroundLayer) : base(backgroundLayer)
-        {
-
-        }
-
-        public TileMap(int[][] backgroundLayer, int[][] foregroundLayer) : base(backgroundLayer, foregroundLayer)
-        {
-
-        }
     }
 }

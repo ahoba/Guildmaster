@@ -209,6 +209,7 @@ namespace Tools.Scenes.Tiles
             // 
             // tileMapControl
             // 
+            this.tileMapControl.AllowDrop = true;
             this.tileMapControl.ColumnCount = 10;
             this.tileMapControl.Location = new System.Drawing.Point(281, 37);
             this.tileMapControl.Name = "tileMapControl";
@@ -219,6 +220,8 @@ namespace Tools.Scenes.Tiles
             this.tileMapControl.TabIndex = 2;
             this.tileMapControl.TileSet = null;
             this.tileMapControl.SelectedTileChanged += new System.EventHandler<Tools.Scenes.Tiles.SelectedTileChangedEventArgs>(this.tileMapControl_SelectedTileChanged);
+            this.tileMapControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.tileMapControl_DragDrop);
+            this.tileMapControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.tileMapControl_DragEnter);
             // 
             // tileSetControl
             // 

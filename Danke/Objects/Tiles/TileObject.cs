@@ -18,4 +18,12 @@ namespace Danke.Objects.Tiles
 
         public TileType[][] TileData { get; set; }
     }
+
+    [Serializable]
+    public class TileObjectInstance<T> : TileObject<T>
+    {
+        public int X { get; set; }
+        
+        public int Y { get; set; }
+    }
 }

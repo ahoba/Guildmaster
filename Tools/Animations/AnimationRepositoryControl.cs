@@ -10,6 +10,7 @@ namespace Tools.Animations
     {
         private AnimationRepository _animationRepository;
 
+        private Timer _dragDropTimer = new Timer();
         public TextureRepository TextureRepository
         {
             get => animationEditControl.TextureRepository;
@@ -30,6 +31,22 @@ namespace Tools.Animations
         public AnimationRepositoryControl()
         {
             InitializeComponent();
+
+            _dragDropTimer.Interval = 100;
+            _dragDropTimer.Tick += _dragDropTimer_Tick;
+        }
+
+        private void _dragDropTimer_Tick(object sender, EventArgs e)
+        {
+            if (listBoxAnimations.SelectedItem is Animation animation)
+            {
+                this.Invoke((MethodInvoker)delegate 
+                {
+                    _dragDropTimer.Stop();
+
+                    DoDragDrop(animation, DragDropEffects.Move);
+                });
+            }
         }
 
         private void listBoxAnimations_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,8 +77,13 @@ namespace Tools.Animations
         {
             if (listBoxAnimations.SelectedItem is Animation animation)
             {
-                DoDragDrop(animation, DragDropEffects.Move);
+                _dragDropTimer.Start();
             }
+        }
+
+        private void listBoxAnimations_MouseMove(object sender, MouseEventArgs e)
+        {
+            _dragDropTimer.Stop();
         }
     }
 }
