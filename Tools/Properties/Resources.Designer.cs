@@ -63,6 +63,16 @@ namespace Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow_move {
+            get {
+                object obj = ResourceManager.GetObject("arrow_move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap block__plus {
             get {
                 object obj = ResourceManager.GetObject("block__plus", resourceCulture);

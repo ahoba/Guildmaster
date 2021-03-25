@@ -58,7 +58,7 @@ namespace Tools.Scenes.Tiles
 
         private void tileMapControl_SelectedTileChanged(object sender, SelectedTileChangedEventArgs e)
         {
-            if (comboBoxLayer.SelectedItem is TileMapLayers layer)
+            if (selectedObject == null && comboBoxLayer.SelectedItem is TileMapLayers layer)
             {
                 if (toolStripButtonErase.Checked)
                 {
@@ -146,6 +146,53 @@ namespace Tools.Scenes.Tiles
             {
                 e.Effect = DragDropEffects.Move;
             }
+        }
+
+        private TileObjectInstance selectedObject;
+
+        private void tileMapControl_SelectedTileStart(object sender, SelectedTileChangedEventArgs e)
+        {
+            Cursor.Current = Cursors.Hand;
+
+            tileMapControl.TryGetObject(e.Row, e.Column, out selectedObject);
+        }
+
+        private void tileMapControl_SelectedTileEnd(object sender, SelectedTileChangedEventArgs e)
+        {
+            if (selectedObject != null)
+            {
+                int x = selectedObject.X;
+                int y = selectedObject.Y;
+
+                if (x != e.Row || y != e.Column)
+                {
+                    if (tileMapControl.TryRemoveObject(y, x))
+                    {
+                        selectedObject.X = e.Column;
+                        selectedObject.Y = e.Row;
+
+                        if (tileMapControl.TryAddObject(selectedObject))
+                        {
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.X = x;
+                            selectedObject.Y = y;
+
+                            tileMapControl.TryAddObject(selectedObject);
+
+                            selectedObject = null;
+                        }
+                    }
+                    else
+                    {
+                        selectedObject = null;
+                    }
+                }
+            }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

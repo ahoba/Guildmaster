@@ -220,6 +220,8 @@ namespace Tools.Scenes.Tiles
             this.tileMapControl.TabIndex = 2;
             this.tileMapControl.TileSet = null;
             this.tileMapControl.SelectedTileChanged += new System.EventHandler<Tools.Scenes.Tiles.SelectedTileChangedEventArgs>(this.tileMapControl_SelectedTileChanged);
+            this.tileMapControl.SelectedTileStart += new System.EventHandler<Tools.Scenes.Tiles.SelectedTileChangedEventArgs>(this.tileMapControl_SelectedTileStart);
+            this.tileMapControl.SelectedTileEnd += new System.EventHandler<Tools.Scenes.Tiles.SelectedTileChangedEventArgs>(this.tileMapControl_SelectedTileEnd);
             this.tileMapControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.tileMapControl_DragDrop);
             this.tileMapControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.tileMapControl_DragEnter);
             // 

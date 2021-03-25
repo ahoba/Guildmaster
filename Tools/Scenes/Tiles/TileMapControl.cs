@@ -155,6 +155,10 @@ namespace Tools.Scenes.Tiles
 
         public event EventHandler<SelectedTileChangedEventArgs> SelectedTileChanged;
 
+        public event EventHandler<SelectedTileChangedEventArgs> SelectedTileStart;
+        
+        public event EventHandler<SelectedTileChangedEventArgs> SelectedTileEnd;
+
         public TileMapControl()
         {
             InitializeComponent();
@@ -357,13 +361,13 @@ namespace Tools.Scenes.Tiles
 
         public bool TryAddObject(TileObjectInstance instance)
         {
+            Rectangle r0 = new Rectangle(instance.X, instance.Y, instance.TileWidth, instance.TileHeight);
+
             for (int y = 0; y < instance.TileHeight; y++)
             {
                 for (int x = 0; x < instance.TileWidth; x++)
                 {
-                    if (Objects.Any(obj =>
-                       instance.X >= obj.X && instance.X <= (obj.X + obj.TileWidth) &&
-                       instance.Y >= obj.Y && instance.Y <= (obj.Y + obj.TileHeight)))
+                    if (Objects.Any(obj => r0.IntersectsWith(new Rectangle(obj.X, obj.Y, obj.TileWidth, obj.TileHeight))))
                     {
                         return false;
                     }
@@ -402,8 +406,8 @@ namespace Tools.Scenes.Tiles
                         g.DrawRectangle(
                                 Pens.Black,
                                 new Rectangle(
-                                    instance.X + j * TileScene.TileDimension, 
-                                    instance.Y + i * TileScene.TileDimension, 
+                                    (instance.X + j) * TileScene.TileDimension, 
+                                    (instance.Y + i) * TileScene.TileDimension, 
                                     TileScene.TileDimension, 
                                     TileScene.TileDimension));
                     }
@@ -466,8 +470,8 @@ namespace Tools.Scenes.Tiles
                             g.DrawRectangle(
                                 Pens.Black, 
                                 new Rectangle(
-                                    objInstance.X + j * TileScene.TileDimension, 
-                                    objInstance.Y + i * TileScene.TileDimension, 
+                                    (objInstance.X + j) * TileScene.TileDimension, 
+                                    (objInstance.Y + i) * TileScene.TileDimension, 
                                     TileScene.TileDimension, 
                                     TileScene.TileDimension));
                         }
@@ -475,17 +479,34 @@ namespace Tools.Scenes.Tiles
                 }
 
                 pictureBoxMap.Refresh();
-                
+
+                Objects.Remove(objInstance);
+
                 return true;
             }
 
             return false;
         }
 
+        public bool TryGetObject(int row, int column, out TileObjectInstance instance)
+        {
+            instance = Objects.FirstOrDefault(obj =>
+                column >= obj.X && column <= (obj.X + obj.TileWidth) &&
+                row >= obj.Y && row <= (obj.Y + obj.TileHeight));
+
+            return instance != null;
+        }
+
         private void pictureBoxMap_MouseDown(object sender, MouseEventArgs e)
         {
             _selection = true;
-            
+
+            int selectedRow = e.Y / TileScene.TileDimension;
+
+            int selectedColumn = e.X / TileScene.TileDimension;
+
+            SelectedTileStart?.Invoke(this, new SelectedTileChangedEventArgs(selectedRow, selectedColumn));
+
             HandleSelection(e);
         }
 
@@ -524,6 +545,12 @@ namespace Tools.Scenes.Tiles
         private void pictureBoxMap_MouseUp(object sender, MouseEventArgs e)
         {
             _selection = false;
+
+            int selectedRow = e.Y / TileScene.TileDimension;
+
+            int selectedColumn = e.X / TileScene.TileDimension;
+
+            SelectedTileEnd?.Invoke(this, new SelectedTileChangedEventArgs(selectedRow, selectedColumn));
         }
 
         private void panel1_MouseLeave(object sender, EventArgs e)
