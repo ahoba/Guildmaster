@@ -106,8 +106,8 @@ namespace Tools.Scenes.Tiles
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            _map.Layers[0] = tileMapControl.Layers[0];
-            _map.Layers[1] = tileMapControl.Layers[1];
+            _map.TileLayers[0] = tileMapControl.Layers[0];
+            _map.TileLayers[1] = tileMapControl.Layers[1];
 
             _map.TileSet = tileMapControl.TileSet;
 
