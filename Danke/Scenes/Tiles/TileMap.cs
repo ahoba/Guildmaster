@@ -89,7 +89,7 @@ namespace Danke.Scenes.Tiles
             return TileLayers[(int)layer].Tiles;
         }
 
-        TileObjectInstance<T> ObjectAt(int row, int column)
+        public TileObjectInstance<T> ObjectAt(int row, int column)
         {
             if (row >= Height || column >= Width)
             {

@@ -60,11 +60,12 @@ namespace Tools.Scenes.Tiles
         {
             if (comboBoxLayer.SelectedItem is TileMapLayers layer)
             {
-                //tileMapControl.SetTile((int)layer, e.Row, e.Column, _eraser ? -1 : tileSetControl.SelectedTileId);
-
                 if (toolStripButtonErase.Checked)
                 {
-                    tileMapControl.SetTile((int)layer, e.Row, e.Column, -1);
+                    if (!tileMapControl.TryRemoveObject(e.Row, e.Column))
+                    {
+                        tileMapControl.SetTile((int)layer, e.Row, e.Column, -1);
+                    }
                 }
                 else if (tileSetControl.Texture != null)
                 {
@@ -111,6 +112,16 @@ namespace Tools.Scenes.Tiles
 
             _map.TileSet = tileMapControl.TileSet;
 
+            _map.ClearObjects();
+
+            foreach (TileObjectInstance instance in tileMapControl.Objects)
+            {
+                if(!_map.TryAddObjectInstance(instance, out var error))
+                {
+                    // Error! To do;
+                }
+            }
+
             _map.Name = textBoxMapName.Text;
         }
 
@@ -118,8 +129,6 @@ namespace Tools.Scenes.Tiles
         {
             if (e.Data.GetData(typeof(TileObject)) is TileObject tileObject)
             {
-                //comboBoxLayer.SelectedItem = TileMapLayers.Objects;
-
                 Point controlPoint = tileMapControl.PointToClient(new Point(e.X, e.Y));
 
                 TileObjectInstance instance = new TileObjectInstance(
@@ -127,12 +136,7 @@ namespace Tools.Scenes.Tiles
                     controlPoint.Y / TileScene.TileDimension,
                     controlPoint.X / TileScene.TileDimension);
 
-                if (!_map.TryAddObjectInstance(instance, out var error))
-                {
-                    return;
-                }
-
-                tileMapControl.AddObject(instance);
+                tileMapControl.TryAddObject(instance);
             }
         }
 

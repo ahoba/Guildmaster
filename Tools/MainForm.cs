@@ -57,11 +57,14 @@ namespace Tools
             _controlFactories[nameof(ObjectRepositoryControl)] = new ObjectRepositoryControlFactory(_objectRepository);
         }
 
-        private void ShowControlOnForm(Control control)
+        private void ShowControlOnForm(Control control, string text)
         {
             control.Dock = DockStyle.Fill;
 
-            Form form = new Form();
+            Form form = new Form()
+            {
+                Text = text
+            };
 
             form.Controls.Add(control);
 
@@ -72,35 +75,35 @@ namespace Tools
         {
             Control control = _controlFactories[nameof(TextureRepositoryControl)].CreateControl();
 
-            ShowControlOnForm(control);
+            ShowControlOnForm(control, "Textures");
         }
 
         private void toolStripButtonTileSetRepository_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(TileSetRepositoryControl)].CreateControl();
             
-            ShowControlOnForm(control);
+            ShowControlOnForm(control, "Tile Sets");
         }
 
         private void toolStripButtonMapEditor_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(TileMapEditorControl)].CreateControl();
 
-            ShowControlOnForm(control);
+            ShowControlOnForm(control, "Tile Maps");
         }
 
         private void toolStripButtonAnimations_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(AnimationRepositoryControl)].CreateControl();
 
-            ShowControlOnForm(control);
+            ShowControlOnForm(control, "Animations");
         }
 
         private void toolStripButtonObjects_Click(object sender, EventArgs e)
         {
             Control control = _controlFactories[nameof(ObjectRepositoryControl)].CreateControl();
 
-            ShowControlOnForm(control);
+            ShowControlOnForm(control, "Objects");
         }
 
         private void toolStripButtonSerialize_Click(object sender, EventArgs e)

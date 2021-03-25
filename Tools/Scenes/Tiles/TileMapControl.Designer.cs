@@ -45,6 +45,8 @@ namespace Tools.Scenes.Tiles
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(387, 317);
             this.panel1.TabIndex = 0;
+            this.panel1.Leave += new System.EventHandler(this.panel1_Leave);
+            this.panel1.MouseLeave += new System.EventHandler(this.panel1_MouseLeave);
             // 
             // pictureBoxMap
             // 

@@ -188,7 +188,13 @@ namespace Tools.Scenes.Tiles
                     {
                         for (int j = 0; j < _columnCount; j++)
                         {
-                            g.DrawRectangle(Pens.Black, new Rectangle(j * TileScene.TileDimension, i * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension));
+                            g.DrawRectangle(
+                                Pens.Black, 
+                                new Rectangle(
+                                    j * TileScene.TileDimension, 
+                                    i * TileScene.TileDimension, 
+                                    TileScene.TileDimension, 
+                                    TileScene.TileDimension));
                         }
                     }
                 }
@@ -223,7 +229,10 @@ namespace Tools.Scenes.Tiles
                 {
                     for (int j = 0; j < TileScene.TileDimension; j++)
                     {
-                        (pictureBoxMap.Image as Bitmap).SetPixel(column * TileScene.TileDimension + j, row * TileScene.TileDimension + i, Color.Transparent);
+                        (pictureBoxMap.Image as Bitmap).SetPixel(
+                            column * TileScene.TileDimension + j, 
+                            row * TileScene.TileDimension + i, 
+                            Color.Transparent);
                     }
                 }
                 
@@ -235,7 +244,11 @@ namespace Tools.Scenes.Tiles
 
                     Tile tile = TileSet[tileId];
 
-                    Rectangle r = new Rectangle(column * TileScene.TileDimension, row * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension);
+                    Rectangle r = new Rectangle(
+                        column * TileScene.TileDimension, 
+                        row * TileScene.TileDimension, 
+                        TileScene.TileDimension, 
+                        TileScene.TileDimension);
                     
                     if (tile != null)
                     {
@@ -247,6 +260,28 @@ namespace Tools.Scenes.Tiles
                     }
 
                     g.DrawRectangle(Pens.Black, r);
+                }
+
+                TileObjectInstance objInstance = Objects.FirstOrDefault(obj => 
+                    column >= obj.X && column <= (obj.X + obj.TileWidth) && 
+                    row >= obj.Y && row <= (obj.Y + obj.TileHeight));
+
+                if (objInstance?.Animations?.Length > 0)
+                {
+                    Animation animation = (Animation)objInstance.Animations[0];
+
+                    if (animation != null)
+                    {
+                        g.DrawImage(
+                            animation.SourceTexture,
+                            new Rectangle(
+                                objInstance.X * TileScene.TileDimension,
+                                objInstance.Y * TileScene.TileDimension,
+                                objInstance.TileWidth * TileScene.TileDimension,
+                                objInstance.TileHeight * TileScene.TileDimension),
+                            Util.XnaToDrawing.Rectangle(animation.Sprites[0]),
+                            GraphicsUnit.Pixel);
+                    }
                 }
 
                 pictureBoxMap.Refresh();
@@ -288,14 +323,31 @@ namespace Tools.Scenes.Tiles
 
                             Tile tile = TileSet[tileId];
 
-                            g.DrawImage(
-                                _tileSet.Texture,
-                                new Rectangle(j * TileScene.TileDimension, i * TileScene.TileDimension, TileScene.TileDimension, TileScene.TileDimension),
-                                Util.XnaToDrawing.Rectangle(tile.Rectangle),
-                                GraphicsUnit.Pixel);
+                            if (tile != null)
+                            {
+                                g.DrawImage(
+                                    _tileSet.Texture,
+                                    new Rectangle(
+                                        j * TileScene.TileDimension, 
+                                        i * TileScene.TileDimension, 
+                                        TileScene.TileDimension, 
+                                        TileScene.TileDimension),
+                                    Util.XnaToDrawing.Rectangle(tile.Rectangle),
+                                    GraphicsUnit.Pixel);
+                            }
                         }
                     }
                 }   
+            }
+
+            Objects.Clear();
+
+            foreach (TileObjectInstance instance in map.Objects)
+            {
+                if(!TryAddObject(instance))
+                {
+                    // Error! To do
+                }
             }
 
             pictureBoxMap.ResumeLayout();
@@ -303,8 +355,21 @@ namespace Tools.Scenes.Tiles
             AdjustSize();
         }
 
-        public void AddObject(TileObjectInstance instance)
+        public bool TryAddObject(TileObjectInstance instance)
         {
+            for (int y = 0; y < instance.TileHeight; y++)
+            {
+                for (int x = 0; x < instance.TileWidth; x++)
+                {
+                    if (Objects.Any(obj =>
+                       instance.X >= obj.X && instance.X <= (obj.X + obj.TileWidth) &&
+                       instance.Y >= obj.Y && instance.Y <= (obj.Y + obj.TileHeight)))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             pictureBoxMap.SuspendLayout();
 
             Objects.Add(instance);
@@ -329,11 +394,92 @@ namespace Tools.Scenes.Tiles
                         instance.TileHeight * TileScene.TileDimension),
                     Util.XnaToDrawing.Rectangle(animation.Sprites[0]),
                     GraphicsUnit.Pixel);
+
+                for (int i = 0; i < instance.TileHeight; i++)
+                {
+                    for (int j = 0; j < instance.TileWidth; j++)
+                    {
+                        g.DrawRectangle(
+                                Pens.Black,
+                                new Rectangle(
+                                    instance.X + j * TileScene.TileDimension, 
+                                    instance.Y + i * TileScene.TileDimension, 
+                                    TileScene.TileDimension, 
+                                    TileScene.TileDimension));
+                    }
+                }
             }
 
             pictureBoxMap.ResumeLayout();
 
             pictureBoxMap.Refresh();
+
+            return true;
+        }
+
+        public bool TryRemoveObject(int row, int column)
+        {
+            TileObjectInstance objInstance = Objects.FirstOrDefault(obj =>
+                    column >= obj.X && column <= (obj.X + obj.TileWidth) &&
+                    row >= obj.Y && row <= (obj.Y + obj.TileHeight));
+
+            if (objInstance != null)
+            {
+                Graphics g = Graphics.FromImage(pictureBoxMap.Image);
+
+                for (int layer = 0; layer < Layers.Length; layer++)
+                {
+                    for (int i = 0; i < objInstance.TileHeight; i++)
+                    {
+                        for (int j = 0; j < objInstance.TileWidth; j++)
+                        {
+                            int tileId = Layers[layer].Tiles[objInstance.Y + i][objInstance.X + j];
+
+                            Tile tile = TileSet?[tileId];
+
+                            if (tile == null)
+                            {
+                                for (int k = 0; k < TileScene.TileDimension; k++)
+                                {
+                                    for (int l = 0; l < TileScene.TileDimension; l++)
+                                    {
+                                        (pictureBoxMap.Image as Bitmap).SetPixel(
+                                            (objInstance.X + j) * TileScene.TileDimension + l, 
+                                            (objInstance.Y + i) * TileScene.TileDimension + k, 
+                                            Color.Transparent);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                g.DrawImage(
+                                    _tileSet.Texture,
+                                    new Rectangle(
+                                        j * TileScene.TileDimension, 
+                                        i * TileScene.TileDimension, 
+                                        TileScene.TileDimension, 
+                                        TileScene.TileDimension),
+                                    Util.XnaToDrawing.Rectangle(tile.Rectangle),
+                                    GraphicsUnit.Pixel);
+                            }
+
+                            g.DrawRectangle(
+                                Pens.Black, 
+                                new Rectangle(
+                                    objInstance.X + j * TileScene.TileDimension, 
+                                    objInstance.Y + i * TileScene.TileDimension, 
+                                    TileScene.TileDimension, 
+                                    TileScene.TileDimension));
+                        }
+                    }
+                }
+
+                pictureBoxMap.Refresh();
+                
+                return true;
+            }
+
+            return false;
         }
 
         private void pictureBoxMap_MouseDown(object sender, MouseEventArgs e)
@@ -376,6 +522,16 @@ namespace Tools.Scenes.Tiles
         }
 
         private void pictureBoxMap_MouseUp(object sender, MouseEventArgs e)
+        {
+            _selection = false;
+        }
+
+        private void panel1_MouseLeave(object sender, EventArgs e)
+        {
+            _selection = false;
+        }
+
+        private void panel1_Leave(object sender, EventArgs e)
         {
             _selection = false;
         }
