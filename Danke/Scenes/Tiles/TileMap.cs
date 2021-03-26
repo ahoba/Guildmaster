@@ -120,14 +120,14 @@ namespace Danke.Scenes.Tiles
         {
             error = AddObjectError.None;
 
-            if (tileObjectInstance.Y + tileObjectInstance.TileHeight > Height)
+            if (tileObjectInstance.Position.Y + tileObjectInstance.TileHeight > Height)
             {
                 error = AddObjectError.MapHeightError;
 
                 return false;
             }
 
-            if (tileObjectInstance.X + tileObjectInstance.TileWidth > Width)
+            if ((int)tileObjectInstance.Position.X + tileObjectInstance.TileWidth > Width)
             {
                 error = AddObjectError.MapWidthError;
 
@@ -138,7 +138,7 @@ namespace Danke.Scenes.Tiles
             {
                 for (int x = 0; x < tileObjectInstance.TileWidth; x++)
                 {
-                    Tile tile = TileAt(tileObjectInstance.Y + y, tileObjectInstance.X + x, TileMapLayers.Background);
+                    Tile tile = TileAt((int)tileObjectInstance.Position.Y + y, (int)tileObjectInstance.Position.X + x, TileMapLayers.Background);
 
                     if (tile != null && tile.Type != TileType.Floor)
                     {
@@ -147,7 +147,7 @@ namespace Danke.Scenes.Tiles
                         return false;
                     }
 
-                    tile = TileAt(tileObjectInstance.Y + y, tileObjectInstance.X + x, TileMapLayers.Foreground);
+                    tile = TileAt((int)tileObjectInstance.Position.Y + y, (int)tileObjectInstance.Position.X + x, TileMapLayers.Foreground);
 
                     if (tile != null)
                     {
@@ -157,7 +157,7 @@ namespace Danke.Scenes.Tiles
                     }
 
                     // To do: Check if there is an object already
-                    if (ObjectsLayer.Tiles[tileObjectInstance.Y + y][tileObjectInstance.X + x] >= 0)
+                    if (ObjectsLayer.Tiles[(int)tileObjectInstance.Position.Y + y][(int)tileObjectInstance.Position.X + x] >= 0)
                     {
                         error = AddObjectError.BlockingObject;
 
@@ -172,7 +172,7 @@ namespace Danke.Scenes.Tiles
             {
                 for (int x = 0; x < tileObjectInstance.TileWidth; x++)
                 {
-                    ObjectsLayer.Tiles[tileObjectInstance.Y + y][tileObjectInstance.X + x] = index;
+                    ObjectsLayer.Tiles[(int)tileObjectInstance.Position.Y + y][(int)tileObjectInstance.Position.X + x] = index;
                 }
             }
 
@@ -205,7 +205,7 @@ namespace Danke.Scenes.Tiles
                 {
                     for (int x = 0; x < obj.TileWidth; x++)
                     {
-                        ObjectsLayer.Tiles[obj.Y + y][obj.X + x] = -1;
+                        ObjectsLayer.Tiles[(int)obj.Position.Y + y][(int)obj.Position.X + x] = -1;
                     }
                 }
 

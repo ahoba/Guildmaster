@@ -1,5 +1,6 @@
 ﻿using Danke.Animations;
 using Danke.Scenes.Tiles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,6 @@ namespace Danke.Objects.Tiles
     [Serializable]
     public class TileObjectInstance<T> : TileObject<T>
     {
-        public int X { get; set; }
-        
-        public int Y { get; set; }
+        public Vector2 Position { get; set; }
     }
 }

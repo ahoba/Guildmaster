@@ -89,10 +89,11 @@ namespace Tools.Animations
             // animationEditControl
             // 
             this.animationEditControl.Animation = null;
+            this.animationEditControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.animationEditControl.Location = new System.Drawing.Point(117, 3);
             this.animationEditControl.Name = "animationEditControl";
             this.tableLayoutPanel1.SetRowSpan(this.animationEditControl, 2);
-            this.animationEditControl.Size = new System.Drawing.Size(293, 286);
+            this.animationEditControl.Size = new System.Drawing.Size(383, 286);
             this.animationEditControl.TabIndex = 0;
             this.animationEditControl.TextureRepository = null;
             // 

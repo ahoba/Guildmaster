@@ -15,9 +15,7 @@ namespace Danke.Objects
 
         public virtual string Name { get; set; }
 
-        public Vector2 Position { get; set; }
-
         [JsonIgnore]
-        public Animation<Texture2D> Animation { get; set; }
+        public virtual Animation<Texture2D> Animation { get; set; }
     }
 }
