@@ -58,39 +58,7 @@ namespace Danke.Scenes.Tiles
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Replace by camera logic (draw only what is on screen)
-
-            Vector2 position = new Vector2(0, 0);
-
-            for (int i = 0; i < _baseMap.Height; i++)
-            {
-                position.X = 0;
-
-                for (int j = 0; j < _baseMap.Width; j++)
-                {
-                    //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Background).Texture, position, Color.White);
-                    //spriteBatch.Draw(_baseMap.TileAt(i, j, TileMapLayers.Foreground).Texture, position, Color.White);
-
-                    position.X += TileScene.TileDimension;
-                }
-
-                position.Y += TileScene.TileDimension;
-            }
-
-            foreach (GameObject obj in Objects)
-            {
-                //Texture2D objectSprite = obj.Sprite;
-
-                //if (objectSprite != null)
-                //{
-                //    spriteBatch.Draw(obj.Sprite, obj.Position, Color.White);
-                //}
-            }
-
-            foreach (Actor actor in Actors)
-            {
-                spriteBatch.Draw(actor.Texture, actor.Position, Color.White);
-            }
+            
         }
 
         public override void LoadContent(ContentManager contentManager)

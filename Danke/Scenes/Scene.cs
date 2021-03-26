@@ -12,17 +12,6 @@ namespace Core.Scenes
 {
     public abstract class Scene
     {
-        public List<Actor> Actors { get; }
-
-        public List<GameObject> Objects { get; }
-
-        public Scene()
-        {
-            Actors = new List<Actor>();
-
-            Objects = new List<GameObject>();
-        }
-
         public abstract void LoadContent(ContentManager contentManager);
 
         public abstract void UnloadContent(ContentManager contentManager);
