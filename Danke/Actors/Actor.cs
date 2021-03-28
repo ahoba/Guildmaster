@@ -8,9 +8,14 @@ using System.Text;
 
 namespace Danke.Actors
 {
+    [Serializable]
     public abstract class Actor<T>
     {
-        public Animation<T>[] Animations { get; }
+        public Guid Id { get; set; }
+
+        public virtual string Name { get; set; }
+
+        public Dictionary<string, Animation<T>> Animations { get; } = new Dictionary<string, Animation<T>>();
 
         public Texture2D Texture { get; }
 

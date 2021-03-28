@@ -55,6 +55,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ActionRepository.cs" />
+    <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Actors\ActorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Actors\ActorControl.Designer.cs">
+      <DependentUpon>ActorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Actors\ActorRepository.cs" />
+    <Compile Include="Actors\ActorRepositoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Actors\ActorRepositoryControl.Designer.cs">
+      <DependentUpon>ActorRepositoryControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationControl.cs">
       <SubType>UserControl</SubType>
@@ -88,6 +103,7 @@
     <Compile Include="Content\TileTextureSelector.Designer.cs">
       <DependentUpon>TileTextureSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factories\_\ActorRepositoryControlFactory.cs" />
     <Compile Include="Factories\_\ObjectRepositoryControlFactory.cs" />
     <Compile Include="Factories\_\TextureRepositoryControlFactory.cs" />
     <Compile Include="Factories\_\AnimationRepositoryControlFactory.cs" />
@@ -168,6 +184,12 @@
       <DependentUpon>TileTextureControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Util.cs" />
+    <EmbeddedResource Include="Actors\ActorControl.resx">
+      <DependentUpon>ActorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Actors\ActorRepositoryControl.resx">
+      <DependentUpon>ActorRepositoryControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Animations\AnimationControl.resx">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -267,6 +289,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

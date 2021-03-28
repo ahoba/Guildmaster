@@ -23,6 +23,24 @@ namespace Danke.Objects.Tiles
     [Serializable]
     public class TileObjectInstance<T> : TileObject<T>
     {
+        public int X
+        {
+            get => (int)Position.X;
+            set
+            {
+                Position = new Vector2(value, Position.Y);
+            }
+        }
+
+        public int Y
+        {
+            get => (int)Position.Y;
+            set
+            {
+                Position = new Vector2(Position.X, value);
+            }
+        }
+
         public Vector2 Position { get; set; }
     }
 }

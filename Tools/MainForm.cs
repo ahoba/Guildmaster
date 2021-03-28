@@ -13,6 +13,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools.Actions;
+using Tools.Actors;
 using Tools.Animations;
 using Tools.Content;
 using Tools.Factories;
@@ -33,6 +35,10 @@ namespace Tools
 
         private GameObjectRepository _objectRepository;
 
+        private ActorRepository _actorRepository;
+
+        private ActionRepository _actionRepository;
+
         private Dictionary<string, IControlFactory> _controlFactories;
 
         public MainForm()
@@ -49,12 +55,17 @@ namespace Tools
 
             _objectRepository = new GameObjectRepository();
 
+            _actorRepository = new ActorRepository();
+
+            _actionRepository = new ActionRepository();
+
             _controlFactories = new Dictionary<string, IControlFactory>();
             _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
             _controlFactories[nameof(TileSetRepositoryControl)] = new TileSetRepositoryControlFactory(_tileSetRepository, _textureRepository);
             _controlFactories[nameof(TileMapEditorControl)] = new TileMapEditorControlFactory(_tileSetRepository, _tileMapRepository);
             _controlFactories[nameof(AnimationRepositoryControl)] = new AnimationRepositoryControlFactory(_textureRepository, _animationRepository);
             _controlFactories[nameof(ObjectRepositoryControl)] = new ObjectRepositoryControlFactory(_objectRepository);
+            _controlFactories[nameof(ActorRepositoryControl)] = new ActorRepositoryControlFactory(_actorRepository, _actionRepository);
         }
 
         private void ShowControlOnForm(Control control, string text)
@@ -104,6 +115,13 @@ namespace Tools
             Control control = _controlFactories[nameof(ObjectRepositoryControl)].CreateControl();
 
             ShowControlOnForm(control, "Objects");
+        }
+
+        private void toolStripButtonActors_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(ActorRepositoryControl)].CreateControl();
+
+            ShowControlOnForm(control, "Actors");
         }
 
         private void toolStripButtonSerialize_Click(object sender, EventArgs e)

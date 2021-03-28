@@ -37,6 +37,7 @@ namespace Tools
             this.toolStripButtonAnimations = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonObjects = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSerialize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonActors = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@ namespace Tools
             this.toolStripButtonMapEditor,
             this.toolStripButtonAnimations,
             this.toolStripButtonObjects,
+            this.toolStripButtonActors,
             this.toolStripSeparator1,
             this.toolStripButtonSerialize});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
@@ -121,6 +123,16 @@ namespace Tools
             this.toolStripButtonSerialize.Text = "Serialize";
             this.toolStripButtonSerialize.Click += new System.EventHandler(this.toolStripButtonSerialize_Click);
             // 
+            // toolStripButtonActors
+            // 
+            this.toolStripButtonActors.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonActors.Image = global::Tools.Properties.Resources.user;
+            this.toolStripButtonActors.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonActors.Name = "toolStripButtonActors";
+            this.toolStripButtonActors.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonActors.Text = "Actors";
+            this.toolStripButtonActors.Click += new System.EventHandler(this.toolStripButtonActors_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +158,7 @@ namespace Tools
         private System.Windows.Forms.ToolStripButton toolStripButtonObjects;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonSerialize;
+        private System.Windows.Forms.ToolStripButton toolStripButtonActors;
     }
 }
 
