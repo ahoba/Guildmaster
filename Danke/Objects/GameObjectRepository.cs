@@ -7,11 +7,11 @@ namespace Danke.Objects
     [Serializable]
     public class GameObjectRepository
     {
-        protected Dictionary<Guid, GameObject> _objects;
+        public Dictionary<Guid, GameObject> ObjectsById { get; protected set; }
 
         public GameObjectRepository()
         {
-            _objects = new Dictionary<Guid, GameObject>();
+            ObjectsById = new Dictionary<Guid, GameObject>();
         }
     }
 }

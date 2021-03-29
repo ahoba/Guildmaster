@@ -22,7 +22,7 @@ namespace Tools.Scenes.Tiles
 
         public void AddMap(TileMap map)
         {
-            _maps[map.Id] = map;
+            base.MapsById[map.Id] = map;
 
             Maps.Add(map);
         }

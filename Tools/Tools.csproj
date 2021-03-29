@@ -177,6 +177,7 @@
     <Compile Include="Scenes\Tiles\TileSetRepositoryControl.Designer.cs">
       <DependentUpon>TileSetRepositoryControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Serialization\ContractResolvers.cs" />
     <Compile Include="Util\TileTextureControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

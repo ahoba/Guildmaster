@@ -152,9 +152,14 @@ namespace Tools.Scenes.Tiles
 
         private void tileMapControl_SelectedTileStart(object sender, SelectedTileChangedEventArgs e)
         {
-            Cursor.Current = Cursors.Hand;
-
-            tileMapControl.TryGetObject(e.Row, e.Column, out selectedObject);
+            if (tileMapControl.TryGetObject(e.Row, e.Column, out selectedObject))
+            {
+                Cursor.Current = Cursors.Hand;
+            }
+            else
+            {
+                selectedObject = null;
+            }
         }
 
         private void tileMapControl_SelectedTileEnd(object sender, SelectedTileChangedEventArgs e)

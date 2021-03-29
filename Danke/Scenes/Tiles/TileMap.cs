@@ -1,6 +1,8 @@
 ﻿using Danke.Objects.Tiles;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -21,14 +23,17 @@ namespace Danke.Scenes.Tiles
 
         public TileSet<T> TileSet { get; set; }
 
+        [JsonIgnore]
         public int Height { get => TileLayers[0].Tiles.Length; }
 
+        [JsonIgnore]
         public int Width { get => TileLayers[0].Tiles[0].Length; }
 
         public virtual TileMapLayer[] TileLayers { get; protected set; } = new TileMapLayer[Enum.GetNames(typeof(TileMapLayers)).Length];
 
         public List<TileObjectInstance<T>> Objects { get; } = new List<TileObjectInstance<T>>();
 
+        [JsonIgnore]
         public TileMapLayer ObjectsLayer { get; protected set; }
 
         public TileMap(int height, int width)

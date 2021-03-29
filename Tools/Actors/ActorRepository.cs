@@ -17,7 +17,7 @@ namespace Tools.Actors
 
         public void AddActor(Actor actor)
         {
-            _actors[actor.Id] = actor;
+            ActorsById[actor.Id] = actor;
 
             Actors.Add(actor);
         }

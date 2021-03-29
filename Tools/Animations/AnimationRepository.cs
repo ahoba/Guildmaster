@@ -22,7 +22,7 @@ namespace Tools.Animations
 
         public void AddAnimation(Animation animation)
         {
-            _animations[animation.Id] = animation;
+            base.AnimationsById[animation.Id] = animation;
 
             Animations.Add(animation);
         }

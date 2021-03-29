@@ -7,11 +7,11 @@ namespace Danke.Actors
     [Serializable]
     public class ActorRepository<T>
     {
-        protected Dictionary<Guid, Actor<T>> _actors;
+        public Dictionary<Guid, Actor<T>> ActorsById { get; protected set; }
 
         public ActorRepository()
         {
-            _actors = new Dictionary<Guid, Actor<T>>();
+            ActorsById = new Dictionary<Guid, Actor<T>>();
         }
     }
 }

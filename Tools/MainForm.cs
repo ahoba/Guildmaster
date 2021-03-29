@@ -3,6 +3,7 @@ using Danke.Scenes.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ using Tools.Content;
 using Tools.Factories;
 using Tools.Objects;
 using Tools.Scenes.Tiles;
+using Tools.Serialization;
 
 namespace Tools
 {
@@ -38,6 +40,8 @@ namespace Tools
         private ActorRepository _actorRepository;
 
         private ActionRepository _actionRepository;
+
+        private readonly object[] _toSerialize;
 
         private Dictionary<string, IControlFactory> _controlFactories;
 
@@ -58,6 +62,16 @@ namespace Tools
             _actorRepository = new ActorRepository();
 
             _actionRepository = new ActionRepository();
+
+            _toSerialize = new object[]
+            {
+                _animationRepository,
+                _tileSetRepository,
+                _tileMapRepository,
+                _objectRepository,
+                _actorRepository,
+                _actionRepository
+            };
 
             _controlFactories = new Dictionary<string, IControlFactory>();
             _controlFactories[nameof(TextureRepositoryControl)] = new TextureRepositoryControlFactory(_textureRepository);
@@ -132,9 +146,46 @@ namespace Tools
             {
                 SerializeTextures(dialog.SelectedPath);
 
-                Serialize(_tileSetRepository, nameof(TileSetRepository), dialog.SelectedPath);
-                Serialize(_tileMapRepository, nameof(TileMapRepository), dialog.SelectedPath);
+                foreach (object obj in _toSerialize)
+                {
+                    Serialize(obj, obj.GetType().Name, dialog.SelectedPath);
+                }
             }
+        }
+
+        private IContractResolver GetContractResolver(object obj)
+        {
+            Type type = obj.GetType();
+            
+            if (type == typeof(GameObjectRepository))
+            {
+                return new NestedObjectIdOnlyContractSerializer(new Type[]
+                {
+                    typeof(Animation)
+                });
+            }
+            else if (type == typeof(TileMapRepository))
+            {
+                return new NestedObjectIdOnlyContractSerializer(new Type[]
+                {
+                    typeof(TileSet),
+                    typeof(TileObjectInstance)
+                },
+                new string[]
+                {
+                    "X",
+                    "Y"
+                });
+            }
+            else if (type == typeof(ActorRepository))
+            {
+                return new NestedObjectIdOnlyContractSerializer(new Type[]
+                {
+                    typeof(Animation)
+                });
+            }
+
+            return new DefaultContractResolver();
         }
 
         private void SerializeTextures(string filePath)
@@ -157,7 +208,8 @@ namespace Tools
                 JsonSerializer serializer = JsonSerializer.Create(
                     new JsonSerializerSettings()
                     {
-                        Formatting = Formatting.Indented
+                        Formatting = Formatting.Indented,
+                        ContractResolver = GetContractResolver(obj)
                     });
 
                 serializer.Serialize(file, obj);

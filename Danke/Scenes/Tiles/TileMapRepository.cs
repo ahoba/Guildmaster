@@ -7,11 +7,11 @@ namespace Danke.Scenes.Tiles
     [Serializable]
     public class TileMapRepository<T>
     {
-        protected Dictionary<Guid, TileMap<T>> _maps;
+        public Dictionary<Guid, TileMap<T>> MapsById { get; protected set; }
 
         public TileMapRepository()
         {
-            _maps = new Dictionary<Guid, TileMap<T>>();
+            MapsById = new Dictionary<Guid, TileMap<T>>();
         }
     }
 }

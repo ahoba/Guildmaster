@@ -10,18 +10,18 @@ namespace Danke.Animations
     [Serializable]
     public class AnimationRepository<T>
     {   
-        protected Dictionary<Guid, Animation<T>> _animations;
+        public Dictionary<Guid, Animation<T>> AnimationsById { get; protected set; }
 
         public AnimationRepository()
         {
-            _animations = new Dictionary<Guid, Animation<T>>();
+            AnimationsById = new Dictionary<Guid, Animation<T>>();
         }
 
         public bool TryGetAnimation(Guid animationId, out Animation<T> animation)
         {
-            if (_animations.ContainsKey(animationId))
+            if (AnimationsById.ContainsKey(animationId))
             {
-                animation = _animations[animationId];
+                animation = AnimationsById[animationId];
 
                 return true;
             }

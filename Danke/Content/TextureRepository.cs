@@ -20,15 +20,6 @@ namespace Danke.Content
             _textures = new Dictionary<string, T>();
         }
 
-        [JsonConstructor]
-        public TextureRepository(IEnumerable<string> textureIds)
-        {
-            foreach (string id in textureIds)
-            {
-                _textures.Add(id, default(T));
-            }
-        }
-
         public bool TryGetTexture(string textureId, out T texture)
         {
             if (_textures.ContainsKey(textureId))

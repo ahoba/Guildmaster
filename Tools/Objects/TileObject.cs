@@ -33,9 +33,10 @@ namespace Tools.Objects
     {
         public TileObjectInstance(TileObject obj, int row, int column)
         {
-            this.Y = row;
-            this.X = column;
+            Y = row;
+            X = column;
 
+            Id = obj.Id;
             Animations = obj.Animations;
             TileWidth = obj.TileWidth;
             TileHeight = obj.TileHeight;
