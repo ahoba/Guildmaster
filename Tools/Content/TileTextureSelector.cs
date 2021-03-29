@@ -26,8 +26,7 @@ namespace Tools.Content
 
                 if (_textureRepository != null)
                 {
-                    comboBoxTextureIds.Items.AddRange(
-                        _textureRepository.TextureIds.ToArray());
+                    comboBoxTextureIds.DataSource = _textureRepository.TextureIds;
                 }
             }
         }

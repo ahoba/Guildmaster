@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tools.Actions;
@@ -192,11 +193,13 @@ namespace Tools
         {
             Serialize(_textureRepository, nameof(TextureRepository), filePath);
 
+            Directory.CreateDirectory($@"{filePath}/Textures");
+
             foreach (string textureId in _textureRepository.TextureIds)
             {
                 if (_textureRepository.TryGetTexture(textureId, out Image image))
                 {
-                    image.Save($@"{filePath}/{textureId}");
+                    image.Save($@"{filePath}/Textures/{textureId}");
                 }
             }
         }
@@ -205,14 +208,60 @@ namespace Tools
         {
             using (StreamWriter file = File.CreateText($@"{filepath}/{objName}.json"))
             {
-                JsonSerializer serializer = JsonSerializer.Create(
-                    new JsonSerializerSettings()
-                    {
-                        Formatting = Formatting.Indented,
-                        ContractResolver = GetContractResolver(obj)
-                    });
+                JsonSerializerSettings settings = new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented,
+                    ContractResolver = GetContractResolver(obj)
+                };
+
+                settings.Converters.Add(new NullableJsonConverter(new Type[]
+                {
+                    typeof(Bitmap)
+                }));
+
+                JsonSerializer serializer = JsonSerializer.Create(settings);
 
                 serializer.Serialize(file, obj);
+            }
+        }
+
+        private void toolStripButtonDeserialize_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string fileName in Directory.GetFiles(folderDialog.SelectedPath, "*.json"))
+                {
+                    if (Regex.IsMatch(fileName, nameof(TextureRepository)))
+                    {
+                        RestoreTextureRepository(folderDialog.SelectedPath, fileName);
+                    }
+                    //else if (Regex.IsMatch(fileName, nameof(TextureRepository)))
+                    //{
+                    //    RestoreTextureRepository(fileName);
+                    //}
+                }
+            }
+        }
+
+        private void RestoreTextureRepository(string folderPath, string fileName)
+        {
+            using (StreamReader file = File.OpenText(fileName))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                
+                TextureRepository deserialized = (TextureRepository)serializer.Deserialize(file, typeof(TextureRepository));
+
+                _textureRepository.FromDeserialized(deserialized);
+
+                foreach (string textureId in _textureRepository.TextureIds)
+                {
+                    using (Stream fileStream = new FileStream($@"{folderPath}/Textures/{textureId}", FileMode.Open))
+                    {
+                        _textureRepository.Textures[textureId] = Image.FromStream(fileStream);
+                    }
+                }
             }
         }
     }

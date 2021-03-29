@@ -177,7 +177,7 @@
     <Compile Include="Scenes\Tiles\TileSetRepositoryControl.Designer.cs">
       <DependentUpon>TileSetRepositoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Serialization\ContractResolvers.cs" />
+    <Compile Include="Serialization\Serialization.cs" />
     <Compile Include="Util\TileTextureControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -293,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder-import.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,38 @@ namespace Tools.Serialization
             }
 
             return properties;
+        }
+    }
+
+    public class NullableJsonConverter : JsonConverter
+    {
+        private Type[] _types;
+
+        public NullableJsonConverter(Type[] types)
+        {
+            _types = types;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            JToken t = _types.Contains(value.GetType()) ? JValue.CreateNull() : JToken.FromObject(value);
+
+            t.WriteTo(writer);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CanRead
+        {
+            get { return false; }
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return _types.Any(t => t == objectType);
         }
     }
 }

@@ -10,21 +10,18 @@ namespace Danke.Content
     [Serializable]
     public class TextureRepository<T>
     {
-        [JsonIgnore]
-        protected Dictionary<string, T> _textures;
-
-        public IEnumerable<string> TextureIds => _textures.Keys;
+        public Dictionary<string, T> Textures { get; protected set; }
 
         public TextureRepository()
         {
-            _textures = new Dictionary<string, T>();
+            Textures = new Dictionary<string, T>();
         }
 
         public bool TryGetTexture(string textureId, out T texture)
         {
-            if (_textures.ContainsKey(textureId))
+            if (Textures.ContainsKey(textureId))
             {
-                texture = _textures[textureId];
+                texture = Textures[textureId];
 
                 return true;
             }

@@ -14,36 +14,39 @@ namespace Tools.Content
     public class TextureRepository : Danke.Content.TextureRepository<Image>
     {
         [JsonIgnore]
-        public BindingList<string> Textures { get; } = new BindingList<string>();
+        public BindingList<string> TextureIds { get; } = new BindingList<string>();
 
         public TextureRepository() : base()
         {
 
         }
 
-        [JsonConstructor]
-        public TextureRepository(IEnumerable<string> textureIds)
-        {
-            foreach (string id in textureIds)
-            {
-                _textures.Add(id, null);
-            }
-        }
-
         public void AddTexture(string textureId, Image texture)
         {
-            _textures[textureId] = texture;
+            Textures[textureId] = texture;
 
-            Textures.Add(textureId);
+            TextureIds.Add(textureId);
         }
 
         public void RemoveTexture(string textureId)
         {
-            if (_textures.ContainsKey(textureId))
+            if (base.Textures.ContainsKey(textureId))
             {
-                _textures.Remove(textureId);
+                base.Textures.Remove(textureId);
 
                 Textures.Remove(textureId);
+            }
+        }
+
+        public void FromDeserialized(TextureRepository deserialized)
+        {
+            Textures.Clear();
+
+            TextureIds.Clear();
+
+            foreach (var kv in deserialized.Textures)
+            {
+                AddTexture(kv.Key, kv.Value);
             }
         }
     }

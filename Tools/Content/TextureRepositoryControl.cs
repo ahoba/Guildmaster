@@ -22,7 +22,7 @@ namespace Tools.Content
             {
                 _textureRepository = value;
 
-                listBoxTextures.DataSource = _textureRepository.Textures;
+                listBoxTextures.DataSource = _textureRepository.TextureIds;
             }
         }
 

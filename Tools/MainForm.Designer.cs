@@ -36,8 +36,9 @@ namespace Tools
             this.toolStripButtonMapEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAnimations = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonObjects = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSerialize = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonActors = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSerialize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDeserialize = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,8 @@ namespace Tools
             this.toolStripButtonObjects,
             this.toolStripButtonActors,
             this.toolStripSeparator1,
-            this.toolStripButtonSerialize});
+            this.toolStripButtonSerialize,
+            this.toolStripButtonDeserialize});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(800, 25);
@@ -113,16 +115,6 @@ namespace Tools
             this.toolStripButtonObjects.Text = "Objects";
             this.toolStripButtonObjects.Click += new System.EventHandler(this.toolStripButtonObjects_Click);
             // 
-            // toolStripButtonSerialize
-            // 
-            this.toolStripButtonSerialize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSerialize.Image = global::Tools.Properties.Resources.disk__pencil;
-            this.toolStripButtonSerialize.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSerialize.Name = "toolStripButtonSerialize";
-            this.toolStripButtonSerialize.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSerialize.Text = "Serialize";
-            this.toolStripButtonSerialize.Click += new System.EventHandler(this.toolStripButtonSerialize_Click);
-            // 
             // toolStripButtonActors
             // 
             this.toolStripButtonActors.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -132,6 +124,26 @@ namespace Tools
             this.toolStripButtonActors.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonActors.Text = "Actors";
             this.toolStripButtonActors.Click += new System.EventHandler(this.toolStripButtonActors_Click);
+            // 
+            // toolStripButtonSerialize
+            // 
+            this.toolStripButtonSerialize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSerialize.Image = global::Tools.Properties.Resources.disk__pencil;
+            this.toolStripButtonSerialize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSerialize.Name = "toolStripButtonSerialize";
+            this.toolStripButtonSerialize.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSerialize.Text = "Save";
+            this.toolStripButtonSerialize.Click += new System.EventHandler(this.toolStripButtonSerialize_Click);
+            // 
+            // toolStripButtonDeserialize
+            // 
+            this.toolStripButtonDeserialize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonDeserialize.Image = global::Tools.Properties.Resources.folder_import;
+            this.toolStripButtonDeserialize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDeserialize.Name = "toolStripButtonDeserialize";
+            this.toolStripButtonDeserialize.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonDeserialize.Text = "Load";
+            this.toolStripButtonDeserialize.Click += new System.EventHandler(this.toolStripButtonDeserialize_Click);
             // 
             // MainForm
             // 
@@ -159,6 +171,7 @@ namespace Tools
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonSerialize;
         private System.Windows.Forms.ToolStripButton toolStripButtonActors;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDeserialize;
     }
 }
 
