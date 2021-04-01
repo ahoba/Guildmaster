@@ -7,8 +7,20 @@ namespace Danke.Text
     [Serializable]
     public class RegionText
     {
-        public Guid TextId { get; protected set; }
+        public virtual string TextId { get; protected set; }
 
-        public string Text { get => TextProvider.Instance.GetText(TextId); }
+        public string Text 
+        { 
+            get => TextProvider.Instance.GetText(TextId); 
+            set
+            {
+                if (string.IsNullOrEmpty(TextId))
+                {
+                    TextId = Guid.NewGuid().ToString();
+
+                    TextProvider.Instance.SetText(TextId, value);
+                }
+            }
+        }
     }
 }

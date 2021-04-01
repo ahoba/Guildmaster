@@ -16,6 +16,8 @@ namespace Danke.Characters
 
     public class Character
     {
+        public string Name { get; set; }
+
         public int[] Stats = new int[Enum.GetValues(typeof(Stats)).Length];
 
         public int TotalHp { get; set; }

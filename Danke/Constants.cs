@@ -6,6 +6,8 @@ namespace Danke
 {
     public class Constants
     {
+        #region Actions
+
         public const string MoveUp = nameof(MoveUp);
         public const string MoveDown = nameof(MoveDown);
         public const string MoveLeft = nameof(MoveLeft);
@@ -18,5 +20,7 @@ namespace Danke
             MoveLeft,
             MoveRight
         };
+
+        #endregion
     }
 }
