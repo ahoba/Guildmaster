@@ -531,8 +531,8 @@ namespace DankeTests.Quests
 
             bool q = quest.TryGo(characters, new Item[] { }, out string text);
 
-            Assert.IsTrue(characters.All(x => x.CurrentHp == 0));
-            Assert.IsTrue(characters.All(x => x.CurrentStamina == 0));
+            Assert.IsTrue(characters.Any(x => x.CurrentHp == 0));
+            Assert.IsTrue(characters.Any(x => x.CurrentStamina == 0));
             Assert.IsFalse(q);
         }
 

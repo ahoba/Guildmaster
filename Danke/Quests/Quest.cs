@@ -103,45 +103,19 @@ namespace Danke.Quests
                     }
                 }
 
-                string stageEnd = stage.StageEndText.Text;
-
-                stage = stage.GetNextStage(characters, provisions, out IEnumerable<string> log);
+                stage = stage.GetNextStage(characters, provisions, out bool questFailed, out IEnumerable<string> log);
 
                 foreach (string s in log)
                 {
                     OnQuestNotification(s);
                 }
 
-                bool fainted = false;
-                
-                foreach (Character weakling in characters)
+                if (questFailed)
                 {
-                    bool ko = weakling?.CurrentHp <= 0;
+                    // Add text
 
-                    bool exhausted = weakling?.CurrentStamina <= 0;
-
-                    fainted = ko || exhausted;
-
-                    if (ko && exhausted)
-                    {
-                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterOverwhelmed))}");
-                    }
-                    else if (ko)
-                    {
-                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterKOd))}");
-                    }
-                    else if (exhausted)
-                    {
-                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterExhausted))}");
-                    }
-                }
-
-                if (fainted)
-                {
                     return false;
                 }
-
-                OnQuestNotification(stageEnd);
             }
 
             return true;
@@ -200,20 +174,63 @@ namespace Danke.Quests
     {
         public RegionText StageStartText { get; set; }
 
-        public RegionText StageEndText { get; set; }
+        public virtual RegionText StageEndText { get; set; }
 
         public virtual IEnumerable<Roll> InternalRolls { get; set; }
 
         public virtual Roll NextStageRoll { get; set; }
 
-        public abstract QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out IEnumerable<string> log);
+        public abstract QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log);
+
+        protected void ApplyDamageToCharacter(Character character, int hpDamage, int staminaDamage, IList<string> logList, out bool isCharacterHealthy)
+        {
+            isCharacterHealthy = true;
+
+            character.CurrentHp -= hpDamage;
+            character.CurrentStamina -= staminaDamage;
+
+            if (hpDamage > 0)
+            {
+                logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
+            }
+
+            if (staminaDamage > 0)
+            {
+                logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
+            }
+
+            bool kod = character.CurrentHp <= 0;
+
+            bool exhausted = character.CurrentStamina <= 0;
+
+            if (kod && exhausted)
+            {
+                isCharacterHealthy = false;
+
+                logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterOverwhelmed))}");
+            }
+            else if (kod)
+            {
+                isCharacterHealthy = false;
+
+                logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterKOd))}");
+            }
+            else if (exhausted)
+            {
+                isCharacterHealthy = false;
+
+                logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterExhausted))}");
+            }
+        }
     }
 
     [Serializable]
     public class EndStage : QuestStage
     {
-        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out IEnumerable<string> log)
+        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
+            questFailed = false;
+
             log = new string[]
             {
 
@@ -228,7 +245,7 @@ namespace Danke.Quests
     {
         public virtual QuestStage NextStage { get; set; }
 
-        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out IEnumerable<string> log)
+        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
             IList<string> logList = new List<string>();
 
@@ -245,17 +262,15 @@ namespace Danke.Quests
                     logList.Add(s);
                 }
 
-                character.CurrentHp -= hpDamage;
-                character.CurrentStamina -= staminaDamage;
+                ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out bool isCharacterHealthy);
 
-                if (hpDamage > 0)
+                if (!isCharacterHealthy)
                 {
-                    logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
-                }
+                    // Add failure text
 
-                if (staminaDamage > 0)
-                {
-                    logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
+                    questFailed = true;
+
+                    return null;
                 }
             }
             else if (NextStageRoll.RollType == RollType.WholeParty)
@@ -269,20 +284,20 @@ namespace Danke.Quests
                         logList.Add(s);
                     }
 
-                    character.CurrentHp -= hpDamage;
-                    character.CurrentStamina -= staminaDamage;
+                    ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out bool isCharacterHealthy);
 
-                    if (hpDamage > 0)
+                    if (!isCharacterHealthy)
                     {
-                        logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
-                    }
+                        // Add failure text
 
-                    if (staminaDamage > 0)
-                    {
-                        logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
+                        questFailed = true;
+
+                        return null;
                     }
                 }
             }
+
+            questFailed = false;
 
             return NextStage;
         }
@@ -295,7 +310,7 @@ namespace Danke.Quests
 
         public virtual QuestStage FailureStage { get; set; }
 
-        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out IEnumerable<string> log)
+        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
             IList<string> logList = new List<string>();
 
@@ -312,37 +327,38 @@ namespace Danke.Quests
                         logList.Add(s);
                     }
 
+                    bool isCharacterHealthy;
+
                     if (rollResult)
                     {
-                        character.CurrentHp -= hpDamage;
-                        character.CurrentStamina -= staminaDamage;
+                        ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out isCharacterHealthy);
 
-                        if (hpDamage > 0)
+                        if (!isCharacterHealthy)
                         {
-                            logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
+                            // Add failure text
+                            questFailed = true;
+
+                            return null;
                         }
 
-                        if (staminaDamage > 0)
-                        {
-                            logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
-                        }
+                        questFailed = false;
 
                         return SuccessStage;
                     }
 
-                    character.CurrentHp -= hpDamage;
-                    character.CurrentStamina -= staminaDamage;
+                    ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out isCharacterHealthy);
 
-                    if (hpDamage > 0)
+                    if (!isCharacterHealthy)
                     {
-                        logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
-                    }
+                        // Add failure text
 
-                    if (staminaDamage > 0)
-                    {
-                        logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
+                        questFailed = true;
+
+                        return null;
                     }
                 }
+
+                questFailed = false;
 
                 return FailureStage;
             }
@@ -357,37 +373,39 @@ namespace Danke.Quests
                         logList.Add(s);
                     }
 
+                    bool isCharacterHealthy;
+
                     if (!rollResult)
                     {
-                        character.CurrentHp -= hpDamage;
-                        character.CurrentStamina -= staminaDamage;
+                        ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out isCharacterHealthy);
 
-                        if (hpDamage > 0)
+                        if (!isCharacterHealthy)
                         {
-                            logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
+                            // Add failure text
+
+                            questFailed = true;
+
+                            return null;
                         }
 
-                        if (staminaDamage > 0)
-                        {
-                            logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
-                        }
+                        questFailed = false;
 
                         return FailureStage;
                     }
 
-                    character.CurrentHp -= hpDamage;
-                    character.CurrentStamina -= staminaDamage;
+                    ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out isCharacterHealthy);
 
-                    if (hpDamage > 0)
+                    if (!isCharacterHealthy)
                     {
-                        logList.Add($"{hpDamage} {TextProvider.Instance.GetText(nameof(Texts.QuestHpDamage))} {character.Name}");
-                    }
+                        // Add failure text
+                        
+                        questFailed = true;
 
-                    if (staminaDamage > 0)
-                    {
-                        logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestStaminaDamage))} {hpDamage}");
+                        return null;
                     }
                 }
+
+                questFailed = false;
 
                 return SuccessStage;
             }
