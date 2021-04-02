@@ -12,9 +12,11 @@ namespace Danke.Quests.QuestStages
     {
         public virtual RegionText StageEndText { get; set; }
 
+        public bool IsQuestFailure { get; set; } = false;
+
         protected override QuestStage InternalGetNextStage(IEnumerable<Character> characters, IList<Item> provisions, IList<string> logList, out bool questFailed)
         {
-            questFailed = false;
+            questFailed = IsQuestFailure;
 
             logList.Add(StageEndText.Text);
 

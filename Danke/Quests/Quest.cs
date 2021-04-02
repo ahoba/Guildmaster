@@ -18,9 +18,11 @@ namespace Danke.Quests
 
         public QuestStage InitialStage { get; set; }
 
-        public virtual RegionText Tile { get; set; }
+        public virtual RegionText Title { get; set; }
 
         public virtual RegionText Description { get; set; }
+
+        public virtual RegionText SuccessText { get; set; }
 
         public virtual RegionText FailureText { get; set; }
 
@@ -63,6 +65,8 @@ namespace Danke.Quests
                     return false;
                 }
             }
+
+            OnQuestNotification(SuccessText.Text);
 
             return true;
         }

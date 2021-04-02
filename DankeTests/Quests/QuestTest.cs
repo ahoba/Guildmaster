@@ -65,13 +65,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -201,13 +205,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -354,13 +362,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -482,13 +494,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -601,13 +617,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -735,13 +755,17 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                Tile = new Danke.Text.RegionText()
+                Title = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
                 Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "The dungeons were successfully braved by your party, its spoils now belong to your guild!"
                 },
                 FailureText = new Danke.Text.RegionText()
                 {
@@ -786,7 +810,8 @@ namespace DankeTests.Quests
                 StageEndText = new Danke.Text.RegionText()
                 {
                     Text = "Once upon leaving the tunnel, the party finds itself close to the city from where the adventure began."
-                }
+                },
+                IsQuestFailure = true
             };
 
             Roll roll = new Roll()
@@ -823,7 +848,7 @@ namespace DankeTests.Quests
 
             bool q = quest.TryGo(characters, new Item[] { }, out string text);
 
-            Assert.IsTrue(q);
+            Assert.IsFalse(q);
         }
     }
 }
