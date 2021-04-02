@@ -45,7 +45,7 @@ namespace Danke.Quests
 
             while (stage != null)
             {
-                QuestNotification?.Invoke(this, new QuestNotificationEventArgs(stage.Text.Text));
+                QuestNotification?.Invoke(this, new QuestNotificationEventArgs(stage.StageStartText.Text));
 
                 if (stage.InternalRolls != null)
                 {
@@ -103,6 +103,8 @@ namespace Danke.Quests
                     }
                 }
 
+                string stageEnd = stage.StageEndText.Text;
+
                 stage = stage.GetNextStage(characters, provisions, out IEnumerable<string> log);
 
                 foreach (string s in log)
@@ -110,21 +112,36 @@ namespace Danke.Quests
                     OnQuestNotification(s);
                 }
 
-                Character weakling = characters.FirstOrDefault(x => x.CurrentHp <= 0 || x.CurrentStamina <= 0);
-
-                if (weakling?.CurrentHp <= 0)
+                bool fainted = false;
+                
+                foreach (Character weakling in characters)
                 {
-                    OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterKOd))}");
+                    bool ko = weakling?.CurrentHp <= 0;
 
+                    bool exhausted = weakling?.CurrentStamina <= 0;
+
+                    fainted = ko || exhausted;
+
+                    if (ko && exhausted)
+                    {
+                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterOverwhelmed))}");
+                    }
+                    else if (ko)
+                    {
+                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterKOd))}");
+                    }
+                    else if (exhausted)
+                    {
+                        OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterExhausted))}");
+                    }
+                }
+
+                if (fainted)
+                {
                     return false;
                 }
 
-                if (weakling?.CurrentStamina <= 0)
-                {
-                    OnQuestNotification($"{weakling.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterExhausted))}");
-
-                    return false;
-                }
+                OnQuestNotification(stageEnd);
             }
 
             return true;
@@ -181,7 +198,9 @@ namespace Danke.Quests
     [Serializable]
     public abstract class QuestStage
     {
-        public RegionText Text { get; set; }
+        public RegionText StageStartText { get; set; }
+
+        public RegionText StageEndText { get; set; }
 
         public virtual IEnumerable<Roll> InternalRolls { get; set; }
 
@@ -407,13 +426,15 @@ namespace Danke.Quests
             out int staminaDamage,
             out IEnumerable<string> log)
         {
-            IList<string> logList = new List<string>() { $"{character.Name} {TextBeforeRoll.Text}" };
+            IList<string> logList = new List<string>();
 
             log = logList;
 
             int modifier = 0;
 
             Item toRemove = null;
+
+            bool passed = false;
 
             if (Consumables != null && Consumables.Count() > 0)
             {
@@ -423,7 +444,7 @@ namespace Danke.Quests
 
                     if (consumable != null)
                     {
-                        logList.Add(consumable.RegionText.Text);
+                        logList.Add($"{character.Name} {consumable.RegionText.Text}");
 
                         toRemove = provision;
 
@@ -439,7 +460,9 @@ namespace Danke.Quests
 
                             staminaDamage = 0;
 
-                            return true;
+                            passed = true;
+
+                            break;
                         }
                     }
                 }
@@ -448,7 +471,18 @@ namespace Danke.Quests
             if (toRemove != null)
             {
                 provisions.Remove(toRemove);
+            
+                if (passed)
+                {
+                    hpDamage = 0;
+
+                    staminaDamage = 0;
+
+                    return true;
+                }
             }
+
+            logList.Add($"{character.Name} {TextBeforeRoll.Text}");
 
             modifier += character.Stats[(int)TestedStat] / 3;
 

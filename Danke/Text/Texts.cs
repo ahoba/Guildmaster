@@ -11,5 +11,6 @@ namespace Danke.Text
         public const string QuestStaminaDamage = "'s stamina was depleted by";
         public const string QuestCharacterKOd = "was KO'd!";
         public const string QuestCharacterExhausted = "is exhausted!";
+        public const string QuestCharacterOverwhelmed = "was overwhelmed!";
     }
 }
