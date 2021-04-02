@@ -149,6 +149,12 @@
     <Compile Include="Quests\Rolls\RollControl.Designer.cs">
       <DependentUpon>RollControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Quests\Tests\RewardsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quests\Tests\RewardsControl.Designer.cs">
+      <DependentUpon>RewardsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\Tiles\TileMapRepositoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
