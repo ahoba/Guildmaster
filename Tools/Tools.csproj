@@ -137,6 +137,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Quests\BinaryQuestStageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quests\BinaryQuestStageControl.Designer.cs">
+      <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Quests\LinearQuestStageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +243,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quests\BinaryQuestStageControl.resx">
+      <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Quests\LinearQuestStageControl.resx">
       <DependentUpon>LinearQuestStageControl.cs</DependentUpon>
