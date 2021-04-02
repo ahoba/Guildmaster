@@ -1,6 +1,7 @@
 ﻿using Danke.Characters;
 using Danke.Items;
 using Danke.Quests;
+using Danke.Quests.QuestStages;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            LinearStage initialStage = new LinearStage()
+            LinearQuestStage initialStage = new LinearQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -90,7 +91,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage endStage = new EndStage()
+            QuestStage endStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -209,7 +210,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            LinearStage initialStage = new LinearStage()
+            LinearQuestStage initialStage = new LinearQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -221,7 +222,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage endStage = new EndStage()
+            QuestStage endStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -362,7 +363,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            LinearStage initialStage = new LinearStage()
+            LinearQuestStage initialStage = new LinearQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -374,7 +375,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage endStage = new EndStage()
+            QuestStage endStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -490,7 +491,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            LinearStage initialStage = new LinearStage()
+            LinearQuestStage initialStage = new LinearQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -502,7 +503,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage endStage = new EndStage()
+            QuestStage endStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -609,7 +610,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            BinaryStage initialStage = new BinaryStage()
+            BinaryQuestStage initialStage = new BinaryQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -625,7 +626,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage successStage = new EndStage()
+            QuestStage successStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -637,7 +638,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage failureStage = new EndStage()
+            QuestStage failureStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -743,7 +744,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            BinaryStage initialStage = new BinaryStage()
+            BinaryQuestStage initialStage = new BinaryQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -759,7 +760,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage successStage = new EndStage()
+            QuestStage successStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
@@ -771,7 +772,7 @@ namespace DankeTests.Quests
                 }
             };
 
-            QuestStage failureStage = new EndStage()
+            QuestStage failureStage = new TerminalQuestStage()
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
