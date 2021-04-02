@@ -64,14 +64,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             LinearStage initialStage = new LinearStage()
@@ -191,14 +195,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             LinearStage initialStage = new LinearStage()
@@ -340,14 +348,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             LinearStage initialStage = new LinearStage()
@@ -464,14 +476,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             LinearStage initialStage = new LinearStage()
@@ -579,14 +595,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             BinaryStage initialStage = new BinaryStage()
@@ -595,9 +615,13 @@ namespace DankeTests.Quests
                 {
                     Text = "Your party arrives at a dungeon! They see a lava river in their path..."
                 },
-                StageEndText = new Danke.Text.RegionText()
+                FailureText = new Danke.Text.RegionText()
                 {
-                    Text = "The lava river is left behind, what lies ahead of your party?"
+                    Text = "While trying to jump, the floor crumbled beneath your party's feet...!"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "Your party moves on after overcoming the lava river."
                 }
             };
 
@@ -617,7 +641,7 @@ namespace DankeTests.Quests
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
-                    Text = "While trying to jump, the floor crumbled beneath your party's feet...! They were taken to a tunnel..."
+                    Text = "Your party was taken to a tunnel!"
                 },
                 StageEndText = new Danke.Text.RegionText()
                 {
@@ -705,14 +729,18 @@ namespace DankeTests.Quests
 
             Quest quest = new Quest()
             {
-                RegionTitle = new Danke.Text.RegionText()
+                Tile = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
-                RegionDescription = new Danke.Text.RegionText()
+                Description = new Danke.Text.RegionText()
                 {
                     Text = "Test Quest 0"
                 },
+                FailureText = new Danke.Text.RegionText()
+                {
+                    Text = "The treasures of the dungeon remain untouched, waiting for the next adventurers who dare try and loot it!"
+                }
             };
 
             BinaryStage initialStage = new BinaryStage()
@@ -721,9 +749,13 @@ namespace DankeTests.Quests
                 {
                     Text = "Your party arrives at a dungeon! They see a lava river in their path..."
                 },
-                StageEndText = new Danke.Text.RegionText()
+                FailureText = new Danke.Text.RegionText()
                 {
-                    Text = "The lava river is left behind, what lies ahead of your party?"
+                    Text = "While trying to jump, the floor crumbled beneath your party's feet...!"
+                },
+                SuccessText = new Danke.Text.RegionText()
+                {
+                    Text = "Your party moves on after overcoming the lava river."
                 }
             };
 
@@ -743,7 +775,7 @@ namespace DankeTests.Quests
             {
                 StageStartText = new Danke.Text.RegionText()
                 {
-                    Text = "While trying to jump, the floor crumbled beneath your party's feet...! They were taken to a tunnel..."
+                    Text = "Your party was taken to a tunnel!"
                 },
                 StageEndText = new Danke.Text.RegionText()
                 {

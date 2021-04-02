@@ -12,5 +12,6 @@ namespace Danke.Text
         public const string QuestCharacterKOd = "was KO'd!";
         public const string QuestCharacterExhausted = "is exhausted!";
         public const string QuestCharacterOverwhelmed = "was overwhelmed!";
+        public const string QuestFailureCharacterFainted = "Your party retreats...";
     }
 }

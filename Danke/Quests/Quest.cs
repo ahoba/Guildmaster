@@ -14,13 +14,11 @@ namespace Danke.Quests
     {
         public QuestStage InitialStage { get; set; }
 
-        public virtual RegionText RegionTitle { get; set; }
+        public virtual RegionText Tile { get; set; }
 
-        public string Title => RegionTitle.Text;
+        public virtual RegionText Description { get; set; }
 
-        public virtual RegionText RegionDescription { get; set; }
-
-        public string Description => RegionDescription?.Text;
+        public virtual RegionText FailureText { get; set; }
 
         public virtual IEnumerable<QuestPrerequisite> Prerequisites { get; set; }
 
@@ -112,8 +110,8 @@ namespace Danke.Quests
 
                 if (questFailed)
                 {
-                    // Add text
-
+                    OnQuestNotification(TextProvider.Instance.GetText(nameof(Texts.QuestFailureCharacterFainted)));
+                    OnQuestNotification(FailureText.Text);
                     return false;
                 }
             }
@@ -174,8 +172,6 @@ namespace Danke.Quests
     {
         public RegionText StageStartText { get; set; }
 
-        public virtual RegionText StageEndText { get; set; }
-
         public virtual IEnumerable<Roll> InternalRolls { get; set; }
 
         public virtual Roll NextStageRoll { get; set; }
@@ -227,13 +223,15 @@ namespace Danke.Quests
     [Serializable]
     public class EndStage : QuestStage
     {
+        public virtual RegionText StageEndText { get; set; }
+
         public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
             questFailed = false;
 
             log = new string[]
             {
-
+                StageEndText.Text
             };
 
             return null;
@@ -244,6 +242,8 @@ namespace Danke.Quests
     public class LinearStage : QuestStage
     {
         public virtual QuestStage NextStage { get; set; }
+
+        public virtual RegionText StageEndText { get; set; }
 
         public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
@@ -266,8 +266,6 @@ namespace Danke.Quests
 
                 if (!isCharacterHealthy)
                 {
-                    // Add failure text
-
                     questFailed = true;
 
                     return null;
@@ -288,8 +286,6 @@ namespace Danke.Quests
 
                     if (!isCharacterHealthy)
                     {
-                        // Add failure text
-
                         questFailed = true;
 
                         return null;
@@ -298,6 +294,8 @@ namespace Danke.Quests
             }
 
             questFailed = false;
+            
+            logList.Add(StageEndText.Text);
 
             return NextStage;
         }
@@ -308,7 +306,11 @@ namespace Danke.Quests
     {
         public virtual QuestStage SuccessStage { get; set; }
 
+        public RegionText SuccessText { get; set; }
+
         public virtual QuestStage FailureStage { get; set; }
+
+        public RegionText FailureText { get; set; }
 
         public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
         {
@@ -335,13 +337,14 @@ namespace Danke.Quests
 
                         if (!isCharacterHealthy)
                         {
-                            // Add failure text
                             questFailed = true;
 
                             return null;
                         }
 
                         questFailed = false;
+                        
+                        logList.Add(SuccessText.Text);
 
                         return SuccessStage;
                     }
@@ -350,8 +353,6 @@ namespace Danke.Quests
 
                     if (!isCharacterHealthy)
                     {
-                        // Add failure text
-
                         questFailed = true;
 
                         return null;
@@ -359,6 +360,8 @@ namespace Danke.Quests
                 }
 
                 questFailed = false;
+                
+                logList.Add(FailureText.Text);
 
                 return FailureStage;
             }
@@ -381,14 +384,14 @@ namespace Danke.Quests
 
                         if (!isCharacterHealthy)
                         {
-                            // Add failure text
-
                             questFailed = true;
 
                             return null;
                         }
 
                         questFailed = false;
+
+                        logList.Add(FailureText.Text);
 
                         return FailureStage;
                     }
@@ -397,8 +400,6 @@ namespace Danke.Quests
 
                     if (!isCharacterHealthy)
                     {
-                        // Add failure text
-                        
                         questFailed = true;
 
                         return null;
@@ -406,6 +407,8 @@ namespace Danke.Quests
                 }
 
                 questFailed = false;
+
+                logList.Add(SuccessText.Text);
 
                 return SuccessStage;
             }
