@@ -143,6 +143,12 @@
     <Compile Include="Quests\BinaryQuestStageControl.Designer.cs">
       <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Quests\QuestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quests\QuestControl.Designer.cs">
+      <DependentUpon>QuestControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Quests\TerminalQuestStage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Quests\BinaryQuestStageControl.resx">
       <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quests\QuestControl.resx">
+      <DependentUpon>QuestControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Quests\TerminalQuestStage.resx">
       <DependentUpon>TerminalQuestStage.cs</DependentUpon>
