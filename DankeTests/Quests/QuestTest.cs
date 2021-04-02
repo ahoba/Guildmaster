@@ -139,13 +139,18 @@ namespace DankeTests.Quests
             Assert.IsTrue(q);
         }
 
+        class MockItem : Item
+        {
+
+        }
+
         [Test]
         public void LinearQuestWithProvision()
         {
-            Item item = new Item()
+            Item item = new MockItem()
             {
                 Id = Guid.NewGuid(),
-                Text = new Danke.Text.RegionText()
+                Name = new Danke.Text.RegionText()
                 {
                     Text = "Rope"
                 }
@@ -285,19 +290,19 @@ namespace DankeTests.Quests
         [Test]
         public void LinearQuestWithTwoProvision()
         {
-            Item item0 = new Item()
+            Item item0 = new MockItem()
             {
                 Id = Guid.NewGuid(),
-                Text = new Danke.Text.RegionText()
+                Name = new Danke.Text.RegionText()
                 {
                     Text = "Rope"
                 }
             };
 
-            Item item1 = new Item()
+            Item item1 = new MockItem()
             {
                 Id = item0.Id,
-                Text = new Danke.Text.RegionText()
+                Name = new Danke.Text.RegionText()
                 {
                     Text = "Rope"
                 }

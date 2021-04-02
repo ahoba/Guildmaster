@@ -5,10 +5,12 @@ using System.Text;
 
 namespace Danke.Items
 {
-    public class Item
+    public abstract class Item
     {
         public Guid Id { get; set; }
 
-        public RegionText Text { get; set; }
+        public RegionText Name { get; set; }
+
+        public RegionText Description { get; set; }
     }
 }

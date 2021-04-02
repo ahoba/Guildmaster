@@ -15,12 +15,8 @@ namespace Danke.Quests.QuestStages
 
         public virtual RegionText StageEndText { get; set; }
 
-        public override QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
+        protected override QuestStage InternalGetNextStage(IEnumerable<Character> characters, IList<Item> provisions, IList<string> logList, out bool questFailed)
         {
-            IList<string> logList = new List<string>();
-
-            log = logList;
-
             if (NextStageRoll.RollType == RollType.SingleCharacter)
             {
                 Character character = characters.OrderByDescending(x => x.Stats[(int)NextStageRoll.TestedStat]).First();

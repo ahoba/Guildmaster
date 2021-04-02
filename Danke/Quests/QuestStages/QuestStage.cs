@@ -1,8 +1,10 @@
 ﻿using Danke.Characters;
 using Danke.Items;
+using Danke.Quests.Rewards;
 using Danke.Text;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Danke.Quests.QuestStages
@@ -12,13 +14,80 @@ namespace Danke.Quests.QuestStages
     {
         public RegionText StageStartText { get; set; }
 
-        public virtual IEnumerable<Roll> InternalRolls { get; set; }
+        public virtual IEnumerable<Test> Tests { get; set; }
 
         public virtual Roll NextStageRoll { get; set; }
 
-        public abstract QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log);
+        public QuestStage GetNextStage(IEnumerable<Character> characters, IList<Item> provisions, out bool questFailed, out IEnumerable<string> log)
+        {
+            IList<string> logList = new List<string>();
 
-        protected void ApplyDamageToCharacter(Character character, int hpDamage, int staminaDamage, IList<string> logList, out bool isCharacterHealthy)
+            log = logList;
+
+            PerformTests(characters, provisions, logList, out questFailed);
+
+            if (!questFailed)
+            {
+                questFailed = false;
+                
+                return InternalGetNextStage(characters, provisions, logList, out questFailed);
+            }
+
+            questFailed = true;
+
+            return null;
+        }
+
+        protected virtual void PerformTests(IEnumerable<Character> characters, IList<Item> provisions, IList<string> logList, out bool questFailed)
+        {
+            questFailed = false;
+
+            if (Tests != null)
+            {
+                foreach (Test test in Tests)
+                {
+                    if (test.Roll.RollType == RollType.SingleCharacter)
+                    {
+                        Character character = characters.OrderByDescending(x => x.Stats[(int)test.Roll.TestedStat]).First();
+
+                        test.Roll.TryRoll(character, provisions, out int hpDamage, out int staminaDamage, out IEnumerable<string> rollLog);
+
+                        foreach (string s in rollLog)
+                        {
+                            logList.Add(s);
+                        }
+
+                        ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out bool isCharacterHealthy);
+
+                        if (!isCharacterHealthy)
+                        {
+                            questFailed = true;
+                        }
+                    }
+                    else if (test.Roll.RollType == RollType.WholeParty)
+                    {
+                        foreach (Character character in characters)
+                        {
+                            test.Roll.TryRoll(character, provisions, out int hpDamage, out int staminaDamage, out IEnumerable<string> rollLog);
+
+                            foreach (string s in rollLog)
+                            {
+                                logList.Add(s);
+                            }
+
+                            ApplyDamageToCharacter(character, hpDamage, staminaDamage, logList, out bool isCharacterHealthy);
+
+                            if (!isCharacterHealthy)
+                            {
+                                questFailed = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        protected virtual void ApplyDamageToCharacter(Character character, int hpDamage, int staminaDamage, IList<string> logList, out bool isCharacterHealthy)
         {
             isCharacterHealthy = true;
 
@@ -58,5 +127,15 @@ namespace Danke.Quests.QuestStages
                 logList.Add($"{character.Name} {TextProvider.Instance.GetText(nameof(Texts.QuestCharacterExhausted))}");
             }
         }
+
+        protected abstract QuestStage InternalGetNextStage(IEnumerable<Character> characters, IList<Item> provisions, IList<string> logList, out bool questFailed);
+    }
+
+    [Serializable]
+    public class Test
+    {
+        public Roll Roll { get; set; }
+
+        public IEnumerable<Reward> Rewards { get; set; }
     }
 }

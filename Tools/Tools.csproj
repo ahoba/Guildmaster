@@ -137,6 +137,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Quests\LinearQuestStageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quests\LinearQuestStageControl.Designer.cs">
+      <DependentUpon>LinearQuestStageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Quests\Rolls\RollControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quests\Rolls\RollControl.Designer.cs">
+      <DependentUpon>RollControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\Tiles\TileMapRepositoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -219,6 +231,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quests\LinearQuestStageControl.resx">
+      <DependentUpon>LinearQuestStageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quests\Rolls\RollControl.resx">
+      <DependentUpon>RollControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Scenes\Tiles\TileMapRepositoryControl.resx">
       <DependentUpon>TileMapRepositoryControl.cs</DependentUpon>
