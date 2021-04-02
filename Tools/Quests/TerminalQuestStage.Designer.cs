@@ -37,11 +37,13 @@ namespace Tools.Quests
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxStartingText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.textBoxStageEndText);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.buttonNextStageRoll);
@@ -52,7 +54,7 @@ namespace Tools.Quests
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(231, 199);
+            this.panel1.Size = new System.Drawing.Size(231, 232);
             this.panel1.TabIndex = 0;
             // 
             // textBoxStageEndText
@@ -120,13 +122,25 @@ namespace Tools.Quests
             this.label1.TabIndex = 0;
             this.label1.Text = "Starting Text";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkBox1.Location = new System.Drawing.Point(0, 197);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(231, 31);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "Stage Fails Quest";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // TerminalQuestStageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "TerminalQuestStageControl";
-            this.Size = new System.Drawing.Size(231, 199);
+            this.Size = new System.Drawing.Size(231, 232);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -143,5 +157,6 @@ namespace Tools.Quests
         private System.Windows.Forms.Button buttonNextStageRoll;
         private System.Windows.Forms.TextBox textBoxStageEndText;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
