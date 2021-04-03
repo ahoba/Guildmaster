@@ -23,9 +23,15 @@ namespace Tools.Quests
         public BinaryQuestStageControl()
         {
             InitializeComponent();
-
+            comboBoxAddFailureStage.MouseWheel += ComboBox_MouseWheel;
+            comboBoxAddSuccessStage.MouseWheel += ComboBox_MouseWheel;
             comboBoxAddFailureStage.DataSource = Enum.GetValues(typeof(QuestStageType));
             comboBoxAddSuccessStage.DataSource = Enum.GetValues(typeof(QuestStageType));
+        }
+
+        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            (e as HandledMouseEventArgs).Handled = true;
         }
 
         private void comboBoxAddFailureStage_SelectedIndexChanged(object sender, EventArgs e)

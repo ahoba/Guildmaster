@@ -31,6 +31,10 @@ namespace Tools.Quests
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBoxAddFailureStage = new System.Windows.Forms.ComboBox();
+            this.comboBoxAddSuccessStage = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.textBoxFailureText = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxSuccessText = new System.Windows.Forms.TextBox();
@@ -40,10 +44,6 @@ namespace Tools.Quests
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxStartingText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxAddFailureStage = new System.Windows.Forms.ComboBox();
-            this.comboBoxAddSuccessStage = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,54 @@ namespace Tools.Quests
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(236, 45);
             this.tableLayoutPanel1.TabIndex = 9;
+            // 
+            // comboBoxAddFailureStage
+            // 
+            this.comboBoxAddFailureStage.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.comboBoxAddFailureStage.FormattingEnabled = true;
+            this.comboBoxAddFailureStage.Location = new System.Drawing.Point(0, 24);
+            this.comboBoxAddFailureStage.Margin = new System.Windows.Forms.Padding(0);
+            this.comboBoxAddFailureStage.Name = "comboBoxAddFailureStage";
+            this.comboBoxAddFailureStage.Size = new System.Drawing.Size(118, 21);
+            this.comboBoxAddFailureStage.TabIndex = 0;
+            this.comboBoxAddFailureStage.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddFailureStage_SelectedIndexChanged);
+            // 
+            // comboBoxAddSuccessStage
+            // 
+            this.comboBoxAddSuccessStage.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.comboBoxAddSuccessStage.FormattingEnabled = true;
+            this.comboBoxAddSuccessStage.Location = new System.Drawing.Point(118, 24);
+            this.comboBoxAddSuccessStage.Margin = new System.Windows.Forms.Padding(0);
+            this.comboBoxAddSuccessStage.Name = "comboBoxAddSuccessStage";
+            this.comboBoxAddSuccessStage.Size = new System.Drawing.Size(118, 21);
+            this.comboBoxAddSuccessStage.TabIndex = 1;
+            this.comboBoxAddSuccessStage.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddSuccessStage_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.LightCoral;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(0, 3);
+            this.label5.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 17);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Add Failure Stage";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.OliveDrab;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(118, 3);
+            this.label6.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(118, 17);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Add Success Stage";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxFailureText
             // 
@@ -174,54 +222,6 @@ namespace Tools.Quests
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Starting Text";
-            // 
-            // comboBoxAddFailureStage
-            // 
-            this.comboBoxAddFailureStage.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.comboBoxAddFailureStage.FormattingEnabled = true;
-            this.comboBoxAddFailureStage.Location = new System.Drawing.Point(0, 24);
-            this.comboBoxAddFailureStage.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxAddFailureStage.Name = "comboBoxAddFailureStage";
-            this.comboBoxAddFailureStage.Size = new System.Drawing.Size(118, 21);
-            this.comboBoxAddFailureStage.TabIndex = 0;
-            this.comboBoxAddFailureStage.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddFailureStage_SelectedIndexChanged);
-            // 
-            // comboBoxAddSuccessStage
-            // 
-            this.comboBoxAddSuccessStage.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.comboBoxAddSuccessStage.FormattingEnabled = true;
-            this.comboBoxAddSuccessStage.Location = new System.Drawing.Point(118, 24);
-            this.comboBoxAddSuccessStage.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxAddSuccessStage.Name = "comboBoxAddSuccessStage";
-            this.comboBoxAddSuccessStage.Size = new System.Drawing.Size(118, 21);
-            this.comboBoxAddSuccessStage.TabIndex = 1;
-            this.comboBoxAddSuccessStage.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddSuccessStage_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.LightCoral;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(0, 3);
-            this.label5.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Add Failure Stage";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.OliveDrab;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(118, 3);
-            this.label6.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 17);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Add Success Stage";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BinaryQuestStageControl
             // 
