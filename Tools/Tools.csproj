@@ -103,6 +103,7 @@
     <Compile Include="Content\TileTextureSelector.Designer.cs">
       <DependentUpon>TileTextureSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factories\QuestControlFactory.cs" />
     <Compile Include="Factories\_\ActorRepositoryControlFactory.cs" />
     <Compile Include="Factories\_\ObjectRepositoryControlFactory.cs" />
     <Compile Include="Factories\_\TextureRepositoryControlFactory.cs" />
@@ -137,10 +138,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Quests\BinaryQuestStageControl.cs">
+    <Compile Include="Quests\QuestStageType.cs" />
+    <Compile Include="Quests\Stages\BinaryQuestStageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quests\BinaryQuestStageControl.Designer.cs">
+    <Compile Include="Quests\Stages\BinaryQuestStageControl.Designer.cs">
       <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Quests\QuestControl.cs">
@@ -149,16 +151,16 @@
     <Compile Include="Quests\QuestControl.Designer.cs">
       <DependentUpon>QuestControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Quests\TerminalQuestStage.cs">
+    <Compile Include="Quests\Stages\TerminalQuestStage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quests\TerminalQuestStage.Designer.cs">
+    <Compile Include="Quests\Stages\TerminalQuestStage.Designer.cs">
       <DependentUpon>TerminalQuestStage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Quests\LinearQuestStageControl.cs">
+    <Compile Include="Quests\Stages\LinearQuestStageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quests\LinearQuestStageControl.Designer.cs">
+    <Compile Include="Quests\Stages\LinearQuestStageControl.Designer.cs">
       <DependentUpon>LinearQuestStageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Quests\Rolls\RollControl.cs">
@@ -256,16 +258,16 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quests\BinaryQuestStageControl.resx">
+    <EmbeddedResource Include="Quests\Stages\BinaryQuestStageControl.resx">
       <DependentUpon>BinaryQuestStageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Quests\QuestControl.resx">
       <DependentUpon>QuestControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quests\TerminalQuestStage.resx">
+    <EmbeddedResource Include="Quests\Stages\TerminalQuestStage.resx">
       <DependentUpon>TerminalQuestStage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quests\LinearQuestStageControl.resx">
+    <EmbeddedResource Include="Quests\Stages\LinearQuestStageControl.resx">
       <DependentUpon>LinearQuestStageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Quests\Rolls\RollControl.resx">
@@ -347,6 +349,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folder-import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book-open-bookmark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

@@ -103,6 +103,16 @@ namespace Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap book_open_bookmark {
+            get {
+                object obj = ResourceManager.GetObject("book_open_bookmark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap disk__pencil {
             get {
                 object obj = ResourceManager.GetObject("disk__pencil", resourceCulture);

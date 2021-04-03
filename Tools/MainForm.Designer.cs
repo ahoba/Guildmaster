@@ -39,6 +39,7 @@ namespace Tools
             this.toolStripButtonActors = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSerialize = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeserialize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonQuests = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@ namespace Tools
             this.toolStripButtonAnimations,
             this.toolStripButtonObjects,
             this.toolStripButtonActors,
+            this.toolStripButtonQuests,
             this.toolStripSeparator1,
             this.toolStripButtonSerialize,
             this.toolStripButtonDeserialize});
@@ -145,6 +147,16 @@ namespace Tools
             this.toolStripButtonDeserialize.Text = "Load";
             this.toolStripButtonDeserialize.Click += new System.EventHandler(this.toolStripButtonDeserialize_Click);
             // 
+            // toolStripButtonQuests
+            // 
+            this.toolStripButtonQuests.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonQuests.Image = global::Tools.Properties.Resources.book_open_bookmark;
+            this.toolStripButtonQuests.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonQuests.Name = "toolStripButtonQuests";
+            this.toolStripButtonQuests.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonQuests.Text = "Quests";
+            this.toolStripButtonQuests.Click += new System.EventHandler(this.toolStripButtonQuests_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,6 +184,7 @@ namespace Tools
         private System.Windows.Forms.ToolStripButton toolStripButtonSerialize;
         private System.Windows.Forms.ToolStripButton toolStripButtonActors;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeserialize;
+        private System.Windows.Forms.ToolStripButton toolStripButtonQuests;
     }
 }
 

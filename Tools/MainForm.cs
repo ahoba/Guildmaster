@@ -81,9 +81,10 @@ namespace Tools
             _controlFactories[nameof(AnimationRepositoryControl)] = new AnimationRepositoryControlFactory(_textureRepository, _animationRepository);
             _controlFactories[nameof(ObjectRepositoryControl)] = new ObjectRepositoryControlFactory(_objectRepository);
             _controlFactories[nameof(ActorRepositoryControl)] = new ActorRepositoryControlFactory(_actorRepository, _actionRepository);
+            _controlFactories[nameof(QuestControlFactory)] = new QuestControlFactory();
         }
 
-        private void ShowControlOnForm(Control control, string text)
+        private Form ShowControlOnForm(Control control, string text)
         {
             control.Dock = DockStyle.Fill;
 
@@ -95,6 +96,8 @@ namespace Tools
             form.Controls.Add(control);
 
             form.Show();
+
+            return form;
         }
 
         private void toolStripButtonTextureRepository_Click(object sender, EventArgs e)
@@ -137,6 +140,13 @@ namespace Tools
             Control control = _controlFactories[nameof(ActorRepositoryControl)].CreateControl();
 
             ShowControlOnForm(control, "Actors");
+        }
+
+        private void toolStripButtonQuests_Click(object sender, EventArgs e)
+        {
+            Control control = _controlFactories[nameof(QuestControlFactory)].CreateControl();
+
+            ShowControlOnForm(control, "Quests").WindowState = FormWindowState.Maximized;
         }
 
         private void toolStripButtonSerialize_Click(object sender, EventArgs e)
@@ -237,10 +247,6 @@ namespace Tools
                     {
                         RestoreTextureRepository(folderDialog.SelectedPath, fileName);
                     }
-                    //else if (Regex.IsMatch(fileName, nameof(TextureRepository)))
-                    //{
-                    //    RestoreTextureRepository(fileName);
-                    //}
                 }
             }
         }

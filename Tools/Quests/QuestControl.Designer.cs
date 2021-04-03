@@ -38,8 +38,9 @@ namespace Tools.Quests
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxSuccessText = new System.Windows.Forms.TextBox();
             this.textBoxFailureText = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAddInitialStage = new System.Windows.Forms.Button();
+            this.panelStages = new System.Windows.Forms.Panel();
+            this.comboBoxInitialStageType = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,8 +57,9 @@ namespace Tools.Quests
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.textBoxSuccessText, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBoxFailureText, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.buttonAddInitialStage, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.panelStages, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.comboBoxInitialStageType, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -140,25 +142,35 @@ namespace Tools.Quests
             this.textBoxFailureText.Size = new System.Drawing.Size(736, 20);
             this.textBoxFailureText.TabIndex = 7;
             // 
-            // panel1
+            // panelStages
             // 
-            this.panel1.AutoScroll = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 212);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(814, 378);
-            this.panel1.TabIndex = 8;
+            this.panelStages.AutoScroll = true;
+            this.panelStages.AutoSize = true;
+            this.panelStages.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tableLayoutPanel1.SetColumnSpan(this.panelStages, 2);
+            this.panelStages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelStages.Location = new System.Drawing.Point(3, 210);
+            this.panelStages.Name = "panelStages";
+            this.panelStages.Size = new System.Drawing.Size(814, 380);
+            this.panelStages.TabIndex = 8;
             // 
-            // buttonAddInitialStage
+            // comboBoxInitialStageType
             // 
-            this.buttonAddInitialStage.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonAddInitialStage.Location = new System.Drawing.Point(81, 183);
-            this.buttonAddInitialStage.Name = "buttonAddInitialStage";
-            this.buttonAddInitialStage.Size = new System.Drawing.Size(115, 23);
-            this.buttonAddInitialStage.TabIndex = 9;
-            this.buttonAddInitialStage.Text = "Add Initial Stage";
-            this.buttonAddInitialStage.UseVisualStyleBackColor = true;
+            this.comboBoxInitialStageType.FormattingEnabled = true;
+            this.comboBoxInitialStageType.Location = new System.Drawing.Point(81, 183);
+            this.comboBoxInitialStageType.Name = "comboBoxInitialStageType";
+            this.comboBoxInitialStageType.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxInitialStageType.TabIndex = 10;
+            this.comboBoxInitialStageType.SelectedIndexChanged += new System.EventHandler(this.comboBoxInitialStageType_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 180);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Initial Stage";
             // 
             // QuestControl
             // 
@@ -184,7 +196,8 @@ namespace Tools.Quests
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxSuccessText;
         private System.Windows.Forms.TextBox textBoxFailureText;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonAddInitialStage;
+        private System.Windows.Forms.Panel panelStages;
+        private System.Windows.Forms.ComboBox comboBoxInitialStageType;
+        private System.Windows.Forms.Label label5;
     }
 }
