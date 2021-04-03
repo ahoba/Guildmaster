@@ -12,6 +12,12 @@ namespace Tools.Quests
 {
     public partial class QuestControl : UserControl
     {
+        private Pen _greenPen = new Pen(Color.Green, 3);
+        
+        private Pen _redPen = new Pen(Color.Red, 3);
+
+        private Pen _blackPen = new Pen(Color.Black, 3);
+
         public QuestControl()
         {
             InitializeComponent();
@@ -35,7 +41,7 @@ namespace Tools.Quests
                     if (binaryStageControl.SuccessStageControl != null)
                     {
                         e.Graphics.DrawLine(
-                            Pens.Black,
+                            _greenPen,
                             new Point(binaryStageControl.Right, binaryStageControl.Bottom),
                             new Point(binaryStageControl.SuccessStageControl.Left, binaryStageControl.SuccessStageControl.Top));
                     }
@@ -43,7 +49,7 @@ namespace Tools.Quests
                     if (binaryStageControl.FailureStageControl != null)
                     {
                         e.Graphics.DrawLine(
-                            Pens.Black,
+                            _redPen,
                             new Point(binaryStageControl.Left, binaryStageControl.Bottom),
                             new Point(binaryStageControl.FailureStageControl.Right, binaryStageControl.FailureStageControl.Top));
                     }
@@ -53,7 +59,7 @@ namespace Tools.Quests
                     if (linearStageControl.NextStageControl != null)
                     {
                         e.Graphics.DrawLine(
-                            Pens.Black,
+                            _blackPen,
                             new Point(linearStageControl.Left + linearStageControl.Width / 2, linearStageControl.Bottom),
                             new Point(linearStageControl.NextStageControl.Left + linearStageControl.Width / 2, linearStageControl.NextStageControl.Top));
                     }
@@ -151,9 +157,9 @@ namespace Tools.Quests
         {
             foreach (Control control in panelStages.Controls)
             {
-                if (newControl.Tag is Control parent0 && control.Tag is Control parent1)
+                if (newControl != control && newControl.Tag is Control parent0 && control.Tag is Control parent1)
                 {
-                    if (newControl != control && RectangleFromControl(newControl).IntersectsWith(RectangleFromControl(control)))
+                    if (RectangleFromControl(newControl).IntersectsWith(RectangleFromControl(control)))
                     {
                         if (parent0.Right > parent1.Right)
                         {
@@ -161,12 +167,43 @@ namespace Tools.Quests
 
                             AdjustLocations(newControl);
                         }
+                        else if (parent0 == parent1 && parent0 is BinaryQuestStageControl binaryStageControl)
+                        {
+                            if (newControl == binaryStageControl.FailureStageControl)
+                            {
+                                control.Location = new Point(newControl.Right + 10, newControl.Location.Y);
+
+                                AdjustLocations(control);
+                            }
+                            else
+                            {
+                                newControl.Location = new Point(control.Right + 10, newControl.Location.Y);
+
+                                AdjustLocations(newControl);
+                            }
+                        }
                         else
                         {
                             control.Location = new Point(newControl.Right + 10, newControl.Location.Y);
 
                             AdjustLocations(control);
                         }
+
+                        break;
+                    }
+                    else if (parent0.Top == parent1.Top && parent0.Right > parent1.Right && newControl.Right < control.Right)
+                    {
+                        newControl.Location = new Point(control.Right + 10, newControl.Location.Y);
+
+                        AdjustLocations(newControl);
+
+                        break;
+                    }
+                    else if (parent0.Top == parent1.Top && parent0.Right < parent1.Right && newControl.Right > control.Right)
+                    {
+                        control.Location = new Point(newControl.Right + 10, newControl.Location.Y);
+
+                        AdjustLocations(control);
 
                         break;
                     }

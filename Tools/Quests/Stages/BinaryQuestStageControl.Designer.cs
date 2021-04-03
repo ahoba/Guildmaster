@@ -66,7 +66,7 @@ namespace Tools.Quests
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(1);
-            this.panel1.Size = new System.Drawing.Size(240, 279);
+            this.panel1.Size = new System.Drawing.Size(240, 280);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -85,14 +85,14 @@ namespace Tools.Quests
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(236, 45);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(236, 46);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // comboBoxAddFailureStage
             // 
             this.comboBoxAddFailureStage.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.comboBoxAddFailureStage.FormattingEnabled = true;
-            this.comboBoxAddFailureStage.Location = new System.Drawing.Point(0, 24);
+            this.comboBoxAddFailureStage.Location = new System.Drawing.Point(0, 25);
             this.comboBoxAddFailureStage.Margin = new System.Windows.Forms.Padding(0);
             this.comboBoxAddFailureStage.Name = "comboBoxAddFailureStage";
             this.comboBoxAddFailureStage.Size = new System.Drawing.Size(118, 21);
@@ -103,7 +103,7 @@ namespace Tools.Quests
             // 
             this.comboBoxAddSuccessStage.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.comboBoxAddSuccessStage.FormattingEnabled = true;
-            this.comboBoxAddSuccessStage.Location = new System.Drawing.Point(118, 24);
+            this.comboBoxAddSuccessStage.Location = new System.Drawing.Point(118, 25);
             this.comboBoxAddSuccessStage.Margin = new System.Windows.Forms.Padding(0);
             this.comboBoxAddSuccessStage.Name = "comboBoxAddSuccessStage";
             this.comboBoxAddSuccessStage.Size = new System.Drawing.Size(118, 21);
@@ -230,7 +230,7 @@ namespace Tools.Quests
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.panel1);
             this.Name = "BinaryQuestStageControl";
-            this.Size = new System.Drawing.Size(240, 279);
+            this.Size = new System.Drawing.Size(240, 280);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
