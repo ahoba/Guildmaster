@@ -18,6 +18,8 @@ namespace Tools.Quests
 
         private Pen _blackPen = new Pen(Color.Black, 3);
 
+        private Control _initialStageControl = null;
+
         public QuestControl()
         {
             InitializeComponent();
@@ -26,6 +28,8 @@ namespace Tools.Quests
 
             panelStages.Paint += PanelStages_Paint;
         }
+
+        #region PaintLogic
 
         private void PanelStages_Paint(object sender, PaintEventArgs e)
         {
@@ -65,92 +69,6 @@ namespace Tools.Quests
                     }
                 }
             }
-        }
-
-        private void Control_SuccessControlRequest(object sender, NextStageControlRequest e)
-        {
-            if (sender is BinaryQuestStageControl binaryStageControl)
-            {
-                if (binaryStageControl.SuccessStageControl != null)
-                {
-                    panelStages.Controls.Remove(binaryStageControl.SuccessStageControl);
-
-                    Clean(binaryStageControl.SuccessStageControl);
-                }
-
-                Control control = GetControl(e.StageType);
-
-                control.Tag = binaryStageControl;
-
-                if (control == null)
-                {
-                    binaryStageControl.SuccessStageControl = null;
-                }
-                else
-                {
-                    control.Location = new Point()
-                    {
-                        X = binaryStageControl.Right + 50,
-                        Y = binaryStageControl.Bottom + 50
-                    };
-
-                    AdjustLocations(control);
-
-                    binaryStageControl.SuccessStageControl = control;
-
-                    panelStages.Controls.Add(control);
-                }
-            }
-
-            panelStages.Refresh();
-        }
-
-        private void Control_FailureControlRequest(object sender, NextStageControlRequest e)
-        {
-            if (sender is BinaryQuestStageControl binaryStageControl)
-            {
-                if (binaryStageControl.FailureStageControl != null)
-                {
-                    panelStages.Controls.Remove(binaryStageControl.FailureStageControl);
-
-                    Clean(binaryStageControl.FailureStageControl);
-                }
-
-                Control control = GetControl(e.StageType);
-                
-                control.Tag = binaryStageControl;
-
-                if (control == null)
-                {
-                    binaryStageControl.FailureStageControl = null;
-                }
-                else
-                {
-                    int x = binaryStageControl.Left - control.Width - 50;
-
-                    if (x < 50)
-                    {
-                        foreach (Control c in panelStages.Controls)
-                        {
-                            c.Location = new Point(c.Location.X + 50 - x, c.Location.Y);
-                        }
-                    }
-
-                    control.Location = new Point()
-                    {
-                        X = binaryStageControl.Left - control.Width - 50,
-                        Y = binaryStageControl.Bottom + 50
-                    };
-
-                    AdjustLocations(control);
-
-                    binaryStageControl.FailureStageControl = control;
-
-                    panelStages.Controls.Add(control);
-                }
-            }
-
-            panelStages.Refresh();
         }
 
         private void AdjustLocations(Control newControl)
@@ -216,6 +134,10 @@ namespace Tools.Quests
             return new Rectangle(control.Left, control.Top, control.Right - control.Left, control.Bottom - control.Top);
         }
 
+        #endregion
+
+        #region BinaryQuestStageControl
+
         private BinaryQuestStageControl CreateBinaryStageControl()
         {
             BinaryQuestStageControl control = new BinaryQuestStageControl();
@@ -226,12 +148,142 @@ namespace Tools.Quests
             return control;
         }
 
+        private void Control_SuccessControlRequest(object sender, NextStageControlRequest e)
+        {
+            if (sender is BinaryQuestStageControl binaryStageControl)
+            {
+                if (binaryStageControl.SuccessStageControl != null)
+                {
+                    Clean(binaryStageControl.SuccessStageControl);
+                }
+
+                Control control = GetControl(e.StageType);
+
+                if (control == null)
+                {
+                    binaryStageControl.SuccessStageControl = null;
+                }
+                else
+                {
+                    control.Tag = binaryStageControl;
+
+                    control.Location = new Point()
+                    {
+                        X = binaryStageControl.Right + 50,
+                        Y = binaryStageControl.Bottom + 50
+                    };
+
+                    AdjustLocations(control);
+
+                    binaryStageControl.SuccessStageControl = control;
+
+                    panelStages.Controls.Add(control);
+                }
+            }
+
+            panelStages.Refresh();
+        }
+
+        private void Control_FailureControlRequest(object sender, NextStageControlRequest e)
+        {
+            if (sender is BinaryQuestStageControl binaryStageControl)
+            {
+                if (binaryStageControl.FailureStageControl != null)
+                {
+                    panelStages.Controls.Remove(binaryStageControl.FailureStageControl);
+
+                    Clean(binaryStageControl.FailureStageControl);
+                }
+
+                Control control = GetControl(e.StageType);
+
+                if (control == null)
+                {
+                    binaryStageControl.FailureStageControl = null;
+                }
+                else
+                {
+                    control.Tag = binaryStageControl;
+
+                    int x = binaryStageControl.Left - control.Width - 50;
+
+                    if (x < 50)
+                    {
+                        foreach (Control c in panelStages.Controls)
+                        {
+                            c.Location = new Point(c.Location.X + 50 - x, c.Location.Y);
+                        }
+                    }
+
+                    control.Location = new Point()
+                    {
+                        X = binaryStageControl.Left - control.Width - 50,
+                        Y = binaryStageControl.Bottom + 50
+                    };
+
+                    AdjustLocations(control);
+
+                    binaryStageControl.FailureStageControl = control;
+
+                    panelStages.Controls.Add(control);
+                }
+            }
+
+            panelStages.Refresh();
+        }
+
+        #endregion
+
+        #region LinearQuestStageControl
+
         private LinearQuestStageControl CreateLinearStageControl()
         {
             LinearQuestStageControl control = new LinearQuestStageControl();
 
+            control.NextControlRequest += Control_NextControlRequest;
+
             return control;
         }
+
+        private void Control_NextControlRequest(object sender, NextStageControlRequest e)
+        {
+            if (sender is LinearQuestStageControl linearStageControl)
+            {
+                if (linearStageControl.NextStageControl != null)
+                {
+                    Clean(linearStageControl.NextStageControl);
+                }
+
+                Control control = GetControl(e.StageType);
+
+                if (control == null)
+                {
+                    linearStageControl.NextStageControl = null;
+                }
+                else
+                {
+                    control.Tag = linearStageControl;
+
+                    control.Location = new Point()
+                    {
+                        X = linearStageControl.Left,
+                        Y = linearStageControl.Bottom + 50
+                    };
+
+                    AdjustLocations(control);
+
+                    linearStageControl.NextStageControl = control;
+
+                    panelStages.Controls.Add(control);
+                }
+            }
+
+            panelStages.Refresh();
+        }
+
+        #endregion
+
+        #region TerminalQuestStageControl
 
         private TerminalQuestStageControl CreateTerminalStageControl()
         {
@@ -240,19 +292,24 @@ namespace Tools.Quests
             return control;
         }
 
+        #endregion
+
         private void comboBoxInitialStageType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxInitialStageType.SelectedItem is QuestStageType stageType)
             {
-                Control control = GetControl(stageType);
-                
-                if (control != null)
+                if (_initialStageControl != null)
                 {
-                    control.Location = new Point(panelStages.Width / 2 - control.Width / 2, 3);
+                    Clean(_initialStageControl);
+                }
 
-                    panelStages.Controls.Add(control);
+                _initialStageControl = GetControl(stageType);
+                
+                if (_initialStageControl != null)
+                {
+                    _initialStageControl.Location = new Point(panelStages.Width / 2 - _initialStageControl.Width / 2, 3);
 
-                    comboBoxInitialStageType.Enabled = false;
+                    panelStages.Controls.Add(_initialStageControl);
                 }
             }
         }
@@ -283,6 +340,31 @@ namespace Tools.Quests
             {
                 binaryStageControl.FailureControlRequest -= Control_FailureControlRequest;
                 binaryStageControl.SuccessControlRequest -= Control_SuccessControlRequest;
+
+                panelStages.Controls.Remove(control);
+
+                if (binaryStageControl.SuccessStageControl != null)
+                {
+                    Clean(binaryStageControl.SuccessStageControl);
+                }
+
+                if (binaryStageControl.FailureStageControl != null)
+                {
+                    Clean(binaryStageControl.FailureStageControl);
+                }
+            }
+            else if (control is LinearQuestStageControl linearStageControl)
+            {
+                panelStages.Controls.Remove(control);
+
+                if (linearStageControl.NextStageControl != null)
+                {
+                    Clean(linearStageControl.NextStageControl);
+                }
+            }
+            else if (control is TerminalQuestStageControl terminalStageControl)
+            {
+                panelStages.Controls.Remove(control);
             }
         }
     }
