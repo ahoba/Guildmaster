@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Danke.Quests;
+using Danke.Quests.QuestStages;
+using Danke.Text;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,7 +50,7 @@ namespace Tools.Quests
                         e.Graphics.DrawLine(
                             _greenPen,
                             new Point(binaryStageControl.Right, binaryStageControl.Bottom),
-                            new Point(binaryStageControl.SuccessStageControl.Left, binaryStageControl.SuccessStageControl.Top));
+                            new Point((binaryStageControl.SuccessStageControl as Control).Left, (binaryStageControl.SuccessStageControl as Control).Top));
                     }
 
                     if (binaryStageControl.FailureStageControl != null)
@@ -55,7 +58,7 @@ namespace Tools.Quests
                         e.Graphics.DrawLine(
                             _redPen,
                             new Point(binaryStageControl.Left, binaryStageControl.Bottom),
-                            new Point(binaryStageControl.FailureStageControl.Right, binaryStageControl.FailureStageControl.Top));
+                            new Point((binaryStageControl.FailureStageControl as Control).Right, (binaryStageControl.FailureStageControl as Control).Top));
                     }
                 }
                 else if (control is LinearQuestStageControl linearStageControl)
@@ -65,7 +68,7 @@ namespace Tools.Quests
                         e.Graphics.DrawLine(
                             _blackPen,
                             new Point(linearStageControl.Left + linearStageControl.Width / 2, linearStageControl.Bottom),
-                            new Point(linearStageControl.NextStageControl.Left + linearStageControl.Width / 2, linearStageControl.NextStageControl.Top));
+                            new Point((linearStageControl.NextStageControl as Control).Left + linearStageControl.Width / 2, (linearStageControl.NextStageControl as Control).Top));
                     }
                 }
             }
@@ -140,7 +143,25 @@ namespace Tools.Quests
 
         private BinaryQuestStageControl CreateBinaryStageControl()
         {
-            BinaryQuestStageControl control = new BinaryQuestStageControl();
+            BinaryQuestStageControl control = new BinaryQuestStageControl()
+            {
+                BinaryQuestStage = new BinaryQuestStage()
+                {
+                    FailureText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    StageStartText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    SuccessText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    Tests =  new BindingList<Test>()
+                }
+            };
 
             control.FailureControlRequest += Control_FailureControlRequest;
             control.SuccessControlRequest += Control_SuccessControlRequest;
@@ -154,7 +175,7 @@ namespace Tools.Quests
             {
                 if (binaryStageControl.SuccessStageControl != null)
                 {
-                    Clean(binaryStageControl.SuccessStageControl);
+                    Clean((Control)binaryStageControl.SuccessStageControl);
                 }
 
                 Control control = GetControl(e.StageType);
@@ -175,7 +196,7 @@ namespace Tools.Quests
 
                     AdjustLocations(control);
 
-                    binaryStageControl.SuccessStageControl = control;
+                    binaryStageControl.SuccessStageControl = control as IQuestStageControl;
 
                     panelStages.Controls.Add(control);
                 }
@@ -190,9 +211,9 @@ namespace Tools.Quests
             {
                 if (binaryStageControl.FailureStageControl != null)
                 {
-                    panelStages.Controls.Remove(binaryStageControl.FailureStageControl);
+                    panelStages.Controls.Remove((Control)binaryStageControl.FailureStageControl);
 
-                    Clean(binaryStageControl.FailureStageControl);
+                    Clean((Control)binaryStageControl.FailureStageControl);
                 }
 
                 Control control = GetControl(e.StageType);
@@ -223,7 +244,7 @@ namespace Tools.Quests
 
                     AdjustLocations(control);
 
-                    binaryStageControl.FailureStageControl = control;
+                    binaryStageControl.FailureStageControl = control as IQuestStageControl;
 
                     panelStages.Controls.Add(control);
                 }
@@ -238,7 +259,21 @@ namespace Tools.Quests
 
         private LinearQuestStageControl CreateLinearStageControl()
         {
-            LinearQuestStageControl control = new LinearQuestStageControl();
+            LinearQuestStageControl control = new LinearQuestStageControl()
+            {
+                LinearQuestStage = new LinearQuestStage()
+                {
+                    StageStartText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    StageEndText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    Tests =  new BindingList<Test>()
+                }
+            };
 
             control.NextControlRequest += Control_NextControlRequest;
 
@@ -251,7 +286,7 @@ namespace Tools.Quests
             {
                 if (linearStageControl.NextStageControl != null)
                 {
-                    Clean(linearStageControl.NextStageControl);
+                    Clean((Control)linearStageControl.NextStageControl);
                 }
 
                 Control control = GetControl(e.StageType);
@@ -272,7 +307,7 @@ namespace Tools.Quests
 
                     AdjustLocations(control);
 
-                    linearStageControl.NextStageControl = control;
+                    linearStageControl.NextStageControl = control as IQuestStageControl;
 
                     panelStages.Controls.Add(control);
                 }
@@ -287,7 +322,21 @@ namespace Tools.Quests
 
         private TerminalQuestStageControl CreateTerminalStageControl()
         {
-            TerminalQuestStageControl control = new TerminalQuestStageControl();
+            TerminalQuestStageControl control = new TerminalQuestStageControl()
+            {
+                TerminalQuestStage = new TerminalQuestStage()
+                {
+                    StageStartText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    StageEndText = new RegionText()
+                    {
+                        TextId = Guid.NewGuid().ToString()
+                    },
+                    Tests =  new BindingList<Test>()
+                }
+            };
             
             return control;
         }
@@ -345,12 +394,12 @@ namespace Tools.Quests
 
                 if (binaryStageControl.SuccessStageControl != null)
                 {
-                    Clean(binaryStageControl.SuccessStageControl);
+                    Clean((Control)binaryStageControl.SuccessStageControl);
                 }
 
                 if (binaryStageControl.FailureStageControl != null)
                 {
-                    Clean(binaryStageControl.FailureStageControl);
+                    Clean((Control)binaryStageControl.FailureStageControl);
                 }
             }
             else if (control is LinearQuestStageControl linearStageControl)
@@ -359,7 +408,13 @@ namespace Tools.Quests
 
                 if (linearStageControl.NextStageControl != null)
                 {
-                    Clean(linearStageControl.NextStageControl);
+                    Clean((Control)linearStageControl.NextStageControl);
+
+                    if (linearStageControl.LinearQuestStage != null)
+                    {
+                        TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageStartText.TextId);
+                        TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageEndText.TextId);
+                    }
                 }
             }
             else if (control is TerminalQuestStageControl terminalStageControl)

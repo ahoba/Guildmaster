@@ -151,6 +151,7 @@
     <Compile Include="Quests\QuestControl.Designer.cs">
       <DependentUpon>QuestControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Quests\Stages\IQuestStageControl.cs" />
     <Compile Include="Quests\Stages\TerminalQuestStage.cs">
       <SubType>UserControl</SubType>
     </Compile>

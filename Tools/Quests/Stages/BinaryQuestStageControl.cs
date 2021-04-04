@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Danke.Quests.QuestStages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,41 @@ using System.Windows.Forms;
 
 namespace Tools.Quests
 {
-    public partial class BinaryQuestStageControl : UserControl
+    public partial class BinaryQuestStageControl : UserControl, IQuestStageControl
     {
-        public Control FailureStageControl { get; set; }
+        public IQuestStageControl FailureStageControl { get; set; }
 
-        public Control SuccessStageControl { get; set; }
+        public IQuestStageControl SuccessStageControl { get; set; }
+
+        public QuestStage QuestStage => _questStage;
+
+        private BinaryQuestStage _questStage;
+
+        public BinaryQuestStage BinaryQuestStage
+        {
+            get => _questStage;
+            set
+            {
+                _questStage = value;
+
+                if (_questStage == null)
+                {
+                    textBoxStartingText.Text = string.Empty;
+                    textBoxSuccessText.Text = string.Empty;
+                    textBoxFailureText.Text = string.Empty;
+
+                    listBoxTests.DataSource = null;
+                }
+                else
+                {
+                    textBoxStartingText.Text = _questStage.StageStartText.Text;
+                    textBoxSuccessText.Text = _questStage.SuccessText.Text;
+                    textBoxFailureText.Text = _questStage.FailureText.Text;
+
+                    listBoxTests.DataSource = _questStage.Tests;
+                }
+            }
+        }
 
         public event EventHandler<NextStageControlRequest> FailureControlRequest;
 
@@ -53,6 +84,30 @@ namespace Tools.Quests
                 {
                     StageType = stageType
                 });
+            }
+        }
+
+        private void textBoxStartingText_TextChanged(object sender, EventArgs e)
+        {
+            if (_questStage != null)
+            {
+                _questStage.StageStartText.Text = textBoxStartingText.Text;
+            }
+        }
+
+        private void textBoxSuccessText_TextChanged(object sender, EventArgs e)
+        {
+            if (_questStage != null)
+            {
+                _questStage.SuccessText.Text = textBoxSuccessText.Text;
+            }
+        }
+
+        private void textBoxFailureText_TextChanged(object sender, EventArgs e)
+        {
+            if (_questStage != null)
+            {
+                _questStage.FailureText.Text = textBoxFailureText.Text;
             }
         }
     }

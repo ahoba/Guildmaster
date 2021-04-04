@@ -43,6 +43,17 @@ namespace Danke.Text
             TextById[id] = value;
         }
 
+        public void RemoveText(string id)
+        {
+            foreach (Dictionary<string, string> dictionary in DictionariesByLanguage)
+            {
+                if (dictionary.ContainsKey(id))
+                {
+                    dictionary.Remove(id);
+                }
+            }
+        }
+
         private TextProvider()
         {
             Language = Languages.English;

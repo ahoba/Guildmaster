@@ -87,6 +87,7 @@ namespace Tools.Quests
             this.textBoxStageEndText.Name = "textBoxStageEndText";
             this.textBoxStageEndText.Size = new System.Drawing.Size(238, 20);
             this.textBoxStageEndText.TabIndex = 6;
+            this.textBoxStageEndText.TextChanged += new System.EventHandler(this.textBoxStageEndText_TextChanged);
             // 
             // label3
             // 
@@ -134,6 +135,7 @@ namespace Tools.Quests
             this.textBoxStartingText.Name = "textBoxStartingText";
             this.textBoxStartingText.Size = new System.Drawing.Size(238, 20);
             this.textBoxStartingText.TabIndex = 1;
+            this.textBoxStartingText.TextChanged += new System.EventHandler(this.textBoxStartingText_TextChanged);
             // 
             // label1
             // 
