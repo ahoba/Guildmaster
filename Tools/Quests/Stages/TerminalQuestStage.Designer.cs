@@ -30,7 +30,7 @@ namespace Tools.Quests
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxStageFailsQuest = new System.Windows.Forms.CheckBox();
             this.textBoxStageEndText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonNextStageRoll = new System.Windows.Forms.Button();
@@ -43,7 +43,7 @@ namespace Tools.Quests
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.checkBoxStageFailsQuest);
             this.panel1.Controls.Add(this.textBoxStageEndText);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.buttonNextStageRoll);
@@ -58,17 +58,18 @@ namespace Tools.Quests
             this.panel1.Size = new System.Drawing.Size(240, 280);
             this.panel1.TabIndex = 0;
             // 
-            // checkBox1
+            // checkBoxStageFailsQuest
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.checkBox1.Location = new System.Drawing.Point(1, 198);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(238, 31);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Stage Fails Quest";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxStageFailsQuest.AutoSize = true;
+            this.checkBoxStageFailsQuest.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkBoxStageFailsQuest.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkBoxStageFailsQuest.Location = new System.Drawing.Point(1, 198);
+            this.checkBoxStageFailsQuest.Name = "checkBoxStageFailsQuest";
+            this.checkBoxStageFailsQuest.Size = new System.Drawing.Size(238, 31);
+            this.checkBoxStageFailsQuest.TabIndex = 7;
+            this.checkBoxStageFailsQuest.Text = "Stage Fails Quest";
+            this.checkBoxStageFailsQuest.UseVisualStyleBackColor = true;
+            this.checkBoxStageFailsQuest.CheckedChanged += new System.EventHandler(this.checkBoxStageFailsQuest_CheckedChanged);
             // 
             // textBoxStageEndText
             // 
@@ -77,6 +78,7 @@ namespace Tools.Quests
             this.textBoxStageEndText.Name = "textBoxStageEndText";
             this.textBoxStageEndText.Size = new System.Drawing.Size(238, 20);
             this.textBoxStageEndText.TabIndex = 6;
+            this.textBoxStageEndText.TextChanged += new System.EventHandler(this.textBoxStageEndText_TextChanged);
             // 
             // label3
             // 
@@ -124,6 +126,7 @@ namespace Tools.Quests
             this.textBoxStartingText.Name = "textBoxStartingText";
             this.textBoxStartingText.Size = new System.Drawing.Size(238, 20);
             this.textBoxStartingText.TabIndex = 1;
+            this.textBoxStartingText.TextChanged += new System.EventHandler(this.textBoxStartingText_TextChanged);
             // 
             // label1
             // 
@@ -160,6 +163,6 @@ namespace Tools.Quests
         private System.Windows.Forms.Button buttonNextStageRoll;
         private System.Windows.Forms.TextBox textBoxStageEndText;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxStageFailsQuest;
     }
 }

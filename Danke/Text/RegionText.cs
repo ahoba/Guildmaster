@@ -7,7 +7,7 @@ namespace Danke.Text
     [Serializable]
     public class RegionText
     {
-        public virtual string TextId { get; protected set; }
+        public virtual string TextId { get; set; }
 
         public string Text 
         { 

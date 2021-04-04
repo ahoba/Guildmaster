@@ -143,6 +143,7 @@ namespace Tools.Quests
             this.textBoxFailureText.Name = "textBoxFailureText";
             this.textBoxFailureText.Size = new System.Drawing.Size(236, 20);
             this.textBoxFailureText.TabIndex = 8;
+            this.textBoxFailureText.TextChanged += new System.EventHandler(this.textBoxFailureText_TextChanged);
             // 
             // label4
             // 
@@ -162,6 +163,7 @@ namespace Tools.Quests
             this.textBoxSuccessText.Name = "textBoxSuccessText";
             this.textBoxSuccessText.Size = new System.Drawing.Size(236, 20);
             this.textBoxSuccessText.TabIndex = 6;
+            this.textBoxSuccessText.TextChanged += new System.EventHandler(this.textBoxSuccessText_TextChanged);
             // 
             // label3
             // 
@@ -211,6 +213,7 @@ namespace Tools.Quests
             this.textBoxStartingText.Name = "textBoxStartingText";
             this.textBoxStartingText.Size = new System.Drawing.Size(236, 20);
             this.textBoxStartingText.TabIndex = 1;
+            this.textBoxStartingText.TextChanged += new System.EventHandler(this.textBoxStartingText_TextChanged);
             // 
             // label1
             // 
