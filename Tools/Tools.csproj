@@ -217,6 +217,12 @@
       <DependentUpon>TileSetRepositoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Serialization\Serialization.cs" />
+    <Compile Include="Util\GenericDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Util\GenericDialogForm.Designer.cs">
+      <DependentUpon>GenericDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util\TileTextureControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -291,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Scenes\Tiles\TileSetControl.resx">
       <DependentUpon>TileSetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Util\GenericDialogForm.resx">
+      <DependentUpon>GenericDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Util\TileTextureControl.resx">
       <DependentUpon>TileTextureControl.cs</DependentUpon>

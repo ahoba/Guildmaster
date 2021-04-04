@@ -1,4 +1,6 @@
-﻿using Danke.Quests.QuestStages;
+﻿using Danke.Characters;
+using Danke.Quests;
+using Danke.Quests.QuestStages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools.Quests.Rolls;
+using Tools.Util;
 
 namespace Tools.Quests
 {
@@ -108,6 +112,26 @@ namespace Tools.Quests
             if (_questStage != null)
             {
                 _questStage.FailureText.Text = textBoxFailureText.Text;
+            }
+        }
+
+        private void buttonNextStageRoll_Click(object sender, EventArgs e)
+        {
+            if (_questStage != null)
+            {
+                RollControl rollControl = new RollControl();
+
+                rollControl.Roll = _questStage.NextStageRoll;
+
+                GenericDialogForm dialog = new GenericDialogForm()
+                {
+                    Control = rollControl
+                };
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
         }
     }

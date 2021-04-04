@@ -18,9 +18,7 @@ namespace Danke.Quests
     [Serializable]
     public class Consumable
     {
-        public virtual RegionText RegionText { get; set; }
-
-        public string Text { get => RegionText.Text; }
+        public virtual RegionText Text { get; set; }
 
         public virtual Guid ItemId { get; set; }
 
@@ -73,7 +71,7 @@ namespace Danke.Quests
 
                     if (consumable != null)
                     {
-                        logList.Add($"{character.Name} {consumable.RegionText.Text}");
+                        logList.Add($"{character.Name} {consumable.Text.Text}");
 
                         toRemove = provision;
 

@@ -254,7 +254,7 @@ namespace DankeTests.Quests
                     new Consumable()
                     {
                         ItemId = item.Id,
-                        RegionText = new Danke.Text.RegionText()
+                        Text = new Danke.Text.RegionText()
                         {
                             Text = "used a rope to jump over the lava river."
                         }
@@ -411,7 +411,7 @@ namespace DankeTests.Quests
                     new Consumable()
                     {
                         ItemId = item0.Id,
-                        RegionText = new Danke.Text.RegionText()
+                        Text = new Danke.Text.RegionText()
                         {
                             Text = "used a rope to jump over the lava river."
                         }

@@ -185,6 +185,7 @@ namespace Tools.Quests
             this.buttonNextStageRoll.TabIndex = 4;
             this.buttonNextStageRoll.Text = "Next Stage Roll";
             this.buttonNextStageRoll.UseVisualStyleBackColor = true;
+            this.buttonNextStageRoll.Click += new System.EventHandler(this.buttonNextStageRoll_Click);
             // 
             // listBoxTests
             // 

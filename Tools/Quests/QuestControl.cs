@@ -1,4 +1,5 @@
-﻿using Danke.Quests;
+﻿using Danke.Characters;
+using Danke.Quests;
 using Danke.Quests.QuestStages;
 using Danke.Text;
 using System;
@@ -149,17 +150,18 @@ namespace Tools.Quests
                 {
                     FailureText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
                     StageStartText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
                     SuccessText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
-                    Tests =  new BindingList<Test>()
+                    Tests =  new BindingList<Test>(),
+                    NextStageRoll = CreateDefaultRoll()
                 }
             };
 
@@ -265,13 +267,14 @@ namespace Tools.Quests
                 {
                     StageStartText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
                     StageEndText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
-                    Tests =  new BindingList<Test>()
+                    Tests =  new BindingList<Test>(),
+                    NextStageRoll = CreateDefaultRoll()
                 }
             };
 
@@ -328,11 +331,11 @@ namespace Tools.Quests
                 {
                     StageStartText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
                     StageEndText = new RegionText()
                     {
-                        TextId = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     },
                     Tests =  new BindingList<Test>()
                 }
@@ -383,6 +386,31 @@ namespace Tools.Quests
             return control;
         }
 
+        private Roll CreateDefaultRoll()
+        {
+            return new Roll()
+            {
+                TextBeforeRoll = new RegionText()
+                {
+                    Id = Guid.NewGuid().ToString()
+                },
+                TextOnFailure = new RegionText()
+                {
+                    Id = Guid.NewGuid().ToString()
+                },
+                TextOnSuccess = new RegionText()
+                {
+                    Id = Guid.NewGuid().ToString()
+                },
+                BaseHpDamage = 0,
+                BaseStaminaDamage = 0,
+                Consumables = new List<Consumable>(),
+                RollType = RollType.SingleCharacter,
+                TestedStat = Stats.Charisma,
+                Threshold = 10
+            };
+        }
+
         private void Clean(Control control)
         {
             if (control is BinaryQuestStageControl binaryStageControl)
@@ -391,6 +419,18 @@ namespace Tools.Quests
                 binaryStageControl.SuccessControlRequest -= Control_SuccessControlRequest;
 
                 panelStages.Controls.Remove(control);
+
+                if (binaryStageControl.BinaryQuestStage != null)
+                {
+                    TextProvider.Instance.RemoveText(binaryStageControl.BinaryQuestStage.StageStartText.Id);
+                    TextProvider.Instance.RemoveText(binaryStageControl.BinaryQuestStage.SuccessText.Id);
+                    TextProvider.Instance.RemoveText(binaryStageControl.BinaryQuestStage.FailureText.Id);
+
+                    if (binaryStageControl.BinaryQuestStage.NextStageRoll != null)
+                    {
+                        Clean(binaryStageControl.BinaryQuestStage.NextStageRoll);
+                    }
+                }
 
                 if (binaryStageControl.SuccessStageControl != null)
                 {
@@ -406,20 +446,43 @@ namespace Tools.Quests
             {
                 panelStages.Controls.Remove(control);
 
+                if (linearStageControl.LinearQuestStage != null)
+                {
+                    TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageStartText.Id);
+                    TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageEndText.Id);
+                    
+                    if (linearStageControl.LinearQuestStage.NextStageRoll != null)
+                    {
+                        Clean(linearStageControl.LinearQuestStage.NextStageRoll);
+                    }
+                }
+
                 if (linearStageControl.NextStageControl != null)
                 {
                     Clean((Control)linearStageControl.NextStageControl);
-
-                    if (linearStageControl.LinearQuestStage != null)
-                    {
-                        TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageStartText.TextId);
-                        TextProvider.Instance.RemoveText(linearStageControl.LinearQuestStage.StageEndText.TextId);
-                    }
                 }
             }
             else if (control is TerminalQuestStageControl terminalStageControl)
             {
                 panelStages.Controls.Remove(control);
+
+                if (terminalStageControl.TerminalQuestStage != null)
+                {
+                    TextProvider.Instance.RemoveText(terminalStageControl.TerminalQuestStage.StageStartText.Id);
+                    TextProvider.Instance.RemoveText(terminalStageControl.TerminalQuestStage.StageEndText.Id);
+                }
+            }
+        }
+
+        private void Clean(Roll roll)
+        {
+            TextProvider.Instance.RemoveText(roll.TextBeforeRoll.Id);
+            TextProvider.Instance.RemoveText(roll.TextOnFailure.Id);
+            TextProvider.Instance.RemoveText(roll.TextOnSuccess.Id);
+
+            foreach (Consumable consumable in roll.Consumables)
+            {
+                TextProvider.Instance.RemoveText(consumable.Text.Id);
             }
         }
     }
